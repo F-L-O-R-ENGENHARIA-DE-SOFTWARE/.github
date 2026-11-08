@@ -1,0 +1,134 @@
+/* Arquivo: css/componentes/campos-acesso.css */
+/* Função: campo flutuante das telas de acesso, estado de erro, botão de olho e caixa de aceite. */
+/* Usado por: login.html, cadastro.html, recuperar-senha.html e estados.html. Divisão de campos.css por assunto. */
+
+/* ===== [CAMPO FLUTUANTE] ===== */
+/* O rótulo fica sobre a borda superior, com o fundo do cartão para "cortar" a linha. */
+.campo--flutuante {
+  margin-bottom: var(--espaco-5);
+}
+
+.campo--flutuante .campo__rotulo {
+  position: absolute;
+  top: calc(var(--espaco-2) * -1.25);
+  left: var(--espaco-3);
+  z-index: 1;
+  padding: 0 var(--espaco-1);
+  background: var(--cor-cartao-acesso);
+  font-size: var(--tamanho-texto);
+  color: var(--cor-texto);
+}
+
+.campo--flutuante .campo__entrada {
+  height: var(--altura-campo-acesso);
+  padding-left: var(--espaco-3);
+  border-color: var(--cor-texto);
+  background: transparent;
+}
+
+.campo--flutuante .campo__icone + .campo__entrada {
+  padding-left: calc(var(--espaco-4) + var(--tamanho-icone) + var(--espaco-3));
+}
+
+.campo--flutuante .campo__icone {
+  left: var(--espaco-4);
+}
+
+.campo--flutuante .campo__entrada::placeholder {
+  color: var(--cor-placeholder-acesso);
+}
+
+/* Botão de olho dentro do campo de senha. */
+.campo__acao {
+  position: absolute;
+  right: var(--espaco-3);
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--raio-pequeno);
+}
+
+.campo__acao:hover {
+  background: var(--cor-hover-claro);
+}
+
+.campo__entrada:has(+ .campo__acao) {
+  padding-right: calc(var(--espaco-3) + 2rem);
+}
+
+/* O olho muda por aria-label, que o JS já alterna: "Mostrar senha" mostra o olho aberto. */
+.campo__acao .icone--fechado,
+.campo__acao[aria-label="Ocultar senha"] .icone--aberto {
+  display: none;
+}
+
+.campo__acao[aria-label="Ocultar senha"] .icone--fechado {
+  display: block;
+}
+
+/* ===== [ESTADO DE ERRO] ===== */
+/* Ícone de alerta e mensagem só existem no HTML; aparecem quando o campo ganha --erro. */
+.campo__alerta,
+.campo__mensagem {
+  display: none;
+}
+
+.campo--erro .campo__entrada {
+  border-width: var(--largura-borda-erro);
+  border-color: var(--cor-erro);
+}
+
+.campo--erro .campo__rotulo::after {
+  content: " *";
+}
+
+.campo--erro .campo__alerta {
+  position: absolute;
+  top: calc(var(--altura-campo-acesso) / 2 - var(--tamanho-icone) / 2);
+  right: calc((var(--tamanho-icone) + var(--espaco-3)) * -1);
+  display: block;
+  color: var(--cor-erro);
+}
+
+.campo--erro .campo__mensagem {
+  position: static;
+  margin-top: var(--espaco-1);
+  display: block;
+  font-size: var(--tamanho-rotulo);
+  font-weight: var(--peso-medio);
+  color: var(--cor-texto-medio);
+}
+
+/* O exemplo ganha " *" também: o placeholder nativo não aceita conteúdo, então ele é trocado por data-exemplo. */
+.campo--erro .campo__caixa[data-exemplo]:has(.campo__entrada:placeholder-shown) .campo__entrada::placeholder {
+  color: transparent;
+}
+
+.campo--erro .campo__caixa[data-exemplo]:has(.campo__entrada:placeholder-shown)::after {
+  content: attr(data-exemplo) " *";
+  position: absolute;
+  left: calc(var(--espaco-4) + var(--tamanho-icone) + var(--espaco-3) + var(--largura-borda-erro));
+  color: var(--cor-placeholder-acesso);
+  pointer-events: none;
+}
+
+/* ===== [CAIXA DE ACEITE] ===== */
+.caixa-aceite {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-3);
+  margin-bottom: var(--espaco-5);
+  font-size: var(--tamanho-texto);
+}
+
+.caixa-aceite input {
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  accent-color: var(--cor-botao-primario);
+}
+
+.caixa-aceite a {
+  font-weight: var(--peso-medio);
+}

@@ -1,0 +1,82 @@
+/* Arquivo: css/paginas/notificacoes.css */
+/* Função: lista de avisos do sistema, com ícone, título, texto, horário e marca de não lida. */
+/* Usado por: notificacoes.html (body.pagina-notificacoes). O cartão vem de componentes/cartao-pagina.css. */
+
+/* ===== [LISTA DE NOTIFICAÇÕES] ===== */
+.lista-notificacoes {
+  margin-top: var(--espaco-3);
+  list-style: none;
+}
+
+.notificacao {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--espaco-4);
+  padding: var(--espaco-4) 0;
+  border-bottom: var(--largura-borda) solid var(--cor-borda);
+}
+
+.notificacao:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.notificacao__icone {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--raio-pequeno);
+  background: var(--cor-selo);
+}
+
+.notificacao__corpo {
+  flex: 1;
+  min-width: 0;
+}
+
+.notificacao__titulo {
+  font-weight: var(--peso-medio);
+}
+
+.notificacao__texto {
+  color: var(--cor-texto-suave);
+}
+
+.notificacao__horario {
+  flex: none;
+  font-size: var(--tamanho-rotulo);
+  color: var(--cor-texto-suave);
+  white-space: nowrap;
+}
+
+/* Não lida: título em negrito e uma bolinha escura antes do título. O texto "Não lida" fica para leitores de tela. */
+.notificacao--nao-lida .notificacao__titulo {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-2);
+  font-weight: var(--peso-forte);
+}
+
+.notificacao--nao-lida .notificacao__titulo::before {
+  content: "";
+  flex: none;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: var(--raio-selo);
+  background: var(--cor-botao-primario);
+}
+
+/* ===== [PONTO DE QUEBRA 700 PX] ===== */
+@media (max-width: 700px) { /* 700 px */
+  .notificacao {
+    flex-wrap: wrap;
+  }
+
+  /* O horário desce para baixo do texto, alinhado ao corpo. */
+  .notificacao__horario {
+    width: 100%;
+    padding-left: calc(2.5rem + var(--espaco-4));
+  }
+}

@@ -1,0 +1,95 @@
+/* Arquivo: css/componentes/cartoes-indicadores.css */
+/* Função: cartões de indicador (Receitas totais, Despesas totais e Saldo total) da Visão Geral. */
+/* Usado por: visao-geral.html e estados.html. */
+
+/* ===== [CARTÃO DE INDICADOR] ===== */
+.cartao-indicador {
+  --cor-foco: var(--cor-texto);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-4);
+  padding: var(--espaco-5);
+  border-radius: var(--raio-grande);
+  color: var(--cor-texto-medio);
+}
+
+.cartao-indicador__titulo {
+  font-weight: var(--peso-normal);
+}
+
+.cartao-indicador__valor {
+  font-size: var(--tamanho-valor);
+  font-weight: var(--peso-semi);
+  line-height: 1.2;
+  color: var(--cor-texto);
+}
+
+/* Quadrado no canto superior direito, com a seta ou a carteira. */
+.cartao-indicador__icone {
+  position: absolute;
+  top: var(--espaco-5);
+  right: var(--espaco-5);
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--raio-pequeno);
+  background: var(--cor-cabecalho);
+  color: var(--cor-texto);
+}
+
+/* Linha de baixo: variação em negrito e texto de apoio. */
+.cartao-indicador__rodape {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--espaco-4);
+  font-size: var(--tamanho-rotulo);
+}
+
+.cartao-indicador__variacao {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espaco-1);
+  font-weight: var(--peso-semi);
+}
+
+.cartao-indicador__variacao .icone {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+/* ===== [VARIAÇÕES POR TIPO] ===== */
+.cartao-indicador--receitas {
+  background: var(--cor-cartao-receitas);
+}
+
+.cartao-indicador--despesas {
+  background: var(--cor-cartao-despesas);
+  color: var(--cor-texto);
+}
+
+.cartao-indicador--saldo {
+  --cor-foco: var(--cor-texto-claro);
+  background: var(--cor-cartao-saldo);
+  color: var(--cor-texto-claro-suave);
+}
+
+.cartao-indicador--saldo .cartao-indicador__titulo,
+.cartao-indicador--saldo .cartao-indicador__valor,
+.cartao-indicador--saldo .cartao-indicador__variacao {
+  color: var(--cor-texto-claro);
+}
+
+.cartao-indicador--saldo .cartao-indicador__icone {
+  background: var(--cor-cartao-icone-saldo);
+  color: var(--cor-texto-claro);
+}
+
+.cartao-indicador__titulo { padding-right: var(--espaco-7); }
+.cartao-indicador__valor { font-size: clamp(1.5rem, 2.3vw, var(--tamanho-valor)); overflow-wrap: anywhere; }
+
+.cartao-indicador { padding: var(--espaco-4) var(--espaco-5); gap: var(--espaco-3); }
+.cartao-indicador__icone { width: 2rem; height: 2rem; top: var(--espaco-4); right: var(--espaco-4); }
+.cartao-indicador__valor { font-size: clamp(1.5rem, 2.2vw, 2rem); }

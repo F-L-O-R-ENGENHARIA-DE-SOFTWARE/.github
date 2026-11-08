@@ -1,0 +1,82 @@
+/* Arquivo: css/paginas/ajuda.css */
+/* Função: cartão da Ajuda com os passos de uso (details) e o glossário (dl). */
+/* Usado por: ajuda.html (body.pagina-ajuda). Sem JavaScript: o details abre e fecha sozinho. */
+
+/* ===== [CARTÃO DA AJUDA] ===== */
+.cartao-ajuda {
+  max-width: var(--largura-conteudo-ajuda);
+  padding: var(--espaco-6);
+  border: var(--largura-borda) solid var(--cor-borda);
+  border-radius: var(--raio-grande);
+  background: var(--cor-cabecalho);
+}
+
+.cartao-ajuda__secao + .cartao-ajuda__secao {
+  margin-top: var(--espaco-6);
+}
+
+.cartao-ajuda h2 {
+  margin-bottom: var(--espaco-4);
+  font-size: var(--tamanho-cartao);
+}
+
+/* ===== [PASSOS DE USO] ===== */
+.item-ajuda {
+  border-bottom: var(--largura-borda) solid var(--cor-borda);
+}
+
+.item-ajuda__resumo {
+  padding: var(--espaco-3) 0;
+  font-weight: var(--peso-medio);
+  cursor: pointer;
+}
+
+.item-ajuda__passos {
+  padding: 0 0 var(--espaco-4) var(--espaco-5);
+  color: var(--cor-texto-suave);
+}
+
+/* ===== [GLOSSÁRIO] ===== */
+/* [A-CONFIRMAR] textos das definições. */
+.glossario {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: var(--espaco-3) var(--espaco-5);
+}
+
+.glossario__termo {
+  font-weight: var(--peso-semi);
+}
+
+.glossario__definicao {
+  color: var(--cor-texto-suave);
+}
+
+/* ===== [PONTO DE QUEBRA 700 PX] ===== */
+@media (max-width: 700px) { /* 700 px */
+  .cartao-ajuda {
+    padding: var(--espaco-4);
+  }
+
+  .item-ajuda__resumo {
+    min-height: var(--altura-toque);
+  }
+
+  .glossario {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--espaco-1);
+  }
+
+  .glossario__definicao {
+    margin-bottom: var(--espaco-3);
+  }
+}
+
+/* Instruções e referências lado a lado; glossários abrem sob demanda. */
+@media (min-width: 1000px) {
+  .cartao-ajuda { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: var(--espaco-5); max-width: none; padding: var(--espaco-5); }
+  .cartao-ajuda__secao:first-child { grid-row: 1 / 4; }
+  .cartao-ajuda__secao + .cartao-ajuda__secao { margin-top: 0; }
+}
+.glossario-recolhivel .glossario { margin-top: var(--espaco-3); }
+.cartao-ajuda__secao > p + p { margin-top: var(--espaco-2); }

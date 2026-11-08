@@ -1,0 +1,65 @@
+/* Arquivo: css/componentes/selos.css */
+/* Função: selo de atualização do cabeçalho, selos de status e selos de tipo (Entrada e Saída). */
+/* Usado por: cabeçalho das páginas do sistema e tabela de movimentações. */
+
+/* ===== [SELO DE ATUALIZAÇÃO] ===== */
+.selo-atualizacao {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espaco-2);
+  padding: var(--espaco-1) var(--espaco-3);
+  border: var(--largura-borda) solid var(--cor-texto-suave);
+  border-radius: var(--raio-selo);
+  background: var(--cor-cabecalho);
+  font-size: var(--tamanho-rotulo);
+  white-space: nowrap;
+}
+
+/* ===== [SELO DE STATUS] ===== */
+.selo-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espaco-2);
+  padding: var(--espaco-1) var(--espaco-3);
+  border-radius: var(--raio-selo);
+  background: var(--cor-selo);
+  font-size: var(--tamanho-rotulo);
+  white-space: nowrap;
+}
+
+/* Bolinha de cor: a cor vem do modificador; o texto sempre diz o status. */
+.selo-atualizacao::before,
+.selo-status::before {
+  content: "";
+  flex: none;
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: var(--raio-selo);
+  background: var(--cor-bolinha-concluido);
+}
+
+.selo-status--concluido::before {
+  background: var(--cor-bolinha-concluido);
+}
+
+.selo-status--pendente::before {
+  background: var(--cor-bolinha-pendente);
+}
+
+.selo-status--cancelado::before {
+  background: var(--cor-bolinha-cancelado);
+}
+
+/* ===== [SELO DE TIPO] ===== */
+/* Seta para cima = Entrada; seta para baixo = Saída (padrão do projeto). */
+.selo-tipo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espaco-2);
+  white-space: nowrap;
+}
+
+.selo-tipo .icone {
+  width: 1rem;
+  height: 1rem;
+}

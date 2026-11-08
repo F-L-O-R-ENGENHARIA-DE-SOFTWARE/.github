@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<!--
+  Arquivo: estados.html
+  Função: Catálogo de estados: todos os estados escondidos do sistema mostrados abertos, para revisão visual.
+  Usado por: Equipe de interface e revisores; não é ligada por nenhuma outra página.
+-->
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Catálogo de estados · TEXPAND</title>
+    <script src="js/tema.js"></script>
+    <!-- Fonte Inter pelo Google Fonts: única dependência externa do projeto. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap">
+    <link rel="stylesheet" href="css/principal.css">
+  </head>
+  <body class="pagina-estados">
+    <!-- ===== [SPRITE DE ÍCONES] =====
+         Cópia de assets/icones/icones.svg embutida na página: os <use href="#icone-nome"> funcionam em qualquer servidor e até abrindo o arquivo direto.
+         Para mudar ou criar um ícone, edite o <symbol> em assets/icones/icones.svg e copie-o para este bloco em todas as páginas. -->
+    <svg class="sprite-icones" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <!-- ===== [MARCA E MENU LATERAL] ===== -->
+      <symbol id="icone-carteira" viewBox="0 0 24 24">
+        <path d="M3 8a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3z" />
+        <path d="M16 12h5v4h-5a2 2 0 0 1 0-4z" />
+      </symbol>
+      <symbol id="icone-grade" viewBox="0 0 24 24">
+        <rect x="3" y="3" width="7" height="7" rx="2" />
+        <rect x="14" y="3" width="7" height="7" rx="2" />
+        <rect x="3" y="14" width="7" height="7" rx="2" />
+        <rect x="14" y="14" width="7" height="7" rx="2" />
+      </symbol>
+      <symbol id="icone-setas-opostas" viewBox="0 0 24 24">
+        <path d="M4 8h16M16 4l4 4-4 4M20 16H4M8 12l-4 4 4 4" />
+      </symbol>
+      <symbol id="icone-engrenagem" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="3" />
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+      </symbol>
+      <symbol id="icone-sino" viewBox="0 0 24 24">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0" />
+      </symbol>
+      <symbol id="icone-pessoa" viewBox="0 0 24 24">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+        <circle cx="12" cy="7" r="4" />
+      </symbol>
+      <symbol id="icone-pessoa-troca" viewBox="0 0 24 24">
+        <circle cx="9" cy="7" r="4" />
+        <path d="M2 21v-2a4 4 0 0 1 4-4h4" />
+        <path d="M15 12h7M19 9l3 3-3 3M22 19h-7M18 16l-3 3 3 3" />
+      </symbol>
+      <symbol id="icone-ajuda" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" />
+        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01" />
+      </symbol>
+
+      <!-- ===== [AÇÕES E FILTROS] ===== -->
+      <symbol id="icone-funil" viewBox="0 0 24 24">
+        <path d="M3 6h18M6 12h12M10 18h4" />
+      </symbol>
+      <symbol id="icone-calendario" viewBox="0 0 24 24">
+        <rect x="3" y="4" width="18" height="18" rx="2" />
+        <path d="M16 2v4M8 2v4M3 10h18" />
+      </symbol>
+      <symbol id="icone-download" viewBox="0 0 24 24">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+      </symbol>
+      <symbol id="icone-envio" viewBox="0 0 24 24">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" />
+      </symbol>
+      <symbol id="icone-mais" viewBox="0 0 24 24">
+        <path d="M12 5v14M5 12h14" />
+      </symbol>
+      <symbol id="icone-lupa" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="8" />
+        <path d="M21 21l-4.35-4.35" />
+      </symbol>
+      <symbol id="icone-cifrao" viewBox="0 0 24 24">
+        <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+      </symbol>
+
+      <!-- ===== [SETAS] ===== -->
+      <symbol id="icone-seta-cima" viewBox="0 0 24 24">
+        <path d="M12 19V5M5 12l7-7 7 7" />
+      </symbol>
+      <symbol id="icone-seta-baixo" viewBox="0 0 24 24">
+        <path d="M12 5v14M19 12l-7 7-7-7" />
+      </symbol>
+      <symbol id="icone-seta-direita" viewBox="0 0 24 24">
+        <path d="M5 12h14M12 5l7 7-7 7" />
+      </symbol>
+      <symbol id="icone-seta-esquerda" viewBox="0 0 24 24">
+        <path d="M19 12H5M12 19l-7-7 7-7" />
+      </symbol>
+      <symbol id="icone-seta-baixo-pequena" viewBox="0 0 24 24">
+        <path d="M6 9l6 6 6-6" />
+      </symbol>
+
+      <!-- ===== [CAMPOS E FORMULÁRIOS] ===== -->
+      <symbol id="icone-cadeado" viewBox="0 0 24 24">
+        <rect x="3" y="11" width="18" height="11" rx="2" />
+        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+      </symbol>
+      <symbol id="icone-olho" viewBox="0 0 24 24">
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+        <circle cx="12" cy="12" r="3" />
+      </symbol>
+      <symbol id="icone-olho-fechado" viewBox="0 0 24 24">
+        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24M1 1l22 22" />
+      </symbol>
+      <symbol id="icone-fechar" viewBox="0 0 24 24">
+        <path d="M18 6L6 18M6 6l12 12" />
+      </symbol>
+      <!-- Alerta é preenchido: círculo cheio com o "!" vazado (fill-rule evenodd), então não usa traço. -->
+      <symbol id="icone-alerta" viewBox="0 0 24 24">
+        <path fill="currentColor" stroke="none" fill-rule="evenodd" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM11 6.5h2v7h-2zM12 15.3a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4z" />
+      </symbol>
+
+      <!-- ===== [TABELA E OUTROS] ===== -->
+      <symbol id="icone-lapis" viewBox="0 0 24 24">
+        <path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+      </symbol>
+      <symbol id="icone-lixeira" viewBox="0 0 24 24">
+        <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6" />
+      </symbol>
+      <symbol id="icone-balao" viewBox="0 0 24 24">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+      </symbol>
+      <symbol id="icone-menu" viewBox="0 0 24 24">
+        <path d="M3 12h18M3 6h18M3 18h18" />
+      </symbol>
+    </svg>
+    <!-- ===== [CATÁLOGO DE ESTADOS] =====
+         Página só para revisão visual; não faz parte do produto. Mostra abertos os estados que ficam escondidos nas outras páginas. Recarregue para ver tudo de novo depois de fechar uma janela. -->
+    <h1>Catálogo de estados</h1>
+    <p>Página apenas para revisão visual; não faz parte do produto</p>
+    <h2>Acesso</h2>
+    <div class="amostras">
+      <div class="amostra amostra--acesso">
+        <p class="amostra__legenda">Campo normal</p>
+        <div class="campo campo--flutuante">
+          <label class="campo__rotulo" for="js-estado-usuario-normal">Usuário / e-mail</label>
+          <div class="campo__caixa" data-exemplo="example@gmail.com">
+            <svg class="icone campo__icone" aria-hidden="true" focusable="false"><use href="#icone-pessoa"></use></svg>
+            <input class="campo__entrada" id="js-estado-usuario-normal" name="usuario" type="text" placeholder="example@gmail.com" required>
+          </div>
+          <svg class="icone campo__alerta" aria-hidden="true" focusable="false"><use href="#icone-alerta"></use></svg>
+          <p class="campo__mensagem" role="alert">Dados preenchidos incompletos</p>
+        </div>
+      </div>
+      <div class="amostra amostra--acesso">
+        <p class="amostra__legenda">Campo com erro: dados preenchidos incompletos</p>
+        <div class="campo campo--flutuante campo--erro">
+          <label class="campo__rotulo" for="js-estado-usuario-incompleto">Usuário / e-mail</label>
+          <div class="campo__caixa" data-exemplo="example@gmail.com">
+            <svg class="icone campo__icone" aria-hidden="true" focusable="false"><use href="#icone-pessoa"></use></svg>
+            <input class="campo__entrada" id="js-estado-usuario-incompleto" name="usuario" type="text" placeholder="example@gmail.com" required>
+          </div>
+          <svg class="icone campo__alerta" aria-hidden="true" focusable="false"><use href="#icone-alerta"></use></svg>
+          <p class="campo__mensagem" role="alert">Dados preenchidos incompletos</p>
+        </div>
+      </div>
+      <div class="amostra amostra--acesso">
+        <p class="amostra__legenda">Campo com erro: dados preenchidos inválidos</p>
+        <div class="campo campo--flutuante campo--erro">
+          <label class="campo__rotulo" for="js-estado-usuario-invalido">Usuário / e-mail</label>
+          <div class="campo__caixa" data-exemplo="example@gmail.com">
+            <svg class="icone campo__icone" aria-hidden="true" focusable="false"><use href="#icone-pessoa"></use></svg>
+            <input class="campo__entrada" id="js-estado-usuario-invalido" name="usuario" type="text" placeholder="example@gmail.com" value="usuario@" required>
+          </div>
+          <svg class="icone campo__alerta" aria-hidden="true" focusable="false"><use href="#icone-alerta"></use></svg>
+          <p class="campo__mensagem" role="alert">Dados preenchidos inválidos</p>
+        </div>
+      </div>
+      <div class="amostra amostra--acesso">
+        <p class="amostra__legenda">Aviso geral de erro do login</p>
+        <p class="aviso-erro" role="alert" data-dado="mensagem-erro">
+          <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-alerta"></use></svg>
+          <span>Usuário ou senha incorretos</span>
+        </p>
+      </div>
+      <div class="amostra amostra--acesso">
+        <p class="amostra__legenda">Confirmação da recuperação de senha</p>
+        <div class="bloco-confirmacao" role="status">
+          <p>Se os dados estiverem corretos, enviaremos as instruções para o seu e-mail</p>
+        </div>
+      </div>
+    </div>
+    <h2>Visão Geral</h2>
+    <div class="amostras">
+      <div class="amostra">
+        <p class="amostra__legenda">Painel de filtro aberto</p>
+        <!-- ===== [PAINEL DE FILTRO] =====
+             Critérios para filtrar a Visão Geral (RF04). Abre pelo botão Filtrar. Quem integra: equipe de JS (filtrar) e de banco (consulta). -->
+        <div class="popover popover--filtro" id="js-estado-popover-filtro">
+          <form class="popover__formulario" data-js="formulario-filtro" action="#" novalidate>
+            <div class="campo campo--janela">
+              <label class="campo__rotulo" for="js-estado-filtro-descricao">Descrição</label>
+              <input class="campo__entrada" id="js-estado-filtro-descricao" name="descricao" type="text">
+            </div>
+            <div class="campo campo--janela">
+              <span class="campo__rotulo" id="titulo-estado-filtro-tipo">Tipo</span>
+              <div class="alternador-tipo" role="group" aria-labelledby="titulo-estado-filtro-tipo">
+                <button type="button" data-js="tipo-lancamento" data-valor="todos" aria-pressed="true">Todos</button>
+                <button type="button" data-js="tipo-lancamento" data-valor="entrada" aria-pressed="false">Entrada</button>
+                <button type="button" data-js="tipo-lancamento" data-valor="saida" aria-pressed="false">Saída</button>
+              </div>
+            </div>
+            <div class="campo campo--janela">
+              <span class="campo__rotulo">Valor</span>
+              <div class="controle-valor" data-js="controle-valor">
+                <div class="controle-valor__campos">
+                  <label class="texto-oculto" for="js-filtro-estado-valor-minimo">Valor mínimo</label>
+                  <input class="campo__entrada" id="js-filtro-estado-valor-minimo" name="valor_minimo" type="text" inputmode="decimal" value="R$ 0,00">
+                  <label class="texto-oculto" for="js-filtro-estado-valor-maximo">Valor máximo</label>
+                  <input class="campo__entrada" id="js-filtro-estado-valor-maximo" name="valor_maximo" type="text" inputmode="decimal" value="R$ 99.000,00">
+                </div>
+                <!-- [INTEGRAÇÃO-JS] Sincronizar os campos de texto com a faixa. As duas pontas não têm name: servem só de controle visual. -->
+                <div class="controle-valor__faixa">
+                  <input type="range" id="js-filtro-estado-faixa-minimo" min="0" max="99000" step="100" value="0" aria-label="Valor mínimo (faixa)">
+                  <input type="range" id="js-filtro-estado-faixa-maximo" min="0" max="99000" step="100" value="99000" aria-label="Valor máximo (faixa)">
+                </div>
+              </div>
+            </div>
+            <div class="campo campo--janela">
+              <span class="campo__rotulo" id="rotulo-estado-filtro-categoria">Categoria</span>
+              <div class="lista-suspensa">
+                <!-- [INTEGRAÇÃO-JS] O campo escondido guarda o valor escolhido e é ele que vai no formulário. -->
+                <input type="hidden" id="js-estado-filtro-categoria" name="categoria" value="Todas as categorias">
+                <button class="lista-suspensa__botao" type="button" id="js-botao-estado-filtro-categoria" data-js="alternar" data-alvo="js-popover-estado-filtro-categoria" aria-haspopup="listbox" aria-expanded="false" aria-controls="js-popover-estado-filtro-categoria" aria-labelledby="rotulo-estado-filtro-categoria resumo-estado-filtro-categoria">
+                  <span id="resumo-estado-filtro-categoria" data-dado="resumo-estado-filtro-categoria">Todas as categorias</span>
+                  <svg class="icone lista-suspensa__seta" aria-hidden="true" focusable="false"><use href="#icone-seta-baixo-pequena"></use></svg>
+                </button>
+                <div class="popover popover--lista" id="js-popover-estado-filtro-categoria" data-js="lista-opcoes" data-campo="js-estado-filtro-categoria" data-resumo="resumo-estado-filtro-categoria" hidden>
+                  <ul class="lista-opcoes" role="listbox" aria-labelledby="rotulo-estado-filtro-categoria">
+                    <li class="lista-opcoes__item lista-opcoes__item--ativo" role="option" tabindex="-1" data-valor="Todas as categorias" aria-selected="true">Todas as categorias</li>
+                    <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="Vendas" aria-selected="false">Vendas</li>
+                    <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="Serviços" aria-selected="false">Serviços</li>
+                    <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="Entrega" aria-selected="false">Entrega</li>
+                    <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="Transporte" aria-selected="false">Transporte</li>
+                    <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="Outros" aria-selected="false">Outros</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!-- [A-CONFIRMAR] Opções de tipo de pagamento e de parcelas (RF09 e RF10). -->
+            <div class="campo campo--janela">
+              <span class="campo__rotulo" id="rotulo-estado-filtro-pagamento">Tipo de pagamento</span>
+              <div class="lista-suspensa">
+                <!-- [INTEGRAÇÃO-JS] O campo escondido guarda o valor escolhido e é ele que vai no formulário. -->
+                <input type="hidden" id="js-estado-filtro-pagamento" name="tipo_pagamento" value="Todos os tipos">
+                <button class="lista-suspensa__botao" type="button" id="js-botao-estado-filtro-pagamento" data-js="alternar" data-alvo="js-popover-estado-filtro-pagamento" aria-haspopup="listbox" aria-expanded="false" aria-controls="js-popover-estado-filtro-pagamento" aria-labelledby="rotulo-estado-filtro-pagamento resumo-estado-filtro-pagamento">
+                  <span id="resumo-estado-filtro-pagamento" data-dado="resumo-estado-filtro-pagamento">Todos os tipos</span>
+                  <svg class="icone lista-suspensa__seta" aria-hidden="true" focusable="false"><use href="#icone-seta-baixo-pequena"></use></svg>
+                </button>
+                <div class="popover popover--lista" id="js-popover-estado-filtro-pagamento" data-js="lista-opcoes" data-campo="js-estado-filtro-pagamento" data-resumo="resumo-estado-filtro-pagamento" hidden>
+                  <ul class="lista-opcoes" role="listbox" aria-labelledby="rotulo-estado-filtro-pagamento">
+                    <li class="lista-opcoes__item lista-opcoes__item--ativo" role="option" tabindex="-1" data-valor="Todos os tipos" aria-selected="true">Todos os tipos</li>
+                    <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="Dinheiro" aria-selected="false">Dinheiro</li>
+                    <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="Pix" aria-selected="false">Pix</li>
+                    <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="Cartão de crédito" aria-selected="false">Cartão de crédito</li>
+                    <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="Cartão de débito" aria-selected="false">Cartão de débito</li>
+                    <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="Boleto" aria-selected="false">Boleto</li>
+                    <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="Transferência" aria-selected="false">Transferência</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="campo campo--janela">
+              <span class="campo__rotulo" id="rotulo-estado-filtro-parcelas">Parcelas</span>
+              <div class="lista-suspensa">
+                <!-- [INTEGRAÇÃO-JS] O campo escondido guarda o valor escolhido e é ele que vai no formulário. -->
+                <input type="hidden" id="js-estado-filtro-parcelas" name="parcelas" value="Todas">
+                <button class="lista-suspensa__botao" type="button" id="js-botao-estado-filtro-parcelas" data-js="alternar" data-alvo="js-popover-estado-filtro-parcelas" aria-haspopup="listbox" aria-expanded="false" aria-controls="js-popover-estado-filtro-parcelas" aria-labelledby="rotulo-estado-filtro-parcelas resumo-estado-filtro-parcelas">
+                  <span id="resumo-estado-filtro-parcelas" data-dado="resumo-estado-filtro-parcelas">Todas</span>
+                  <svg class="icone lista-suspensa__seta" aria-hidden="true" focusable="false"><use href="#icone-seta-baixo-pequena"></use></svg>
+                </button>
+                <div class="popover popover--lista" id="js-popover-estado-filtro-parcelas" data-js="lista-opcoes" data-campo="js-estado-filtro-parcelas" data-resumo="resumo-estado-filtro-parcelas" hidden>
+                  <ul class="lista-opcoes" role="listbox" aria-labelledby="rotulo-estado-filtro-parcelas">
+                    <li class="lista-opcoes__item lista-opcoes__item--ativo" role="option" tabindex="-1" data-valor="Todas" aria-selected="true">Todas</li>
+                    <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="À vista" aria-selected="false">À vista</li>
+                    <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="2x" aria-selected="false">2x</li>
+                    <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="3x" aria-selected="false">3x</li>
+                    <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="4x" aria-selected="false">4x</li>
+                    <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="5x" aria-selected="false">5x</li>
+                    <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="6x" aria-selected="false">6x</li>
+                    <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="7x" aria-selected="false">7x</li>
+                    <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="8x" aria-selected="false">8x</li>
+                    <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="9x" aria-selected="false">9x</li>
+                    <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="10x" aria-selected="false">10x</li>
+                    <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="11x" aria-selected="false">11x</li>
+                    <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="12x" aria-selected="false">12x</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!-- [INTEGRAÇÃO-JS] Aplicar os critérios aos cartões e gráficos; Limpar restaura o padrão. -->
+            <div class="popover__rodape">
+              <button class="botao botao--secundario" type="reset">Limpar</button>
+              <button class="botao botao--primario" type="submit">Aplicar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="amostra">
+        <p class="amostra__legenda">Seletor de mês aberto</p>
+        <!-- ===== [SELETOR DE MÊS] =====
+             Escolha de mês e ano da Visão Geral. Abre pelo seletor "Novembro de 2026". Escolher um mês aplica direto, sem rodapé. Quem integra: equipe de JS. -->
+        <div class="popover popover--mes" id="js-estado-popover-mes">
+          <div class="grade-meses">
+            <div class="grade-meses__cabecalho">
+              <button class="calendario__navegar" type="button" aria-label="Ano anterior">
+                <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-seta-esquerda"></use></svg>
+              </button>
+              <span>2026</span>
+              <button class="calendario__navegar" type="button" aria-label="Próximo ano">
+                <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-seta-direita"></use></svg>
+              </button>
+            </div>
+            <ul class="grade-meses__lista">
+              <li>
+                <button class="grade-meses__mes" type="button" data-mes="1" aria-pressed="false">Jan</button>
+              </li>
+              <li>
+                <button class="grade-meses__mes" type="button" data-mes="2" aria-pressed="false">Fev</button>
+              </li>
+              <li>
+                <button class="grade-meses__mes" type="button" data-mes="3" aria-pressed="false">Mar</button>
+              </li>
+              <li>
+                <button class="grade-meses__mes" type="button" data-mes="4" aria-pressed="false">Abr</button>
+              </li>
+              <li>
+                <button class="grade-meses__mes" type="button" data-mes="5" aria-pressed="false">Mai</button>
+              </li>
+              <li>
+                <button class="grade-meses__mes" type="button" data-mes="6" aria-pressed="false">Jun</button>
+              </li>
+              <li>
+                <button class="grade-meses__mes" type="button" data-mes="7" aria-pressed="false">Jul</button>
+              </li>
+              <li>
+                <button class="grade-meses__mes" type="button" data-mes="8" aria-pressed="false">Ago</button>
+              </li>
+              <li>
+                <button class="grade-meses__mes" type="button" data-mes="9" aria-pressed="false">Set</button>
+              </li>
+              <li>
+                <button class="grade-meses__mes" type="button" data-mes="10" aria-pressed="false">Out</button>
+              </li>
+              <li>
+                <button class="grade-meses__mes" type="button" data-mes="11" aria-pressed="true">Nov</button>
+              </li>
+              <li>
+                <button class="grade-meses__mes" type="button" data-mes="12" aria-pressed="false">Dez</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="amostra">
+        <p class="amostra__legenda">Estado vazio: sem dados financeiros</p>
+        <div class="painel-grafico">
+          <div class="estado-vazio" data-dado="mensagem-vazia">
+            <p class="estado-vazio__titulo">Sem dados financeiros</p>
+          </div>
+        </div>
+      </div>
+      <div class="amostra">
+        <p class="amostra__legenda">Estado vazio: com filtros ativos</p>
+        <div class="painel-grafico">
+          <div class="estado-vazio" data-dado="mensagem-vazia">
+            <p class="estado-vazio__titulo">Sem dados nos filtros selecionados</p>
+          </div>
+        </div>
+      </div>
+      <div class="amostra">
+        <p class="amostra__legenda">Selo de atualização</p>
+        <div class="amostra__conjunto">
+          <p class="selo-atualizacao" role="status">Tudo atualizado</p>
+        </div>
+      </div>
+    </div>
+    <h2>Movimentações</h2>
+    <div class="amostras">
+      <div class="amostra">
+        <p class="amostra__legenda">Lista suspensa de filtro aberta</p>
+        <!-- ===== [LISTA SUSPENSA DE FILTRO] =====
+             Substitui o select nativo (Tipo, Categoria, Status, Pagamento, Parcelas e Ordenação). Abre pelo botão; js/lista-opcoes.js troca o texto do botão e o valor do campo escondido. -->
+        <div class="campo">
+          <span class="campo__rotulo" id="rotulo-estado-lista">Tipo</span>
+          <div class="lista-suspensa lista-suspensa--aberta">
+            <input type="hidden" id="js-estado-lista-tipo" name="tipo" value="todos">
+            <button class="lista-suspensa__botao" type="button" id="js-botao-estado-lista" data-js="alternar" data-alvo="js-popover-estado-lista" aria-haspopup="listbox" aria-expanded="true" aria-controls="js-popover-estado-lista" aria-labelledby="rotulo-estado-lista resumo-estado-lista">
+              <span id="resumo-estado-lista" data-dado="resumo-estado-lista">Entradas e saídas</span>
+              <svg class="icone lista-suspensa__seta" aria-hidden="true" focusable="false"><use href="#icone-seta-baixo-pequena"></use></svg>
+            </button>
+            <div class="popover popover--lista" id="js-popover-estado-lista" data-js="lista-opcoes" data-campo="js-estado-lista-tipo" data-resumo="resumo-estado-lista">
+              <ul class="lista-opcoes" role="listbox" aria-labelledby="rotulo-estado-lista">
+                <li class="lista-opcoes__item lista-opcoes__item--ativo" role="option" tabindex="-1" data-valor="todos" aria-selected="true">Entradas e saídas</li>
+                <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="entrada" aria-selected="false">Somente entradas</li>
+                <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="saida" aria-selected="false">Somente saídas</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="amostra">
+        <p class="amostra__legenda">Popover de valor aberto</p>
+        <!-- ===== [POPOVER DE VALOR] =====
+             Faixa de valor mínimo e máximo. Abre pelo botão VALOR dos filtros. Quem integra: equipe de JS. -->
+        <div class="popover popover--valor" id="js-estado-popover-valor">
+          <div class="controle-valor" data-js="controle-valor">
+            <div class="controle-valor__campos">
+              <label class="texto-oculto" for="js-estado-valor-minimo">Valor mínimo</label>
+              <input class="campo__entrada" id="js-estado-valor-minimo" name="valor_minimo" type="text" inputmode="decimal" value="R$ 0,00">
+              <label class="texto-oculto" for="js-estado-valor-maximo">Valor máximo</label>
+              <input class="campo__entrada" id="js-estado-valor-maximo" name="valor_maximo" type="text" inputmode="decimal" value="R$ 99.000,00">
+            </div>
+            <!-- [INTEGRAÇÃO-JS] Sincronizar os campos de texto com a faixa. As duas pontas não têm name: servem só de controle visual. -->
+            <div class="controle-valor__faixa">
+              <input type="range" id="js-estado-faixa-minimo" min="0" max="99000" step="100" value="0" aria-label="Valor mínimo (faixa)">
+              <input type="range" id="js-estado-faixa-maximo" min="0" max="99000" step="100" value="99000" aria-label="Valor máximo (faixa)">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="amostra amostra--larga">
+        <p class="amostra__legenda">Calendário de período aberto</p>
+        <!-- ===== [POPOVER DE PERÍODO] =====
+             Calendário de um mês para escolher o intervalo de datas. Abre pelo botão PERÍODO dos filtros. Quem integra: equipe de JS. -->
+        <!-- [INTEGRAÇÃO-JS] Marcar início, fim e intervalo (calendario__dia--inicio, --fim, --intervalo), trocar de mês e aplicar. Novembro começa no domingo. -->
+        <div class="popover popover--calendario" id="js-estado-popover-periodo">
+          <div class="calendario" role="group" aria-label="Novembro de 2026">
+            <div class="calendario__mes">
+              <button class="calendario__navegar" type="button" aria-label="Mês anterior">
+                <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-seta-esquerda"></use></svg>
+              </button>
+              <span>Novembro de 2026</span>
+              <button class="calendario__navegar" type="button" aria-label="Próximo mês">
+                <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-seta-direita"></use></svg>
+              </button>
+            </div>
+            <div class="calendario__grade">
+              <span class="calendario__semana">DOM</span>
+              <span class="calendario__semana">SEG</span>
+              <span class="calendario__semana">TER</span>
+              <span class="calendario__semana">QUA</span>
+              <span class="calendario__semana">QUI</span>
+              <span class="calendario__semana">SEX</span>
+              <span class="calendario__semana">SÁB</span>
+              <button class="calendario__dia calendario__dia--inicio" type="button" data-dia="2026-11-01" aria-pressed="true" aria-label="1 de novembro de 2026">1</button>
+              <button class="calendario__dia calendario__dia--intervalo" type="button" data-dia="2026-11-02" aria-label="2 de novembro de 2026">2</button>
+              <button class="calendario__dia calendario__dia--intervalo" type="button" data-dia="2026-11-03" aria-label="3 de novembro de 2026">3</button>
+              <button class="calendario__dia calendario__dia--intervalo" type="button" data-dia="2026-11-04" aria-label="4 de novembro de 2026">4</button>
+              <button class="calendario__dia calendario__dia--intervalo" type="button" data-dia="2026-11-05" aria-label="5 de novembro de 2026">5</button>
+              <button class="calendario__dia calendario__dia--intervalo" type="button" data-dia="2026-11-06" aria-label="6 de novembro de 2026">6</button>
+              <button class="calendario__dia calendario__dia--intervalo" type="button" data-dia="2026-11-07" aria-label="7 de novembro de 2026">7</button>
+              <button class="calendario__dia calendario__dia--intervalo" type="button" data-dia="2026-11-08" aria-label="8 de novembro de 2026">8</button>
+              <button class="calendario__dia calendario__dia--intervalo" type="button" data-dia="2026-11-09" aria-label="9 de novembro de 2026">9</button>
+              <button class="calendario__dia calendario__dia--intervalo" type="button" data-dia="2026-11-10" aria-label="10 de novembro de 2026">10</button>
+              <button class="calendario__dia calendario__dia--intervalo" type="button" data-dia="2026-11-11" aria-label="11 de novembro de 2026">11</button>
+              <button class="calendario__dia calendario__dia--intervalo" type="button" data-dia="2026-11-12" aria-label="12 de novembro de 2026">12</button>
+              <button class="calendario__dia calendario__dia--intervalo" type="button" data-dia="2026-11-13" aria-label="13 de novembro de 2026">13</button>
+              <button class="calendario__dia calendario__dia--intervalo" type="button" data-dia="2026-11-14" aria-label="14 de novembro de 2026">14</button>
+              <button class="calendario__dia calendario__dia--intervalo" type="button" data-dia="2026-11-15" aria-label="15 de novembro de 2026">15</button>
+              <button class="calendario__dia calendario__dia--intervalo" type="button" data-dia="2026-11-16" aria-label="16 de novembro de 2026">16</button>
+              <button class="calendario__dia calendario__dia--intervalo" type="button" data-dia="2026-11-17" aria-label="17 de novembro de 2026">17</button>
+              <button class="calendario__dia calendario__dia--intervalo" type="button" data-dia="2026-11-18" aria-label="18 de novembro de 2026">18</button>
+              <button class="calendario__dia calendario__dia--intervalo" type="button" data-dia="2026-11-19" aria-label="19 de novembro de 2026">19</button>
+              <button class="calendario__dia calendario__dia--intervalo" type="button" data-dia="2026-11-20" aria-label="20 de novembro de 2026">20</button>
+              <button class="calendario__dia calendario__dia--intervalo" type="button" data-dia="2026-11-21" aria-label="21 de novembro de 2026">21</button>
+              <button class="calendario__dia calendario__dia--intervalo" type="button" data-dia="2026-11-22" aria-label="22 de novembro de 2026">22</button>
+              <button class="calendario__dia calendario__dia--intervalo" type="button" data-dia="2026-11-23" aria-label="23 de novembro de 2026">23</button>
+              <button class="calendario__dia calendario__dia--intervalo" type="button" data-dia="2026-11-24" aria-label="24 de novembro de 2026">24</button>
+              <button class="calendario__dia calendario__dia--intervalo" type="button" data-dia="2026-11-25" aria-label="25 de novembro de 2026">25</button>
+              <button class="calendario__dia calendario__dia--intervalo" type="button" data-dia="2026-11-26" aria-label="26 de novembro de 2026">26</button>
+              <button class="calendario__dia calendario__dia--intervalo" type="button" data-dia="2026-11-27" aria-label="27 de novembro de 2026">27</button>
+              <button class="calendario__dia calendario__dia--intervalo" type="button" data-dia="2026-11-28" aria-label="28 de novembro de 2026">28</button>
+              <button class="calendario__dia calendario__dia--intervalo" type="button" data-dia="2026-11-29" aria-label="29 de novembro de 2026">29</button>
+              <button class="calendario__dia calendario__dia--fim" type="button" data-dia="2026-11-30" aria-pressed="true" aria-label="30 de novembro de 2026">30</button>
+            </div>
+          </div>
+          <div class="popover__rodape">
+            <button class="botao botao--secundario" type="button" data-js="fechar">Cancelar</button>
+            <button class="botao botao--primario" type="button" data-js="aplicar-periodo">Aplicar</button>
+          </div>
+        </div>
+      </div>
+      <div class="amostra">
+        <p class="amostra__legenda">Modal de lançamento vazio</p>
+        <!-- ===== [MODAL DE LANÇAMENTO] =====
+             Cadastro e edição de movimentação (UC01). Abre por Fazer lançamento ou pelo lápis da tabela. Quem integra: equipe de JS (validação) e de banco (gravação). -->
+        <!-- [INTEGRAÇÃO-JS] Habilitar o Salvar quando o formulário for válido (RN02 e RN03) e mostrar o aviso de erro. -->
+        <dialog class="modal" id="js-estado-vazio-modal-lancamento" aria-labelledby="titulo-estado-vazio-lancamento" open>
+          <div class="modal__conteudo">
+            <header class="modal__cabecalho">
+              <h2 id="titulo-estado-vazio-lancamento" data-titulo-editar="Editar lançamento">Lançamento</h2>
+              <button class="botao botao--icone" type="button" data-js="fechar" aria-label="Fechar">
+                <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-fechar"></use></svg>
+              </button>
+            </header>
+            <form class="modal__corpo" data-js="formulario-lancamento" action="#" novalidate>
+              <div class="alternador-tipo" role="group" aria-label="Tipo da movimentação">
+                <button type="button" data-js="tipo-lancamento" data-valor="entrada" aria-pressed="true">Entrada</button>
+                <button type="button" data-js="tipo-lancamento" data-valor="saida" aria-pressed="false">Saída</button>
+              </div>
+              <div class="campo campo--janela">
+                <label class="campo__rotulo" for="js-estado-vazio-lancamento-valor">Valor (R$)</label>
+                <input class="campo__entrada" id="js-estado-vazio-lancamento-valor" name="valor" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="0,00" required>
+              </div>
+              <div class="campo campo--janela">
+                <label class="campo__rotulo" for="js-estado-vazio-lancamento-categoria">Categoria</label>
+                <div class="lista-suspensa">
+                  <select class="lista-suspensa__selecao" id="js-estado-vazio-lancamento-categoria" name="categoria">
+                    <option value="Vendas" selected>Vendas</option>
+                    <option value="Serviços">Serviços</option>
+                    <option value="Entrega">Entrega</option>
+                    <option value="Transporte">Transporte</option>
+                    <option value="Outros">Outros</option>
+                  </select>
+                  <svg class="icone lista-suspensa__seta" aria-hidden="true" focusable="false"><use href="#icone-seta-baixo-pequena"></use></svg>
+                </div>
+              </div>
+              <div class="campo campo--janela">
+                <label class="campo__rotulo" for="js-estado-vazio-lancamento-data">Data</label>
+                <input class="campo__entrada" id="js-estado-vazio-lancamento-data" name="data" type="date" required>
+              </div>
+              <div class="campo campo--janela">
+                <label class="campo__rotulo" for="js-estado-vazio-lancamento-descricao">Descrição</label>
+                <input class="campo__entrada" id="js-estado-vazio-lancamento-descricao" name="descricao" type="text" placeholder="Ex: Pagamento Fornecedor A" required>
+              </div>
+              <!-- [A-CONFIRMAR] Tipo de pagamento e parcelas são opcionais (RF09 e RF10); as opções são provisórias. -->
+              <div class="modal__linha">
+                <div class="campo campo--janela">
+                  <label class="campo__rotulo" for="js-estado-vazio-lancamento-pagamento">Tipo de pagamento</label>
+                  <div class="lista-suspensa">
+                    <select class="lista-suspensa__selecao" id="js-estado-vazio-lancamento-pagamento" name="tipo_pagamento">
+                      <option value="" selected>Selecione</option>
+                      <option value="Dinheiro">Dinheiro</option>
+                      <option value="Pix">Pix</option>
+                      <option value="Cartão de crédito">Cartão de crédito</option>
+                      <option value="Cartão de débito">Cartão de débito</option>
+                      <option value="Boleto">Boleto</option>
+                      <option value="Transferência">Transferência</option>
+                    </select>
+                    <svg class="icone lista-suspensa__seta" aria-hidden="true" focusable="false"><use href="#icone-seta-baixo-pequena"></use></svg>
+                  </div>
+                </div>
+                <div class="campo campo--janela">
+                  <label class="campo__rotulo" for="js-estado-vazio-lancamento-parcelas">Parcelas</label>
+                  <div class="lista-suspensa">
+                    <select class="lista-suspensa__selecao" id="js-estado-vazio-lancamento-parcelas" name="parcelas">
+                      <option value="À vista" selected>À vista</option>
+                      <option value="2x">2x</option>
+                      <option value="3x">3x</option>
+                      <option value="4x">4x</option>
+                      <option value="5x">5x</option>
+                      <option value="6x">6x</option>
+                      <option value="7x">7x</option>
+                      <option value="8x">8x</option>
+                      <option value="9x">9x</option>
+                      <option value="10x">10x</option>
+                      <option value="11x">11x</option>
+                      <option value="12x">12x</option>
+                    </select>
+                    <svg class="icone lista-suspensa__seta" aria-hidden="true" focusable="false"><use href="#icone-seta-baixo-pequena"></use></svg>
+                  </div>
+                </div>
+              </div>
+              <div class="campo campo--janela">
+                <label class="campo__rotulo" for="js-estado-vazio-lancamento-status">Status</label>
+                <div class="lista-suspensa">
+                  <select class="lista-suspensa__selecao" id="js-estado-vazio-lancamento-status" name="status">
+                    <option value="Concluído" selected>Concluído</option>
+                    <option value="Pendente">Pendente</option>
+                    <option value="Cancelado">Cancelado</option>
+                  </select>
+                  <svg class="icone lista-suspensa__seta" aria-hidden="true" focusable="false"><use href="#icone-seta-baixo-pequena"></use></svg>
+                </div>
+              </div>
+              <p class="aviso-erro" role="alert" data-dado="mensagem-erro" hidden>
+                <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-alerta"></use></svg>
+                <span>Dados preenchidos incompletos</span>
+              </p>
+              <!-- [INTEGRAÇÃO-BD] Salvar grava a movimentação (UC01). O botão nasce desabilitado. -->
+              <div class="modal__rodape">
+                <button class="botao botao--secundario" type="button" data-js="fechar">Cancelar</button>
+                <button class="botao botao--primario" type="submit" disabled>Salvar</button>
+              </div>
+            </form>
+          </div>
+        </dialog>
+      </div>
+      <div class="amostra">
+        <p class="amostra__legenda">Modal de lançamento com aviso de erro</p>
+        <!-- ===== [MODAL DE LANÇAMENTO] =====
+             Cadastro e edição de movimentação (UC01). Abre por Fazer lançamento ou pelo lápis da tabela. Quem integra: equipe de JS (validação) e de banco (gravação). -->
+        <!-- [INTEGRAÇÃO-JS] Habilitar o Salvar quando o formulário for válido (RN02 e RN03) e mostrar o aviso de erro. -->
+        <dialog class="modal" id="js-estado-erro-modal-lancamento" aria-labelledby="titulo-estado-erro-lancamento" open>
+          <div class="modal__conteudo">
+            <header class="modal__cabecalho">
+              <h2 id="titulo-estado-erro-lancamento" data-titulo-editar="Editar lançamento">Lançamento</h2>
+              <button class="botao botao--icone" type="button" data-js="fechar" aria-label="Fechar">
+                <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-fechar"></use></svg>
+              </button>
+            </header>
+            <form class="modal__corpo" data-js="formulario-lancamento" action="#" novalidate>
+              <div class="alternador-tipo" role="group" aria-label="Tipo da movimentação">
+                <button type="button" data-js="tipo-lancamento" data-valor="entrada" aria-pressed="true">Entrada</button>
+                <button type="button" data-js="tipo-lancamento" data-valor="saida" aria-pressed="false">Saída</button>
+              </div>
+              <div class="campo campo--janela">
+                <label class="campo__rotulo" for="js-estado-erro-lancamento-valor">Valor (R$)</label>
+                <input class="campo__entrada" id="js-estado-erro-lancamento-valor" name="valor" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="0,00" required>
+              </div>
+              <div class="campo campo--janela">
+                <label class="campo__rotulo" for="js-estado-erro-lancamento-categoria">Categoria</label>
+                <div class="lista-suspensa">
+                  <select class="lista-suspensa__selecao" id="js-estado-erro-lancamento-categoria" name="categoria">
+                    <option value="Vendas" selected>Vendas</option>
+                    <option value="Serviços">Serviços</option>
+                    <option value="Entrega">Entrega</option>
+                    <option value="Transporte">Transporte</option>
+                    <option value="Outros">Outros</option>
+                  </select>
+                  <svg class="icone lista-suspensa__seta" aria-hidden="true" focusable="false"><use href="#icone-seta-baixo-pequena"></use></svg>
+                </div>
+              </div>
+              <div class="campo campo--janela">
+                <label class="campo__rotulo" for="js-estado-erro-lancamento-data">Data</label>
+                <input class="campo__entrada" id="js-estado-erro-lancamento-data" name="data" type="date" required>
+              </div>
+              <div class="campo campo--janela">
+                <label class="campo__rotulo" for="js-estado-erro-lancamento-descricao">Descrição</label>
+                <input class="campo__entrada" id="js-estado-erro-lancamento-descricao" name="descricao" type="text" placeholder="Ex: Pagamento Fornecedor A" required>
+              </div>
+              <!-- [A-CONFIRMAR] Tipo de pagamento e parcelas são opcionais (RF09 e RF10); as opções são provisórias. -->
+              <div class="modal__linha">
+                <div class="campo campo--janela">
+                  <label class="campo__rotulo" for="js-estado-erro-lancamento-pagamento">Tipo de pagamento</label>
+                  <div class="lista-suspensa">
+                    <select class="lista-suspensa__selecao" id="js-estado-erro-lancamento-pagamento" name="tipo_pagamento">
+                      <option value="" selected>Selecione</option>
+                      <option value="Dinheiro">Dinheiro</option>
+                      <option value="Pix">Pix</option>
+                      <option value="Cartão de crédito">Cartão de crédito</option>
+                      <option value="Cartão de débito">Cartão de débito</option>
+                      <option value="Boleto">Boleto</option>
+                      <option value="Transferência">Transferência</option>
+                    </select>
+                    <svg class="icone lista-suspensa__seta" aria-hidden="true" focusable="false"><use href="#icone-seta-baixo-pequena"></use></svg>
+                  </div>
+                </div>
+                <div class="campo campo--janela">
+                  <label class="campo__rotulo" for="js-estado-erro-lancamento-parcelas">Parcelas</label>
+                  <div class="lista-suspensa">
+                    <select class="lista-suspensa__selecao" id="js-estado-erro-lancamento-parcelas" name="parcelas">
+                      <option value="À vista" selected>À vista</option>
+                      <option value="2x">2x</option>
+                      <option value="3x">3x</option>
+                      <option value="4x">4x</option>
+                      <option value="5x">5x</option>
+                      <option value="6x">6x</option>
+                      <option value="7x">7x</option>
+                      <option value="8x">8x</option>
+                      <option value="9x">9x</option>
+                      <option value="10x">10x</option>
+                      <option value="11x">11x</option>
+                      <option value="12x">12x</option>
+                    </select>
+                    <svg class="icone lista-suspensa__seta" aria-hidden="true" focusable="false"><use href="#icone-seta-baixo-pequena"></use></svg>
+                  </div>
+                </div>
+              </div>
+              <div class="campo campo--janela">
+                <label class="campo__rotulo" for="js-estado-erro-lancamento-status">Status</label>
+                <div class="lista-suspensa">
+                  <select class="lista-suspensa__selecao" id="js-estado-erro-lancamento-status" name="status">
+                    <option value="Concluído" selected>Concluído</option>
+                    <option value="Pendente">Pendente</option>
+                    <option value="Cancelado">Cancelado</option>
+                  </select>
+                  <svg class="icone lista-suspensa__seta" aria-hidden="true" focusable="false"><use href="#icone-seta-baixo-pequena"></use></svg>
+                </div>
+              </div>
+              <p class="aviso-erro" role="alert" data-dado="mensagem-erro">
+                <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-alerta"></use></svg>
+                <span>Dados preenchidos incompletos</span>
+              </p>
+              <!-- [INTEGRAÇÃO-BD] Salvar grava a movimentação (UC01). O botão nasce desabilitado. -->
+              <div class="modal__rodape">
+                <button class="botao botao--secundario" type="button" data-js="fechar">Cancelar</button>
+                <button class="botao botao--primario" type="submit" disabled>Salvar</button>
+              </div>
+            </form>
+          </div>
+        </dialog>
+      </div>
+      <div class="amostra">
+        <p class="amostra__legenda">Modal de lançamento no modo editar (primeira movimentação)</p>
+        <!-- ===== [MODAL DE LANÇAMENTO] =====
+             Cadastro e edição de movimentação (UC01). Abre por Fazer lançamento ou pelo lápis da tabela. Quem integra: equipe de JS (validação) e de banco (gravação). -->
+        <!-- [INTEGRAÇÃO-JS] No modo editar, preencher os campos com a movimentação da linha (data-modo="editar"). -->
+        <dialog class="modal" id="js-estado-editar-modal-lancamento" aria-labelledby="titulo-estado-editar-lancamento" open>
+          <div class="modal__conteudo">
+            <header class="modal__cabecalho">
+              <h2 id="titulo-estado-editar-lancamento" data-titulo-editar="Editar lançamento">Editar lançamento</h2>
+              <button class="botao botao--icone" type="button" data-js="fechar" aria-label="Fechar">
+                <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-fechar"></use></svg>
+              </button>
+            </header>
+            <form class="modal__corpo" data-js="formulario-lancamento" action="#" novalidate>
+              <div class="alternador-tipo" role="group" aria-label="Tipo da movimentação">
+                <button type="button" data-js="tipo-lancamento" data-valor="entrada" aria-pressed="true">Entrada</button>
+                <button type="button" data-js="tipo-lancamento" data-valor="saida" aria-pressed="false">Saída</button>
+              </div>
+              <div class="campo campo--janela">
+                <label class="campo__rotulo" for="js-estado-editar-lancamento-valor">Valor (R$)</label>
+                <input class="campo__entrada" id="js-estado-editar-lancamento-valor" name="valor" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="0,00" required value="4800.00">
+              </div>
+              <div class="campo campo--janela">
+                <label class="campo__rotulo" for="js-estado-editar-lancamento-categoria">Categoria</label>
+                <div class="lista-suspensa">
+                  <select class="lista-suspensa__selecao" id="js-estado-editar-lancamento-categoria" name="categoria">
+                    <option value="Vendas">Vendas</option>
+                    <option value="Serviços" selected>Serviços</option>
+                    <option value="Entrega">Entrega</option>
+                    <option value="Transporte">Transporte</option>
+                    <option value="Outros">Outros</option>
+                  </select>
+                  <svg class="icone lista-suspensa__seta" aria-hidden="true" focusable="false"><use href="#icone-seta-baixo-pequena"></use></svg>
+                </div>
+              </div>
+              <div class="campo campo--janela">
+                <label class="campo__rotulo" for="js-estado-editar-lancamento-data">Data</label>
+                <input class="campo__entrada" id="js-estado-editar-lancamento-data" name="data" type="date" required value="2026-11-30">
+              </div>
+              <div class="campo campo--janela">
+                <label class="campo__rotulo" for="js-estado-editar-lancamento-descricao">Descrição</label>
+                <input class="campo__entrada" id="js-estado-editar-lancamento-descricao" name="descricao" type="text" placeholder="Ex: Pagamento Fornecedor A" required value="Recebimento · Projeto Aurora">
+              </div>
+              <!-- [A-CONFIRMAR] Tipo de pagamento e parcelas são opcionais (RF09 e RF10); as opções são provisórias. -->
+              <div class="modal__linha">
+                <div class="campo campo--janela">
+                  <label class="campo__rotulo" for="js-estado-editar-lancamento-pagamento">Tipo de pagamento</label>
+                  <div class="lista-suspensa">
+                    <select class="lista-suspensa__selecao" id="js-estado-editar-lancamento-pagamento" name="tipo_pagamento">
+                      <option value="" selected>Selecione</option>
+                      <option value="Dinheiro">Dinheiro</option>
+                      <option value="Pix">Pix</option>
+                      <option value="Cartão de crédito">Cartão de crédito</option>
+                      <option value="Cartão de débito">Cartão de débito</option>
+                      <option value="Boleto">Boleto</option>
+                      <option value="Transferência">Transferência</option>
+                    </select>
+                    <svg class="icone lista-suspensa__seta" aria-hidden="true" focusable="false"><use href="#icone-seta-baixo-pequena"></use></svg>
+                  </div>
+                </div>
+                <div class="campo campo--janela">
+                  <label class="campo__rotulo" for="js-estado-editar-lancamento-parcelas">Parcelas</label>
+                  <div class="lista-suspensa">
+                    <select class="lista-suspensa__selecao" id="js-estado-editar-lancamento-parcelas" name="parcelas">
+                      <option value="À vista" selected>À vista</option>
+                      <option value="2x">2x</option>
+                      <option value="3x">3x</option>
+                      <option value="4x">4x</option>
+                      <option value="5x">5x</option>
+                      <option value="6x">6x</option>
+                      <option value="7x">7x</option>
+                      <option value="8x">8x</option>
+                      <option value="9x">9x</option>
+                      <option value="10x">10x</option>
+                      <option value="11x">11x</option>
+                      <option value="12x">12x</option>
+                    </select>
+                    <svg class="icone lista-suspensa__seta" aria-hidden="true" focusable="false"><use href="#icone-seta-baixo-pequena"></use></svg>
+                  </div>
+                </div>
+              </div>
+              <div class="campo campo--janela">
+                <label class="campo__rotulo" for="js-estado-editar-lancamento-status">Status</label>
+                <div class="lista-suspensa">
+                  <select class="lista-suspensa__selecao" id="js-estado-editar-lancamento-status" name="status">
+                    <option value="Concluído" selected>Concluído</option>
+                    <option value="Pendente">Pendente</option>
+                    <option value="Cancelado">Cancelado</option>
+                  </select>
+                  <svg class="icone lista-suspensa__seta" aria-hidden="true" focusable="false"><use href="#icone-seta-baixo-pequena"></use></svg>
+                </div>
+              </div>
+              <p class="aviso-erro" role="alert" data-dado="mensagem-erro" hidden>
+                <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-alerta"></use></svg>
+                <span>Dados preenchidos incompletos</span>
+              </p>
+              <!-- [INTEGRAÇÃO-BD] Salvar grava a movimentação (UC01). O botão nasce desabilitado. -->
+              <div class="modal__rodape">
+                <button class="botao botao--secundario" type="button" data-js="fechar">Cancelar</button>
+                <button class="botao botao--primario" type="submit" disabled>Salvar</button>
+              </div>
+            </form>
+          </div>
+        </dialog>
+      </div>
+      <div class="amostra">
+        <p class="amostra__legenda">Modal de importar</p>
+        <!-- ===== [MODAL DE IMPORTAR] =====
+             Envio de tabela .csv ou .xlsx com movimentações. Abre pelo botão Importar. Quem integra: equipe de JS (leitura do arquivo) e de banco (gravação). -->
+        <!-- [A-CONFIRMAR] Nota sobre os relatórios do Mercado Livre e da Shopee. -->
+        <dialog class="modal" id="js-estado-modal-importar" aria-labelledby="titulo-estado-importar" open>
+          <div class="modal__conteudo">
+            <header class="modal__cabecalho">
+              <h2 id="titulo-estado-importar">Importar movimentações</h2>
+              <button class="botao botao--icone" type="button" data-js="fechar" aria-label="Fechar">
+                <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-fechar"></use></svg>
+              </button>
+            </header>
+            <form class="modal__corpo" data-js="formulario-importar" action="#" novalidate>
+              <div class="area-envio">
+                <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-envio"></use></svg>
+                <p>Arraste a tabela aqui ou</p>
+                <input class="texto-oculto" type="file" id="js-estado-importar-arquivo" name="arquivo" accept=".csv,.xlsx">
+                <label class="botao botao--secundario" for="js-estado-importar-arquivo">Selecionar arquivo</label>
+                <p>Aceita arquivos .csv e .xlsx, como os relatórios do Mercado Livre e da Shopee</p>
+              </div>
+              <!-- [INTEGRAÇÃO-JS] Ler o arquivo, validar as colunas e habilitar o Importar. -->
+              <!-- [INTEGRAÇÃO-BD] Gravar as movimentações importadas. -->
+              <div class="modal__rodape">
+                <button class="botao botao--secundario" type="button" data-js="fechar">Cancelar</button>
+                <button class="botao botao--primario" type="submit" disabled>Importar</button>
+              </div>
+            </form>
+          </div>
+        </dialog>
+      </div>
+      <div class="amostra">
+        <p class="amostra__legenda">Popup de exclusão</p>
+        <!-- ===== [POPUP DE EXCLUSÃO] =====
+             Confirmação de segurança antes de excluir uma movimentação (UC01). Abre pela lixeira da tabela. Quem integra: equipe de banco. -->
+        <!-- [A-CONFIRMAR] Texto do popup de exclusão. -->
+        <dialog class="modal modal--confirmacao" id="js-estado-dialogo-exclusao" aria-labelledby="titulo-estado-exclusao" open>
+          <div class="modal__conteudo">
+            <h2 id="titulo-estado-exclusao">Excluir movimentação</h2>
+            <p>Deseja excluir esta movimentação? Esta ação não poderá ser desfeita.</p>
+            <!-- [INTEGRAÇÃO-BD] Excluir apaga a movimentação escolhida. -->
+            <div class="modal__rodape">
+              <button class="botao botao--secundario" type="button" data-js="fechar">Cancelar</button>
+              <button class="botao botao--primario" type="button" data-js="confirmar-exclusao">Excluir</button>
+            </div>
+          </div>
+        </dialog>
+      </div>
+      <div class="amostra amostra--larga">
+        <p class="amostra__legenda">Estado vazio da tabela</p>
+        <!-- ===== [PAINEL DA TABELA] =====
+             Lista de movimentações com ordenação, estado vazio e paginação (RF03 e RF05). Quem integra: equipe de JS e de banco. -->
+        <section class="painel-tabela" aria-labelledby="titulo-todas-movimentacoes">
+          <div class="painel-tabela__cabecalho">
+            <h2 class="painel-tabela__titulo" id="titulo-todas-movimentacoes">Todas as movimentações</h2>
+            <!-- [A-CONFIRMAR] Opções de ordenação. [INTEGRAÇÃO-JS] ordenar a lista. -->
+            <div class="ordenacao" data-js="ordenacao">
+              <span class="texto-oculto" id="rotulo-estado-ordenacao">Ordenar por</span>
+              <div class="lista-suspensa lista-suspensa--discreta">
+                <!-- [INTEGRAÇÃO-JS] O campo escondido guarda o valor escolhido e é ele que vai no formulário. -->
+                <input type="hidden" id="js-estado-ordenacao" name="ordenacao" value="recentes">
+                <button class="lista-suspensa__botao" type="button" id="js-botao-estado-ordenacao" data-js="alternar" data-alvo="js-popover-estado-ordenacao" aria-haspopup="listbox" aria-expanded="false" aria-controls="js-popover-estado-ordenacao" aria-labelledby="rotulo-estado-ordenacao resumo-estado-ordenacao">
+                  <span id="resumo-estado-ordenacao" data-dado="resumo-estado-ordenacao">Mais recentes primeiro</span>
+                  <svg class="icone lista-suspensa__seta" aria-hidden="true" focusable="false"><use href="#icone-seta-baixo-pequena"></use></svg>
+                </button>
+                <div class="popover popover--lista" id="js-popover-estado-ordenacao" data-js="lista-opcoes" data-campo="js-estado-ordenacao" data-resumo="resumo-estado-ordenacao" hidden>
+                  <ul class="lista-opcoes" role="listbox" aria-labelledby="rotulo-estado-ordenacao">
+                    <li class="lista-opcoes__item lista-opcoes__item--ativo" role="option" tabindex="-1" data-valor="recentes" aria-selected="true">Mais recentes primeiro</li>
+                    <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="antigos" aria-selected="false">Mais antigos primeiro</li>
+                    <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="maior" aria-selected="false">Maior valor</li>
+                    <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="menor" aria-selected="false">Menor valor</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tabela-rolavel">
+            <table class="tabela">
+              <caption class="texto-oculto">Lista de movimentações</caption>
+              <thead class="tabela__cabecalho">
+                <tr>
+                  <th scope="col">Descrição</th>
+                  <th scope="col">Tipo</th>
+                  <th scope="col">Categoria</th>
+                  <th scope="col">Data</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Valor</th>
+                  <th scope="col">Ações</th>
+                </tr>
+              </thead>
+              <tbody data-dado="lista-movimentacoes"></tbody>
+            </table>
+          </div>
+          <!-- [INTEGRAÇÃO-JS] Mostrar este estado vazio no lugar das linhas e esconder a paginação quando não houver dados. -->
+          <div class="estado-vazio" data-dado="mensagem-vazia">
+            <p class="estado-vazio__titulo">Sem dados financeiros</p>
+          </div>
+        </section>
+      </div>
+    </div>
+    <h2>Botões e selos</h2>
+    <div class="amostras">
+      <div class="amostra">
+        <p class="amostra__legenda">Botões</p>
+        <div class="amostra__conjunto">
+          <button class="botao botao--primario" type="button">Primário</button>
+          <button class="botao botao--secundario" type="button">Secundário</button>
+          <button class="botao botao--icone" type="button" aria-label="Editar movimentação">
+            <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-lapis"></use></svg>
+          </button>
+          <button class="botao botao--primario" type="button" disabled>Desabilitado</button>
+        </div>
+      </div>
+      <div class="amostra">
+        <p class="amostra__legenda">Selos de status</p>
+        <div class="amostra__conjunto">
+          <span class="selo-status selo-status--concluido">Concluído</span>
+          <span class="selo-status selo-status--pendente">Pendente</span>
+          <span class="selo-status selo-status--cancelado">Cancelado</span>
+        </div>
+      </div>
+      <div class="amostra">
+        <p class="amostra__legenda">Selos de tipo</p>
+        <div class="amostra__conjunto">
+          <span class="selo-tipo selo-tipo--entrada">
+            <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-seta-cima"></use></svg>
+            Entrada
+          </span>
+          <span class="selo-tipo selo-tipo--saida">
+            <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-seta-baixo"></use></svg>
+            Saída
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== [SCRIPT DE ESTADOS] =====
+         Scripts de apresentação e estados visuais; processamento real permanece para integração. -->
+    <script src="js/estados-interface.js" defer></script>
+    <script src="js/lista-opcoes.js" defer></script>
+    <!-- Catálogo: os formulários são amostras e não devem navegar ao enviar. -->
+    <script>document.addEventListener("submit", function (evento) { evento.preventDefault(); });</script>
+  </body>
+</html>

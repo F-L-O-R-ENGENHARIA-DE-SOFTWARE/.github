@@ -1,0 +1,208 @@
+/* Arquivo: css/componentes/barra-lateral.css */
+/* Função: barra lateral escura (marca, menu, grupo inferior, rodapé) e a barra superior de até 700 px. */
+/* Usado por: visao-geral.html, movimentacoes.html e ajuda.html. Divisão de layout.css por assunto. */
+
+/* ===== [BARRA LATERAL] ===== */
+.barra-lateral {
+  --cor-foco: var(--cor-texto-claro);
+  grid-column: 1;
+  grid-row: 1 / 3;
+  position: sticky;
+  top: 0;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: var(--espaco-5) var(--espaco-4) var(--espaco-4);
+  background: var(--cor-barra-lateral);
+  color: var(--cor-texto-claro);
+  overflow-y: auto;
+}
+
+.barra-lateral__marca {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-3);
+  padding: 0 var(--espaco-2);
+  font-size: var(--tamanho-janela);
+  font-weight: var(--peso-forte);
+  text-decoration: none;
+}
+
+.barra-lateral__marca-icone {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--raio-pequeno);
+  background: var(--cor-marca-icone);
+  color: var(--cor-barra-lateral);
+}
+
+.barra-lateral__rotulo {
+  margin: var(--espaco-5) var(--espaco-2) var(--espaco-4);
+  font-size: var(--tamanho-rotulo);
+  text-transform: uppercase;
+  color: var(--cor-texto-claro-suave);
+}
+
+.barra-lateral__navegacao { display: flex; flex: 1; flex-direction: column; }
+
+.barra-lateral__lista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-2);
+  list-style: none;
+}
+
+.barra-lateral__separador {
+  height: var(--largura-borda);
+  margin: var(--espaco-5) var(--espaco-2);
+  border: 0;
+  background: var(--cor-barra-lateral-ativo);
+}
+
+.barra-lateral__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-3);
+  height: 3rem;
+  padding: 0 var(--espaco-4);
+  border-radius: var(--raio-pequeno);
+  font-weight: var(--peso-medio);
+  text-decoration: none;
+}
+
+.barra-lateral__item:hover {
+  background: var(--cor-barra-lateral-ativo);
+}
+
+/* Item da página atual: fundo mais claro e uma barra branca de 3 px na borda esquerda. */
+.barra-lateral__item--ativo {
+  background: var(--cor-barra-lateral-ativo);
+}
+
+.barra-lateral__item--ativo::before {
+  content: "";
+  position: absolute;
+  top: var(--espaco-3);
+  bottom: var(--espaco-3);
+  left: 0;
+  width: 3px;
+  border-radius: var(--raio-selo);
+  background: var(--cor-texto-claro);
+}
+
+/* Grupo inferior empurrado para o fim da barra. */
+.barra-lateral__grupo-inferior {
+  margin-top: auto;
+  gap: var(--espaco-1);
+}
+
+.barra-lateral__grupo-inferior .barra-lateral__item {
+  height: 2.5rem;
+  color: var(--cor-texto-claro-suave);
+  font-weight: var(--peso-normal);
+}
+
+.barra-lateral__rodape {
+  margin-top: var(--espaco-4);
+  padding: var(--espaco-4) var(--espaco-2) 0;
+  border-top: var(--largura-borda) solid var(--cor-barra-lateral-ativo);
+  font-size: var(--tamanho-rotulo);
+  color: var(--cor-texto-claro-suave);
+}
+
+.barra-lateral__rodape strong {
+  display: block;
+  font-size: var(--tamanho-texto);
+  font-weight: var(--peso-medio);
+  color: var(--cor-texto-claro);
+}
+
+/* ===== [PONTO DE QUEBRA 1100 PX] ===== */
+/* Barra de 72 px, só com os ícones. */
+@media (max-width: 1050px) { /* 1100 px */
+  .barra-lateral {
+    align-items: center;
+    padding-inline: var(--espaco-2);
+  }
+
+  .barra-lateral__marca,
+  .barra-lateral__item {
+    justify-content: center;
+    padding-inline: 0;
+  }
+
+  .barra-lateral__item {
+    width: 3rem;
+  }
+
+  .barra-lateral__rotulo,
+  .barra-lateral__rodape {
+    display: none;
+  }
+
+  /* Mesmas regras de .texto-oculto, aplicadas só nesta faixa: o texto continua para leitores de tela. */
+  .barra-lateral__texto {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+/* ===== [PONTO DE QUEBRA 700 PX] ===== */
+/* Vira barra superior fixa; o menu abre em coluna sobre o conteúdo. */
+@media (max-width: 700px) { /* 700 px */
+  .barra-lateral {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: var(--camada-barra);
+    flex-direction: row;
+    align-items: center;
+    height: var(--altura-barra-superior);
+    padding: 0 var(--espaco-4);
+    overflow: visible;
+  }
+
+  .barra-lateral__navegacao {
+    display: none;
+  }
+
+  .barra-lateral--aberta .barra-lateral__navegacao {
+    position: absolute;
+    top: var(--altura-barra-superior);
+    left: 0;
+    right: 0;
+    display: flex;
+    max-height: calc(100vh - var(--altura-barra-superior));
+    padding: var(--espaco-4);
+    background: var(--cor-barra-lateral);
+    overflow-y: auto;
+  }
+
+  .barra-lateral__item {
+    width: auto;
+    justify-content: flex-start;
+    padding-inline: var(--espaco-4);
+  }
+
+  /* No menu aberto os textos voltam a aparecer. */
+  .barra-lateral__texto {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip-path: none;
+  }
+}
+
+.barra-lateral__marca { gap: var(--espaco-2); font-size: 1.125rem; padding-inline: var(--espaco-1); }
+.barra-lateral__marca-icone { width: 2rem; height: 2rem; }
+.barra-lateral__item { height: 2.5rem; padding-inline: var(--espaco-3); }
+.barra-lateral__grupo-inferior .barra-lateral__item { height: 2.25rem; }
+@media (max-width: 1050px) and (min-width: 701px) { .barra-lateral__item { padding-inline: 0; } }

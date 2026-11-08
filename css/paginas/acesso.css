@@ -1,0 +1,81 @@
+/* Arquivo: css/paginas/acesso.css
+ * Função: acesso compacto, proporcional às referências, com o mesmo tema do sistema.
+ * Usado por: login.html, cadastro.html e recuperar-senha.html. */
+.pagina-acesso {
+  position: relative; min-height: 100svh; isolation: isolate;
+  --fundo-acesso: linear-gradient(var(--cor-camada-foto), var(--cor-camada-foto)), url("../../assets/imagens/fundo-acesso.jpg") center / cover no-repeat, linear-gradient(135deg, var(--cor-degrade-acesso-inicio), var(--cor-degrade-acesso-fim));
+  background: var(--cor-degrade-acesso-inicio);
+  color: var(--cor-texto-foto);
+}
+/* Camada compartilhada: desfoca a fotografia das três telas de acesso sem atingir o conteúdo. */
+.pagina-acesso::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: var(--fundo-acesso);
+  filter: blur(6px);
+  transform: scale(1.035); /* cobre as bordas suavizadas do filtro */
+  pointer-events: none;
+}
+.tela-acesso {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, var(--largura-cartao-acesso));
+  gap: clamp(1.5rem, 4vw, 4rem); align-items: center;
+  min-height: 100svh; padding: 3.5rem clamp(1.5rem, 6vw, 7rem);
+}
+.tela-acesso__marca { justify-self: center; }
+.tela-acesso__marca h1 { font-size: var(--tamanho-marca-acesso); font-weight: var(--peso-extra); line-height: 1; letter-spacing: -0.02em; }
+.tela-acesso__marca p { margin-top: var(--espaco-2); font-size: var(--tamanho-frase-acesso); font-weight: var(--peso-leve); line-height: 1.25; }
+.tela-acesso__cartao {
+  --cor-foco: var(--cor-texto); width: 100%; padding: clamp(1.5rem, 2.5vw, 2.75rem);
+  border-radius: var(--raio-acesso); background: var(--cor-cartao-acesso); color: var(--cor-texto);
+}
+.tela-acesso__apoio { margin-bottom: var(--espaco-5); font-weight: var(--peso-medio); }
+.tela-acesso__cartao .aviso-erro { margin-bottom: var(--espaco-5); }
+.tela-acesso__cartao .campo--flutuante { margin-bottom: var(--espaco-5); }
+.tela-acesso__cartao .campo--flutuante .campo__rotulo { font-size: var(--tamanho-rotulo); }
+.tela-acesso__cartao .campo--flutuante .campo__entrada { border-color: var(--cor-borda-acesso); }
+.tela-acesso__link { display: block; margin: var(--espaco-2) 0 var(--espaco-5); text-align: right; text-decoration: underline; font-size: var(--tamanho-rotulo); color: var(--cor-texto-medio); }
+.tela-acesso__link--centro { margin: var(--espaco-5) 0 0; text-align: center; }
+.tela-acesso__separador { display: flex; align-items: center; gap: var(--espaco-3); margin: var(--espaco-5) 0 var(--espaco-4); font-size: var(--tamanho-rotulo); color: var(--cor-texto-suave); }
+.tela-acesso__separador::before, .tela-acesso__separador::after { content: ""; flex: 1; height: var(--largura-borda); background: var(--cor-borda-acesso); opacity: 0.5; }
+.tela-acesso__rodape { display: flex; align-items: center; justify-content: center; gap: var(--espaco-2); margin-top: var(--espaco-6); font-size: var(--tamanho-rotulo); color: var(--cor-texto-medio); }
+.tela-acesso__rodape .icone { width: 0.875rem; height: 0.875rem; }
+.botao-contato { --cor-foco: var(--cor-texto-foto); position: absolute; left: clamp(1rem, 5vw, 6rem); bottom: var(--espaco-4); display: flex; flex-direction: column; align-items: center; gap: var(--espaco-1); font-size: 0.6875rem; color: var(--cor-texto-foto); }
+.botao-contato__circulo { display: grid; place-items: center; width: var(--tamanho-contato); height: var(--tamanho-contato); border-radius: 50%; background: var(--cor-cartao-acesso); color: var(--cor-texto); }
+.botao-contato__texto { text-decoration: underline; }
+/* Cadastro aproveita a largura disponível, evitando cinco campos em uma coluna no desktop. */
+[data-js="formulario-cadastro"] { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--espaco-4); }
+.tela-acesso__cartao [data-js="formulario-cadastro"] .campo--flutuante { margin-bottom: var(--espaco-2); }
+[data-js="formulario-cadastro"] > .campo:first-child,
+[data-js="formulario-cadastro"] > .caixa-aceite,
+[data-js="formulario-cadastro"] > .botao { grid-column: 1 / -1; }
+@media (max-width: 1050px) {
+  .tela-acesso { padding-inline: var(--espaco-6); gap: var(--espaco-5); }
+  .tela-acesso__marca h1 { font-size: 3rem; }
+  .tela-acesso__marca p { font-size: 1.125rem; }
+}
+@media (max-width: 760px) {
+  .tela-acesso { display: flex; flex-direction: column; justify-content: center; gap: var(--espaco-5); padding: 3.5rem var(--espaco-4) 5rem; }
+  .tela-acesso__marca { text-align: center; }
+  .tela-acesso__marca h1 { font-size: 2.75rem; }
+  .tela-acesso__marca p { font-size: 1rem; }
+  .tela-acesso__cartao { max-width: 27rem; padding: var(--espaco-5); }
+  .tela-acesso__cartao .campo--flutuante { margin-bottom: var(--espaco-5); }
+  .tela-acesso__rodape { margin-top: var(--espaco-5); }
+  .botao-contato { bottom: var(--espaco-3); left: var(--espaco-4); flex-direction: row; gap: var(--espaco-2); }
+  .campo--erro .campo__alerta { right: calc((var(--tamanho-icone) + var(--espaco-1)) * -1); }
+}
+@media (max-width: 480px) { [data-js="formulario-cadastro"] { grid-template-columns: minmax(0, 1fr); } }
+@media (min-width: 761px) and (max-height: 700px) {
+  .tela-acesso { padding-block: 3rem; }
+  .tela-acesso__cartao { padding: var(--espaco-5); }
+  .tela-acesso__rodape { margin-top: var(--espaco-5); }
+}
+
+@media (max-width: 760px) and (max-height: 700px) {
+  .tela-acesso { gap: var(--espaco-4); padding-top: 3rem; padding-bottom: 4.5rem; }
+  .tela-acesso__marca h1 { font-size: 2.25rem; }
+  .tela-acesso__cartao { padding: 1.25rem; }
+  .tela-acesso__cartao .campo--flutuante { margin-bottom: 1.25rem; }
+}

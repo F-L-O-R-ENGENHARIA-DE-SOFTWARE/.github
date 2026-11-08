@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<!--
+  Arquivo: cadastro.html
+  Função: Tela de cadastro: dados pessoais, senha e aceite da Política de Privacidade (LGPD).
+  Usado por: Aberta pelo botão Cadastrar-me do login; volta ao login.html.
+-->
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Criar conta · TEXPAND</title>
+    <script src="js/tema.js"></script>
+    <!-- Fonte Inter pelo Google Fonts: única dependência externa do projeto. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap">
+    <link rel="stylesheet" href="css/principal.css">
+  </head>
+  <body class="pagina-acesso">
+    <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+    <!-- ===== [SPRITE DE ÍCONES] =====
+         Cópia de assets/icones/icones.svg embutida na página: os <use href="#icone-nome"> funcionam em qualquer servidor e até abrindo o arquivo direto.
+         Para mudar ou criar um ícone, edite o <symbol> em assets/icones/icones.svg e copie-o para este bloco em todas as páginas. -->
+    <svg class="sprite-icones" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <!-- ===== [MARCA E MENU LATERAL] ===== -->
+      <symbol id="icone-carteira" viewBox="0 0 24 24">
+        <path d="M3 8a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3z" />
+        <path d="M16 12h5v4h-5a2 2 0 0 1 0-4z" />
+      </symbol>
+      <symbol id="icone-grade" viewBox="0 0 24 24">
+        <rect x="3" y="3" width="7" height="7" rx="2" />
+        <rect x="14" y="3" width="7" height="7" rx="2" />
+        <rect x="3" y="14" width="7" height="7" rx="2" />
+        <rect x="14" y="14" width="7" height="7" rx="2" />
+      </symbol>
+      <symbol id="icone-setas-opostas" viewBox="0 0 24 24">
+        <path d="M4 8h16M16 4l4 4-4 4M20 16H4M8 12l-4 4 4 4" />
+      </symbol>
+      <symbol id="icone-engrenagem" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="3" />
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+      </symbol>
+      <symbol id="icone-sino" viewBox="0 0 24 24">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0" />
+      </symbol>
+      <symbol id="icone-pessoa" viewBox="0 0 24 24">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+        <circle cx="12" cy="7" r="4" />
+      </symbol>
+      <symbol id="icone-pessoa-troca" viewBox="0 0 24 24">
+        <circle cx="9" cy="7" r="4" />
+        <path d="M2 21v-2a4 4 0 0 1 4-4h4" />
+        <path d="M15 12h7M19 9l3 3-3 3M22 19h-7M18 16l-3 3 3 3" />
+      </symbol>
+      <symbol id="icone-ajuda" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" />
+        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01" />
+      </symbol>
+
+      <!-- ===== [AÇÕES E FILTROS] ===== -->
+      <symbol id="icone-funil" viewBox="0 0 24 24">
+        <path d="M3 6h18M6 12h12M10 18h4" />
+      </symbol>
+      <symbol id="icone-calendario" viewBox="0 0 24 24">
+        <rect x="3" y="4" width="18" height="18" rx="2" />
+        <path d="M16 2v4M8 2v4M3 10h18" />
+      </symbol>
+      <symbol id="icone-download" viewBox="0 0 24 24">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+      </symbol>
+      <symbol id="icone-envio" viewBox="0 0 24 24">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" />
+      </symbol>
+      <symbol id="icone-mais" viewBox="0 0 24 24">
+        <path d="M12 5v14M5 12h14" />
+      </symbol>
+      <symbol id="icone-lupa" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="8" />
+        <path d="M21 21l-4.35-4.35" />
+      </symbol>
+      <symbol id="icone-cifrao" viewBox="0 0 24 24">
+        <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+      </symbol>
+
+      <!-- ===== [SETAS] ===== -->
+      <symbol id="icone-seta-cima" viewBox="0 0 24 24">
+        <path d="M12 19V5M5 12l7-7 7 7" />
+      </symbol>
+      <symbol id="icone-seta-baixo" viewBox="0 0 24 24">
+        <path d="M12 5v14M19 12l-7 7-7-7" />
+      </symbol>
+      <symbol id="icone-seta-direita" viewBox="0 0 24 24">
+        <path d="M5 12h14M12 5l7 7-7 7" />
+      </symbol>
+      <symbol id="icone-seta-esquerda" viewBox="0 0 24 24">
+        <path d="M19 12H5M12 19l-7-7 7-7" />
+      </symbol>
+      <symbol id="icone-seta-baixo-pequena" viewBox="0 0 24 24">
+        <path d="M6 9l6 6 6-6" />
+      </symbol>
+
+      <!-- ===== [CAMPOS E FORMULÁRIOS] ===== -->
+      <symbol id="icone-cadeado" viewBox="0 0 24 24">
+        <rect x="3" y="11" width="18" height="11" rx="2" />
+        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+      </symbol>
+      <symbol id="icone-olho" viewBox="0 0 24 24">
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+        <circle cx="12" cy="12" r="3" />
+      </symbol>
+      <symbol id="icone-olho-fechado" viewBox="0 0 24 24">
+        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24M1 1l22 22" />
+      </symbol>
+      <symbol id="icone-fechar" viewBox="0 0 24 24">
+        <path d="M18 6L6 18M6 6l12 12" />
+      </symbol>
+      <!-- Alerta é preenchido: círculo cheio com o "!" vazado (fill-rule evenodd), então não usa traço. -->
+      <symbol id="icone-alerta" viewBox="0 0 24 24">
+        <path fill="currentColor" stroke="none" fill-rule="evenodd" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM11 6.5h2v7h-2zM12 15.3a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4z" />
+      </symbol>
+
+      <!-- ===== [TABELA E OUTROS] ===== -->
+      <symbol id="icone-lapis" viewBox="0 0 24 24">
+        <path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+      </symbol>
+      <symbol id="icone-lixeira" viewBox="0 0 24 24">
+        <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6" />
+      </symbol>
+      <symbol id="icone-balao" viewBox="0 0 24 24">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+      </symbol>
+      <symbol id="icone-menu" viewBox="0 0 24 24">
+        <path d="M3 12h18M3 6h18M3 18h18" />
+      </symbol>
+    </svg>
+    <!-- ===== [TELA DE ACESSO] =====
+         Foto em tela cheia com camada escura, marca à esquerda e cartão à direita. Quem integra: equipe de banco (autenticação). -->
+    <button class="alternar-tema alternar-tema--acesso" type="button" data-js="alternar-tema" aria-label="Ativar modo escuro" aria-pressed="false">Modo escuro</button>
+    <main class="tela-acesso" id="conteudo" tabindex="-1">
+      <header class="tela-acesso__marca">
+        <h1>TEXPAND</h1>
+        <p>Faça login ou crie uma conta</p>
+      </header>
+      <section class="tela-acesso__cartao" aria-label="Acesso ao sistema">
+        <!-- [INTEGRAÇÃO-BD] Gravação e confirmação do e-mail (RN01 e fluxo detalhado). O protótipo só apresenta a confirmação demonstrativa. -->
+        <form data-js="formulario-cadastro" data-alvo="js-confirmacao-cadastro" action="#" method="post" novalidate>
+          <div class="campo campo--flutuante">
+            <label class="campo__rotulo" for="js-nome">Nome completo</label>
+            <div class="campo__caixa">
+              <svg class="icone campo__icone" aria-hidden="true" focusable="false"><use href="#icone-pessoa"></use></svg>
+              <input class="campo__entrada" id="js-nome" aria-describedby="erro-js-nome" name="nome" type="text" autocomplete="name" required>
+            </div>
+            <svg class="icone campo__alerta" aria-hidden="true" focusable="false"><use href="#icone-alerta"></use></svg>
+            <p id="erro-js-nome" class="campo__mensagem" role="alert">Dados preenchidos incompletos</p>
+          </div>
+          <div class="campo campo--flutuante">
+            <label class="campo__rotulo" for="js-email">E-mail</label>
+            <div class="campo__caixa">
+              <svg class="icone campo__icone" aria-hidden="true" focusable="false"><use href="#icone-pessoa"></use></svg>
+              <input class="campo__entrada" id="js-email" aria-describedby="erro-js-email" name="email" type="email" autocomplete="email" required>
+            </div>
+            <svg class="icone campo__alerta" aria-hidden="true" focusable="false"><use href="#icone-alerta"></use></svg>
+            <p id="erro-js-email" class="campo__mensagem" role="alert">Dados preenchidos incompletos</p>
+          </div>
+          <div class="campo campo--flutuante">
+            <label class="campo__rotulo" for="js-usuario">Usuário</label>
+            <div class="campo__caixa">
+              <svg class="icone campo__icone" aria-hidden="true" focusable="false"><use href="#icone-pessoa"></use></svg>
+              <input class="campo__entrada" id="js-usuario" aria-describedby="erro-js-usuario" name="usuario" type="text" autocomplete="username" required>
+            </div>
+            <svg class="icone campo__alerta" aria-hidden="true" focusable="false"><use href="#icone-alerta"></use></svg>
+            <p id="erro-js-usuario" class="campo__mensagem" role="alert">Dados preenchidos incompletos</p>
+          </div>
+          <div class="campo campo--flutuante">
+            <label class="campo__rotulo" for="js-senha">Senha</label>
+            <div class="campo__caixa">
+              <svg class="icone campo__icone" aria-hidden="true" focusable="false"><use href="#icone-cadeado"></use></svg>
+              <input class="campo__entrada" id="js-senha" aria-describedby="erro-js-senha" name="senha" type="password" autocomplete="new-password" placeholder="•••••••" required>
+              <button class="campo__acao" type="button" data-js="alternar-senha" data-alvo="js-senha" aria-label="Mostrar senha">
+                <svg class="icone icone--aberto" aria-hidden="true" focusable="false"><use href="#icone-olho"></use></svg>
+                <svg class="icone icone--fechado" aria-hidden="true" focusable="false"><use href="#icone-olho-fechado"></use></svg>
+              </button>
+            </div>
+            <svg class="icone campo__alerta" aria-hidden="true" focusable="false"><use href="#icone-alerta"></use></svg>
+            <p id="erro-js-senha" class="campo__mensagem" role="alert">Dados preenchidos incompletos</p>
+          </div>
+          <div class="campo campo--flutuante">
+            <label class="campo__rotulo" for="js-confirmar-senha">Confirmar senha</label>
+            <div class="campo__caixa">
+              <svg class="icone campo__icone" aria-hidden="true" focusable="false"><use href="#icone-cadeado"></use></svg>
+              <input class="campo__entrada" id="js-confirmar-senha" aria-describedby="erro-js-confirmar-senha" name="confirmar_senha" type="password" autocomplete="new-password" placeholder="•••••••" required>
+              <button class="campo__acao" type="button" data-js="alternar-senha" data-alvo="js-confirmar-senha" aria-label="Mostrar senha">
+                <svg class="icone icone--aberto" aria-hidden="true" focusable="false"><use href="#icone-olho"></use></svg>
+                <svg class="icone icone--fechado" aria-hidden="true" focusable="false"><use href="#icone-olho-fechado"></use></svg>
+              </button>
+            </div>
+            <svg class="icone campo__alerta" aria-hidden="true" focusable="false"><use href="#icone-alerta"></use></svg>
+            <p id="erro-js-confirmar-senha" class="campo__mensagem" role="alert">Dados preenchidos incompletos</p>
+          </div>
+          <!-- [A-CONFIRMAR] Link da Política de Privacidade. A caixa existe por causa da LGPD (RNF 01). -->
+          <div class="caixa-aceite">
+            <input type="checkbox" id="js-aceite-lgpd" name="aceite_lgpd" required>
+            <label for="js-aceite-lgpd">Li e aceito a <a href="#js-modal-privacidade" data-js="abrir" data-alvo="js-modal-privacidade">Política de Privacidade</a></label>
+          </div>
+          <button class="botao botao--primario botao--largo" type="submit">
+            Criar conta
+            <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-seta-direita"></use></svg>
+          </button>
+        </form>
+        <div class="bloco-confirmacao" id="js-confirmacao-cadastro" role="status" hidden>
+          <p>Não foi possível criar a conta. Serviço de cadastro indisponível no momento.</p>
+        </div>
+        <p class="tela-acesso__separador">Já tem uma conta?</p>
+        <a class="botao botao--secundario botao--largo" href="login.html">Entrar</a>
+        <p class="tela-acesso__rodape">
+          <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-cadeado"></use></svg>
+          Seu controle financeiro
+        </p>
+      </section>
+    </main>
+
+    <!-- ===== [BOTÃO DE CONTATO] =====
+         Canto inferior esquerdo das telas de acesso. Quem integra: equipe do projeto (destino do link). -->
+    <!-- Ajuda de acesso local: não encaminha para a navegação interna do sistema. -->
+    <button class="botao-contato" type="button" data-js="abrir" data-alvo="js-ajuda-acesso" aria-haspopup="dialog" aria-controls="js-ajuda-acesso">
+      <span class="botao-contato__circulo">
+        <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-balao"></use></svg>
+      </span>
+      <span class="botao-contato__texto">Precisa de ajuda?</span>
+    </button>
+
+    <dialog class="modal" id="js-modal-privacidade" aria-labelledby="titulo-privacidade">
+      <div class="modal__conteudo">
+        <h2 id="titulo-privacidade">Política de Privacidade</h2>
+        <p>Para consultar a política de privacidade e esclarecer dúvidas sobre o tratamento dos seus dados, entre em contato com o responsável pelo TEXPAND.</p>
+        <div class="modal__rodape"><button class="botao botao--secundario" type="button" data-js="fechar">Fechar</button></div>
+      </div>
+    </dialog>
+
+    <dialog class="modal modal--confirmacao" id="js-ajuda-acesso" aria-labelledby="titulo-ajuda-acesso">
+      <div class="modal__conteudo">
+        <h2 id="titulo-ajuda-acesso">Ajuda com o acesso</h2>
+        <p>Para entrar, informe seu usuário ou e-mail e sua senha na tela de login.</p>
+        <p>Se esqueceu sua senha, selecione “Esqueci a senha”. Para criar uma conta, selecione “Cadastrar-me”.</p>
+        <p>Se o problema continuar, procure o responsável pelo TEXPAND.</p>
+        <div class="modal__rodape">
+          <button class="botao botao--secundario" type="button" data-js="fechar">Fechar</button>
+        </div>
+      </div>
+    </dialog>
+
+    <!-- ===== [SCRIPT DE ESTADOS] =====
+         Scripts de apresentação e estados visuais; processamento real permanece para integração. -->
+    <script src="js/estados-interface.js" defer></script>
+    <script src="js/formularios-interface.js" defer></script>
+  </body>
+</html>

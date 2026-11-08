@@ -1,0 +1,32 @@
+/* Arquivo: css/paginas/visao-geral.css
+ * Função: composição do dashboard e seleção de gráficos na barra de filtros.
+ * Usado por: visao-geral.html. */
+.grade-indicadores { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--espaco-4); }
+.grade-paineis { display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr); gap: var(--espaco-4); }
+.barra-acoes--dashboard { align-items: flex-end; }
+.campo--filtro-dashboard { flex: 0 1 11rem; gap: var(--espaco-1); }
+.barra-acoes--dashboard .popover--filtro { left: 0; }
+.grade-indicadores--unico { grid-template-columns: minmax(0, 1fr); }
+.grade-paineis[data-visual="linhas"], .grade-paineis[data-visual="pizza"] { grid-template-columns: minmax(0, 1fr); }
+.grafico-linhas { margin-top: var(--espaco-4); }
+.grafico-linhas svg { width: 100%; height: auto; max-height: calc(var(--altura-grafico) + 3rem); }
+.grafico-linhas__grade { fill: none; stroke: var(--cor-linha-grafico); }
+.grafico-linhas__receitas { fill: none; stroke: var(--cor-barra-receitas); stroke-width: 4; }
+.grafico-linhas__despesas { fill: none; stroke: var(--cor-barra-despesas); stroke-width: 4; stroke-dasharray: 8 5; }
+.grafico-linhas__texto { fill: var(--cor-texto-medio); font-family: var(--fonte-base); font-size: 12px; }
+.grafico-linhas__rotulos { text-anchor: middle; }
+.grafico-linhas figcaption, .total-pizza { margin-top: var(--espaco-3); font-size: var(--tamanho-rotulo); }
+@media (max-width: 1100px) {
+  .campo--filtro-dashboard { flex-basis: 9rem; }
+  .barra-acoes--dashboard .seletor-mes { padding-inline: var(--espaco-1); }
+}
+@media (max-width: 800px) { .grade-paineis { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 700px) {
+  .grade-indicadores { grid-template-columns: minmax(0, 1fr); }
+  .barra-acoes--dashboard { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .barra-acoes--dashboard .barra-acoes__item--fim { margin-left: 0; }
+  .barra-acoes--dashboard .barra-acoes__item > .botao { width: 100%; }
+  .barra-acoes--dashboard .seletor-mes { width: 100%; font-size: var(--tamanho-rotulo); }
+  .barra-acoes--dashboard .barra-acoes__item:first-child { position: static; }
+  .barra-acoes--dashboard .popover--filtro { top: calc(100% + var(--espaco-2)); }
+}

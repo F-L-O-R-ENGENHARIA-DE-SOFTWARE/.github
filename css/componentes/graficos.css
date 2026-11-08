@@ -1,0 +1,212 @@
+/* Arquivo: css/componentes/graficos.css */
+/* Função: painel de gráfico, gráfico de barras (Fluxo de caixa) e gráfico de rosca (Despesas por categoria), em CSS puro. */
+/* Usado por: visao-geral.html e estados.html. A equipe de JS pode trocar o conteúdo pelo de uma biblioteca em [data-grafico]. */
+
+/* ===== [PAINEL DE GRÁFICO] ===== */
+.painel-grafico {
+  position: relative; /* âncora da legenda do gráfico de barras */
+  padding: var(--espaco-4);
+  border-radius: var(--raio-grande);
+  background: var(--cor-painel-grafico);
+  color: var(--cor-texto-medio);
+}
+
+.painel-grafico__titulo {
+  font-size: var(--tamanho-cartao);
+  color: var(--cor-texto);
+}
+
+.painel-grafico__subtitulo { margin-top: var(--espaco-1); font-size: var(--tamanho-texto); }
+
+/* ===== [GRÁFICO DE BARRAS] ===== */
+/* [INTEGRAÇÃO-JS] Altura de cada barra = --valor (em milhares) ÷ 10. Troque definindo --valor em cada barra. */
+.grafico-barras {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--espaco-3);
+  margin-top: var(--espaco-5);
+  padding-bottom: var(--espaco-6); /* espaço para os rótulos de período */
+  font-size: var(--tamanho-rotulo);
+}
+
+/* Cada rótulo tem altura zero e fica centrado na sua linha horizontal. */
+.grafico-barras__eixo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: var(--altura-grafico);
+}
+
+.grafico-barras__eixo span { display: flex; align-items: center; height: 0; }
+
+/* Quatro linhas finas por fundo repetido e a linha do zero pela borda de baixo. */
+.grafico-barras__area {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  height: var(--altura-grafico);
+  border-bottom: var(--largura-borda) solid var(--cor-linha-grafico);
+  background: linear-gradient(var(--cor-linha-grafico) var(--largura-borda), transparent var(--largura-borda)) 0 0 / 100% 25%;
+}
+
+.grafico-barras__grupo {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: var(--espaco-1);
+  height: 100%;
+}
+
+.grafico-barras__barra {
+  width: var(--largura-barra-grafico);
+  height: calc(var(--valor, 0) / 10 * 100%);
+  border-radius: var(--raio-pequeno) var(--raio-pequeno) 0 0;
+}
+
+.grafico-barras__barra--receitas { --valor: var(--valor-receitas); background: var(--cor-barra-receitas); }
+.grafico-barras__barra--despesas { --valor: var(--valor-despesas); background: var(--cor-barra-despesas); }
+
+.grafico-barras__rotulo {
+  position: absolute;
+  top: calc(100% + var(--espaco-3));
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+/* Legenda no canto superior direito do painel. */
+.grafico-barras__legenda {
+  position: absolute;
+  top: var(--espaco-4);
+  right: var(--espaco-4);
+  display: flex;
+  gap: var(--espaco-4);
+  list-style: none;
+  font-size: var(--tamanho-rotulo);
+}
+
+.grafico-barras__legenda li::before,
+.legenda-rosca li::before {
+  content: "";
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-right: var(--espaco-2);
+  background: var(--cor-item, var(--cor-texto-medio));
+}
+
+.grafico-barras__legenda li:first-child { --cor-item: var(--cor-barra-receitas); }
+.grafico-barras__legenda li:last-child { --cor-item: var(--cor-barra-despesas); }
+
+/* Dados de exemplo (milhares de reais), um grupo por período do mês. [INTEGRAÇÃO-JS] trocar pelos reais. */
+.grafico-barras__grupo:nth-child(1) { --valor-receitas: 6.5; --valor-despesas: 2.85; }
+.grafico-barras__grupo:nth-child(2) { --valor-receitas: 8; --valor-despesas: 3.6; }
+.grafico-barras__grupo:nth-child(3) { --valor-receitas: 7.5; --valor-despesas: 4.2; }
+.grafico-barras__grupo:nth-child(4) { --valor-receitas: 9.5; --valor-despesas: 3.8; }
+.grafico-barras__grupo:nth-child(5) { --valor-receitas: 9; --valor-despesas: 4.9; }
+.grafico-barras__grupo:nth-child(6) { --valor-receitas: 8; --valor-despesas: 4.4; }
+
+/* ===== [GRÁFICO DE ROSCA] ===== */
+/* [INTEGRAÇÃO-JS] As fatias usam --p-servicos, --p-entrega, --p-transporte e --p-outros (somam 100%). */
+.grafico-rosca {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--espaco-5);
+  margin-top: var(--espaco-5);
+}
+
+.grafico-rosca__anel {
+  --p-servicos: 40%;
+  --p-entrega: 30%;
+  --p-transporte: 20%;
+  --p-outros: 10%;
+  position: relative;
+  width: var(--tamanho-rosca);
+  height: var(--tamanho-rosca);
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--cor-rosca-servicos) 0 var(--p-servicos),
+    var(--cor-rosca-entrega) var(--p-servicos) calc(var(--p-servicos) + var(--p-entrega)),
+    var(--cor-rosca-transporte) calc(var(--p-servicos) + var(--p-entrega)) calc(var(--p-servicos) + var(--p-entrega) + var(--p-transporte)),
+    var(--cor-rosca-outros) calc(var(--p-servicos) + var(--p-entrega) + var(--p-transporte)) 100%
+  );
+}
+
+/* Furo central de cerca de 62%, com o total de saídas. */
+.grafico-rosca__centro {
+  position: absolute;
+  inset: 19%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--cor-painel-grafico);
+  font-size: var(--tamanho-rotulo);
+  text-align: center;
+}
+
+.grafico-rosca__centro strong {
+  font-size: var(--tamanho-cartao);
+  font-weight: var(--peso-semi);
+  color: var(--cor-texto);
+}
+
+/* Legenda em grade 2×2: quadrado da cor da fatia, nome e porcentagem. */
+.legenda-rosca {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--espaco-3) var(--espaco-6);
+  width: 100%;
+  list-style: none;
+  font-size: var(--tamanho-rotulo);
+}
+
+.legenda-rosca li {
+  display: flex;
+  align-items: center;
+}
+
+.legenda-rosca strong {
+  margin-left: auto;
+  font-weight: var(--peso-semi);
+  color: var(--cor-texto);
+}
+
+.legenda-rosca__item--servicos { --cor-item: var(--cor-rosca-servicos); }
+.legenda-rosca__item--entrega { --cor-item: var(--cor-rosca-entrega); }
+.legenda-rosca__item--transporte { --cor-item: var(--cor-rosca-transporte); }
+.legenda-rosca__item--outros { --cor-item: var(--cor-rosca-outros); }
+
+/* ===== [PONTO DE QUEBRA 700 PX] ===== */
+@media (max-width: 700px) { /* 700 px */
+  .grafico-barras__legenda {
+    position: static;
+    grid-column: 1 / -1; /* ocupa a linha inteira da grade; eixo e barras ficam na linha de baixo */
+  }
+
+  .grafico-barras {
+    gap: var(--espaco-2);
+  }
+
+  /* Barras mais finas para os seis grupos caberem em telas de celular. */
+  .grafico-barras__barra {
+    width: var(--largura-barra-grafico-estreita);
+  }
+}
+
+/* Legenda não disputa espaço com o título em painéis intermediários. */
+@media (min-width: 701px) and (max-width: 1400px) {
+  .grafico-barras__legenda { position: static; grid-column: 1 / -1; }
+  .legenda-rosca { grid-template-columns: minmax(0, 1fr); }
+}
+.dados-grafico { padding: var(--espaco-3); border: var(--largura-borda) solid var(--cor-borda); border-radius: var(--raio-pequeno); }
+.dados-grafico summary { cursor: pointer; font-weight: var(--peso-semi); }
+.dados-grafico .tabela-rolavel { margin-top: var(--espaco-4); }
+.dados-grafico > p { margin-top: var(--espaco-4); }
+
+@media (min-width: 950px) {
+  .legenda-rosca { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--espaco-3) var(--espaco-4); }
+  .grafico-barras__legenda { position: absolute; top: var(--espaco-4); right: var(--espaco-4); grid-column: auto; }
+}

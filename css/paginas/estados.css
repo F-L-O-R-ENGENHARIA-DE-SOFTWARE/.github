@@ -1,0 +1,102 @@
+/* Arquivo: css/paginas/estados.css */
+/* Função: catálogo de estados, só para revisão visual: mostra abertos os modais e popovers que ficam escondidos. */
+/* Usado por: estados.html (body.pagina-estados). Não faz parte do produto. */
+
+/* ===== [PÁGINA] ===== */
+.pagina-estados {
+  padding: var(--espaco-6);
+}
+
+.pagina-estados > h1 {
+  font-size: var(--tamanho-pagina);
+}
+
+.pagina-estados > p {
+  margin-top: var(--espaco-2);
+  color: var(--cor-texto-suave);
+}
+
+/* Só os títulos de grupo (filhos diretos); os h2 dos modais e popovers ficam como no produto. */
+.pagina-estados > h2 {
+  margin: var(--espaco-6) 0 var(--espaco-4);
+  padding-bottom: var(--espaco-2);
+  border-bottom: var(--largura-borda) solid var(--cor-borda);
+  font-size: var(--tamanho-cartao);
+}
+
+/* ===== [AMOSTRAS] ===== */
+.amostras {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(22rem, 100%), 1fr));
+  gap: var(--espaco-5);
+  align-items: start;
+}
+
+.amostra {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-3);
+  min-width: 0;
+  padding: var(--espaco-4);
+  border: var(--largura-borda) dashed var(--cor-texto-suave);
+  border-radius: var(--raio-grande);
+}
+
+.amostra--larga {
+  grid-column: 1 / -1;
+}
+
+/* Amostras de acesso: fundo do cartão e recuo à direita para o ícone de alerta que fica fora do campo. */
+.amostra--acesso {
+  padding-right: var(--espaco-7);
+  background: var(--cor-cartao-acesso);
+}
+
+.amostra__legenda {
+  font-size: var(--tamanho-rotulo);
+  font-weight: var(--peso-medio);
+  color: var(--cor-texto-medio);
+}
+
+.amostra__conjunto {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espaco-3);
+}
+
+/* ===== [JANELAS ABERTAS] ===== */
+/* Fora de posição fixa ou absoluta, aparecem no fluxo da página. Os dialog levam o atributo open (não modal). */
+.pagina-estados .modal,
+.pagina-estados .popover {
+  position: static;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+}
+
+.pagina-estados .popover--calendario {
+  width: max-content;
+}
+
+/* Listas de opções ficam fechadas no catálogo (hidden); só a amostra "Lista suspensa aberta" aparece aberta. */
+.pagina-estados .popover--lista {
+  position: absolute;
+  width: max-content;
+  min-width: 100%;
+}
+
+.pagina-estados .popover--lista[hidden] {
+  display: none;
+}
+
+/* Amostra da lista aberta: a lista entra no fluxo, abaixo do botão, em vez de flutuar sobre o catálogo. */
+.pagina-estados .lista-suspensa--aberta {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--espaco-2);
+}
+
+.pagina-estados .lista-suspensa--aberta .popover--lista:not([hidden]) {
+  position: static;
+}

@@ -1,0 +1,161 @@
+/* Arquivo: css/variaveis.css */
+/* Função: reúne todas as cores, fontes, espaçamentos, raios, medidas e sombras do TEXPAND. */
+/* Usado por: todos os demais arquivos de CSS (é o primeiro item importado por principal.css). */
+
+/* [A-CONFIRMAR] As cores abaixo foram estimadas a olho a partir das telas; ajuste só neste arquivo. */
+/* Barras ajustadas para contraste mínimo de 3:1 sobre o painel. */
+
+/* ===== [CORES] ===== */
+/* Cada cor tem um nome pelo uso, não pelo tom, para trocar o tema sem mexer nos componentes. */
+:root {
+  /* Barra lateral e cabeçalho */
+  --cor-barra-lateral: #1e1e1e;
+  --cor-barra-lateral-ativo: #3a3a3a;
+  --cor-marca-icone: #d9d9d9; /* quadrado da marca na barra lateral */
+  --cor-texto-claro: #ffffff;
+  --cor-texto-claro-suave: #bdbdbd;
+  --cor-fundo-pagina: #f7f7f7;
+  --cor-cabecalho: #ffffff;
+
+  /* Texto e bordas */
+  --cor-borda: #e3e3e3;
+  --cor-texto: #1e1e1e;
+  --cor-texto-suave: #6b6b6b;
+  --cor-texto-medio: #333333; /* texto de apoio sobre superfícies cinza, onde o suave não passa no contraste AA */
+
+  /* Botões, selos e tabela */
+  --cor-botao-primario: #1e1e1e;
+  --cor-botao-hover: #3a3a3a;
+  --cor-botao-desabilitado: #c4c4c4;
+  --cor-texto-desabilitado: #f2f2f2;
+  --cor-hover-claro: #f0f0f0;
+  --cor-selo: #ececec;
+  --cor-cabecalho-tabela: #f4f4f4;
+  --cor-bolinha-concluido: #1e1e1e;
+  --cor-bolinha-pendente: #6b6b6b;
+  --cor-bolinha-cancelado: #7a7a7a;
+
+  /* Cartões de indicador e gráficos */
+  --cor-cartao-receitas: #d9d9d9;
+  --cor-cartao-despesas: #a6a6a6;
+  --cor-cartao-saldo: #4a4a4a;
+  --cor-painel-grafico: #c4c4c4;
+  --cor-linha-grafico: #aaaaaa;
+  --cor-barra-receitas: #424242;
+  --cor-barra-despesas: #686868;
+  --cor-rosca-servicos: #4a4a4a;
+  --cor-rosca-entrega: #7a7a7a;
+  --cor-rosca-transporte: #a8a8a8;
+  --cor-rosca-outros: #d0d0d0;
+
+  /* Janelas (modais e popovers) */
+  --cor-janela: #ffffff;
+  --cor-campo-janela: #f4f4f4;
+  --cor-placeholder-janela: #686868;
+  --cor-borda-janela: #d5d5d5;
+  --cor-botao-janela-hover: #e9e9e9;
+  --cor-dia-intervalo: #ececec;
+  --cor-dia-extremo: #dedede;
+  --cor-botao-ativo-janela: #000000; /* botão Entrada/Saída selecionado */
+  --cor-erro-janela: #333333; /* borda e ícone de erro dentro das janelas escuras */
+  --cor-fundo-modal: rgba(0, 0, 0, 0.4);
+  --cor-sombra: rgba(0, 0, 0, 0.25);
+
+  /* Telas de acesso */
+  --cor-cartao-acesso: #d9d9d9;
+  --cor-camada-foto: rgba(0, 0, 0, 0.6);
+  --cor-degrade-acesso-inicio: #1e1e1e; /* alternativa quando fundo-acesso.jpg não existe */
+  --cor-degrade-acesso-fim: #4a4a4a;
+  --cor-placeholder-acesso: #595959; /* exemplo dos campos sobre o cartão de acesso (contraste AA) */
+  --cor-erro: #1e1e1e; /* as telas não definem cor de erro; troque aqui depois */
+  --cor-foco: #1e1e1e; /* anel de foco; as áreas escuras redefinem para --cor-texto-claro */
+}
+
+/* ===== [TIPOGRAFIA] ===== */
+/* Tamanhos em rem (1rem = 16px) e pesos nomeados pelo uso. */
+:root {
+  --fonte-base: Inter, system-ui, sans-serif;
+  --tamanho-pagina: 1.625rem; /* título da página, 32 px */
+  --tamanho-janela: 1.25rem; /* título de modal e marca da barra lateral, 24 px */
+  --tamanho-cartao: 1rem; /* título de cartão ou painel, 20 px */
+  --tamanho-valor: 2rem; /* valor dos cartões, 36 px */
+  --tamanho-texto: 0.875rem; /* texto corrente, 14 px */
+  --tamanho-rotulo: 0.75rem; /* rótulos, 12 px */
+  --tamanho-marca-acesso: clamp(3rem, 5vw, 6rem); /* "TEXPAND" nas telas de acesso, 96 px */
+  --tamanho-frase-acesso: clamp(1.125rem, 1.65vw, 2rem); /* frase de apoio da marca, 32 px */
+  --peso-leve: 300;
+  --peso-normal: 400;
+  --peso-medio: 500;
+  --peso-semi: 600;
+  --peso-forte: 700;
+  --peso-extra: 800;
+}
+
+/* ===== [ESPAÇAMENTOS E RAIOS] ===== */
+:root {
+  --espaco-1: 0.25rem; /* 4 px */
+  --espaco-2: 0.5rem; /* 8 px */
+  --espaco-3: 0.75rem; /* 12 px */
+  --espaco-4: 1rem; /* 16 px */
+  --espaco-5: 1.5rem; /* 24 px */
+  --espaco-6: 2rem; /* 32 px */
+  --espaco-7: 3rem; /* 48 px */
+  --raio-pequeno: 8px; /* botões e campos */
+  --raio-grande: 16px; /* cartões, painéis e janelas */
+  --raio-acesso: 32px; /* cartão das telas de acesso */
+  --raio-selo: 999px;
+}
+
+/* ===== [MEDIDAS FIXAS] ===== */
+:root {
+  --largura-barra-lateral: clamp(190px, 13vw, 250px);
+  --largura-barra-lateral-reduzida: 72px; /* até 1100 px */
+  --altura-barra-superior: 64px; /* até 700 px */
+  --altura-cabecalho: 64px;
+  --margem-conteudo: var(--espaco-5);
+  --altura-controle: 36px; /* campos, listas e botões */
+  --altura-campo-acesso: 44px; /* campos e botões das telas de acesso, 60 px */
+  --tamanho-botao-icone: 1.875rem; /* botão só de ícone, 36 px */
+  --tamanho-contato: 2.75rem; /* botão redondo de contato, 64 px */
+  --altura-grafico: clamp(9rem, 25vh, 19rem); /* área de plotagem das barras, cerca de 304 px */
+  --tamanho-rosca: clamp(8rem, 13vw, 11.25rem); /* diâmetro da rosca, 180 px */
+  --largura-barra-grafico: 1.5rem; /* cada barra, 24 px */
+  --largura-barra-grafico-estreita: 1rem; /* cada barra até 700 px, 16 px */
+  --largura-conteudo-ajuda: 56rem; /* cartão da Ajuda, cerca de 900 px */
+  --largura-tabela-minima: 45rem; /* tabela com rolagem horizontal até 700 px, 720 px */
+  --desfoque-fundo: 4px; /* fundo desfocado atrás dos modais */
+  --altura-toque: 44px; /* alvo mínimo de toque até 700 px */
+  --tamanho-icone: 1.25rem;
+  --largura-borda: 1px;
+  --largura-borda-erro: 2px;
+  --largura-foco: 2px;
+  --largura-cartao-acesso: clamp(22rem, 32vw, 36rem);
+  --largura-modal: 480px;
+  --largura-modal-confirmacao: 420px;
+  --largura-popover-filtro: 430px;
+  --largura-popover-valor: 265px;
+}
+
+/* ===== [SOMBRAS E CAMADAS] ===== */
+:root {
+  --sombra-janela: 0 12px 32px var(--cor-sombra);
+  --camada-popover: 20;
+  --camada-barra: 30;
+}
+
+/* Cores semânticas para superfícies e ações em ambos os temas. */
+:root {
+  color-scheme: light;
+  --esquema-cor: light;
+  --cor-texto-janela: #242424;
+  --cor-texto-janela-suave: #626262;
+  --cor-acao-janela: #242424;
+  --cor-texto-acao-janela: #ffffff;
+  --cor-texto-selecao: #242424;
+  --cor-texto-botao-primario: #ffffff;
+  --cor-cartao-icone-saldo: #626262;
+  --cor-borda-acesso: #686868;
+  --cor-texto-foto: #ffffff;
+  --cor-controle-tema: rgba(255, 255, 255, 0.92);
+  --cor-texto-controle-tema: #242424;
+}

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<!--
+  Arquivo: configuracoes.html
+  Função: Configurações: conta, senha, tema e avisos.
+  Usado por: Aberta pelo menu lateral; usa css/paginas/configuracoes.css e css/componentes/cartao-pagina.css.
+-->
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Configurações · TEXPAND</title>
+    <script src="js/tema.js"></script>
+    <!-- Fonte Inter pelo Google Fonts: única dependência externa do projeto. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap">
+    <link rel="stylesheet" href="css/principal.css">
+  </head>
+  <body class="pagina-sistema pagina-configuracoes">
+    <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+    <!-- ===== [SPRITE DE ÍCONES] =====
+         Cópia de assets/icones/icones.svg embutida na página: os <use href="#icone-nome"> funcionam em qualquer servidor e até abrindo o arquivo direto.
+         Para mudar ou criar um ícone, edite o <symbol> em assets/icones/icones.svg e copie-o para este bloco em todas as páginas. -->
+    <svg class="sprite-icones" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <!-- ===== [MARCA E MENU LATERAL] ===== -->
+      <symbol id="icone-carteira" viewBox="0 0 24 24">
+        <path d="M3 8a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3z" />
+        <path d="M16 12h5v4h-5a2 2 0 0 1 0-4z" />
+      </symbol>
+      <symbol id="icone-grade" viewBox="0 0 24 24">
+        <rect x="3" y="3" width="7" height="7" rx="2" />
+        <rect x="14" y="3" width="7" height="7" rx="2" />
+        <rect x="3" y="14" width="7" height="7" rx="2" />
+        <rect x="14" y="14" width="7" height="7" rx="2" />
+      </symbol>
+      <symbol id="icone-setas-opostas" viewBox="0 0 24 24">
+        <path d="M4 8h16M16 4l4 4-4 4M20 16H4M8 12l-4 4 4 4" />
+      </symbol>
+      <symbol id="icone-engrenagem" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="3" />
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+      </symbol>
+      <symbol id="icone-sino" viewBox="0 0 24 24">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0" />
+      </symbol>
+      <symbol id="icone-pessoa" viewBox="0 0 24 24">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+        <circle cx="12" cy="7" r="4" />
+      </symbol>
+      <symbol id="icone-pessoa-troca" viewBox="0 0 24 24">
+        <circle cx="9" cy="7" r="4" />
+        <path d="M2 21v-2a4 4 0 0 1 4-4h4" />
+        <path d="M15 12h7M19 9l3 3-3 3M22 19h-7M18 16l-3 3 3 3" />
+      </symbol>
+      <symbol id="icone-ajuda" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" />
+        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01" />
+      </symbol>
+
+      <!-- ===== [AÇÕES E FILTROS] ===== -->
+      <symbol id="icone-funil" viewBox="0 0 24 24">
+        <path d="M3 6h18M6 12h12M10 18h4" />
+      </symbol>
+      <symbol id="icone-calendario" viewBox="0 0 24 24">
+        <rect x="3" y="4" width="18" height="18" rx="2" />
+        <path d="M16 2v4M8 2v4M3 10h18" />
+      </symbol>
+      <symbol id="icone-download" viewBox="0 0 24 24">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+      </symbol>
+      <symbol id="icone-envio" viewBox="0 0 24 24">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" />
+      </symbol>
+      <symbol id="icone-mais" viewBox="0 0 24 24">
+        <path d="M12 5v14M5 12h14" />
+      </symbol>
+      <symbol id="icone-lupa" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="8" />
+        <path d="M21 21l-4.35-4.35" />
+      </symbol>
+      <symbol id="icone-cifrao" viewBox="0 0 24 24">
+        <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+      </symbol>
+
+      <!-- ===== [SETAS] ===== -->
+      <symbol id="icone-seta-cima" viewBox="0 0 24 24">
+        <path d="M12 19V5M5 12l7-7 7 7" />
+      </symbol>
+      <symbol id="icone-seta-baixo" viewBox="0 0 24 24">
+        <path d="M12 5v14M19 12l-7 7-7-7" />
+      </symbol>
+      <symbol id="icone-seta-direita" viewBox="0 0 24 24">
+        <path d="M5 12h14M12 5l7 7-7 7" />
+      </symbol>
+      <symbol id="icone-seta-esquerda" viewBox="0 0 24 24">
+        <path d="M19 12H5M12 19l-7-7 7-7" />
+      </symbol>
+      <symbol id="icone-seta-baixo-pequena" viewBox="0 0 24 24">
+        <path d="M6 9l6 6 6-6" />
+      </symbol>
+
+      <!-- ===== [CAMPOS E FORMULÁRIOS] ===== -->
+      <symbol id="icone-cadeado" viewBox="0 0 24 24">
+        <rect x="3" y="11" width="18" height="11" rx="2" />
+        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+      </symbol>
+      <symbol id="icone-olho" viewBox="0 0 24 24">
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+        <circle cx="12" cy="12" r="3" />
+      </symbol>
+      <symbol id="icone-olho-fechado" viewBox="0 0 24 24">
+        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24M1 1l22 22" />
+      </symbol>
+      <symbol id="icone-fechar" viewBox="0 0 24 24">
+        <path d="M18 6L6 18M6 6l12 12" />
+      </symbol>
+      <!-- Alerta é preenchido: círculo cheio com o "!" vazado (fill-rule evenodd), então não usa traço. -->
+      <symbol id="icone-alerta" viewBox="0 0 24 24">
+        <path fill="currentColor" stroke="none" fill-rule="evenodd" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM11 6.5h2v7h-2zM12 15.3a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4z" />
+      </symbol>
+
+      <!-- ===== [TABELA E OUTROS] ===== -->
+      <symbol id="icone-lapis" viewBox="0 0 24 24">
+        <path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+      </symbol>
+      <symbol id="icone-lixeira" viewBox="0 0 24 24">
+        <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6" />
+      </symbol>
+      <symbol id="icone-balao" viewBox="0 0 24 24">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+      </symbol>
+      <symbol id="icone-menu" viewBox="0 0 24 24">
+        <path d="M3 12h18M3 6h18M3 18h18" />
+      </symbol>
+    </svg>
+    <!-- ===== [BARRA LATERAL] =====
+         Menu principal. Aparece em todas as páginas do sistema; até 700 px vira barra superior. Quem integra: ninguém (links estáticos). -->
+    <aside class="barra-lateral" id="js-barra-lateral">
+      <a class="barra-lateral__marca" href="visao-geral.html">
+        <span class="barra-lateral__marca-icone">
+          <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-carteira"></use></svg>
+        </span>
+        <span class="barra-lateral__texto">TEXPAND</span>
+      </a>
+      <p class="barra-lateral__rotulo">Controle financeiro</p>
+      <nav class="barra-lateral__navegacao" aria-label="Principal">
+        <ul class="barra-lateral__lista">
+          <li>
+            <a class="barra-lateral__item" href="visao-geral.html">
+              <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-grade"></use></svg>
+              <span class="barra-lateral__texto">Visão geral</span>
+            </a>
+          </li>
+          <li>
+            <a class="barra-lateral__item" href="movimentacoes.html">
+              <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-setas-opostas"></use></svg>
+              <span class="barra-lateral__texto">Movimentações</span>
+            </a>
+          </li>
+        </ul>
+        <hr class="barra-lateral__separador">
+        <ul class="barra-lateral__lista barra-lateral__grupo-inferior">
+          <li>
+            <a class="barra-lateral__item barra-lateral__item--ativo" href="configuracoes.html" aria-current="page">
+              <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-engrenagem"></use></svg>
+              <span class="barra-lateral__texto">Configurações</span>
+            </a>
+          </li>
+          <li>
+            <a class="barra-lateral__item" href="notificacoes.html">
+              <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-sino"></use></svg>
+              <span class="barra-lateral__texto">Notificações</span>
+            </a>
+          </li>
+          <li>
+            <a class="barra-lateral__item" href="login.html">
+              <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-pessoa-troca"></use></svg>
+              <span class="barra-lateral__texto">Sair</span>
+            </a>
+          </li>
+          <li>
+            <a class="barra-lateral__item" href="ajuda.html">
+              <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-ajuda"></use></svg>
+              <span class="barra-lateral__texto">Precisa de ajuda?</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <p class="barra-lateral__rodape">
+        <strong>Organize hoje.</strong>
+        Cresça com tranquilidade.
+      </p>
+    </aside>
+
+    <!-- ===== [CABEÇALHO] =====
+         Título da página e selo de atualização. Aparece em todas as páginas do sistema. Quem integra: equipe de JS (selo). -->
+    <header class="cabecalho-pagina">
+      <button class="botao-menu" type="button" data-js="alternar-menu" data-alvo="js-barra-lateral" aria-expanded="false" aria-controls="js-barra-lateral" aria-label="Abrir menu">
+        <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-menu"></use></svg>
+      </button>
+      <h1 class="cabecalho-pagina__titulo">Configurações</h1>
+      <!-- [INTEGRAÇÃO-JS] Texto e estado do selo de atualização (RF12): Tudo atualizado, Atualizando, Falha. -->
+      <button class="alternar-tema" type="button" data-js="alternar-tema" aria-label="Ativar modo escuro" aria-pressed="false">Modo escuro</button>
+      <p class="selo-atualizacao" data-js="selo-atualizacao" role="status" hidden></p>
+    </header>
+
+    <!-- ===== [CONTEÚDO DA PÁGINA] =====
+         Dados da conta, troca de senha, tema e avisos. Página simples, sem regra de negócio. Quem integra: equipe de JS e de banco. -->
+    <main class="conteudo-pagina" id="conteudo" tabindex="-1">
+      <div class="cartao-pagina">
+        <!-- ===== [CONTA] =====
+             [INTEGRAÇÃO-BD] Preencher os campos com os dados da conta e salvar as alterações. Os valores abaixo são só de exemplo. -->
+        <section class="cartao-pagina__secao" aria-labelledby="titulo-conta">
+          <h2 class="cartao-pagina__titulo" id="titulo-conta">Conta</h2>
+          <p class="cartao-pagina__descricao">Dados usados para entrar no TEXPAND.</p>
+          <form class="formulario-configuracao" data-js="formulario-conta" action="#" novalidate>
+            <div class="campo">
+              <label class="campo__rotulo" for="js-conta-nome">Nome</label>
+              <input class="campo__entrada" id="js-conta-nome" name="nome" type="text" value="Maria Souza" autocomplete="name" required>
+            </div>
+            <div class="campo">
+              <label class="campo__rotulo" for="js-conta-usuario">Usuário</label>
+              <input class="campo__entrada" id="js-conta-usuario" name="usuario" type="text" value="maria.souza" autocomplete="username" required>
+            </div>
+            <div class="campo formulario-configuracao__largo">
+              <label class="campo__rotulo" for="js-conta-email">E-mail</label>
+              <input class="campo__entrada" id="js-conta-email" name="email" type="email" value="maria@exemplo.com" autocomplete="email" required>
+            </div>
+            <div class="formulario-configuracao__acoes">
+              <button class="botao botao--primario" type="submit">Salvar alterações</button>
+            </div>
+          </form>
+        </section>
+        <!-- ===== [SENHA] =====
+             [INTEGRAÇÃO-JS] Validar a senha atual e a confirmação da nova senha. -->
+        <section class="cartao-pagina__secao" aria-labelledby="titulo-senha">
+          <h2 class="cartao-pagina__titulo" id="titulo-senha">Senha</h2>
+          <p class="cartao-pagina__descricao">Troque a senha de acesso quando quiser.</p>
+          <form class="formulario-configuracao" data-js="formulario-senha" action="#" novalidate>
+            <div class="campo formulario-configuracao__largo">
+              <label class="campo__rotulo" for="js-senha-atual">Senha atual</label>
+              <input class="campo__entrada" id="js-senha-atual" name="senha_atual" type="password" autocomplete="current-password" required>
+            </div>
+            <div class="campo">
+              <label class="campo__rotulo" for="js-senha-nova">Nova senha</label>
+              <input class="campo__entrada" id="js-senha-nova" name="senha_nova" type="password" autocomplete="new-password" required>
+            </div>
+            <div class="campo">
+              <label class="campo__rotulo" for="js-senha-confirmacao">Confirmar nova senha</label>
+              <input class="campo__entrada" id="js-senha-confirmacao" name="senha_confirmacao" type="password" autocomplete="new-password" required>
+            </div>
+            <div class="formulario-configuracao__acoes">
+              <button class="botao botao--primario" type="submit">Alterar senha</button>
+            </div>
+          </form>
+        </section>
+        <!-- ===== [APARÊNCIA] =====
+             [A-CONFIRMAR] Tema escuro é uma proposta visual complementar; não há especificação detalhada nas referências. [INTEGRAÇÃO-JS] Aplicar e guardar o tema escolhido. -->
+        <section class="cartao-pagina__secao" aria-labelledby="titulo-aparencia">
+          <h2 class="cartao-pagina__titulo" id="titulo-aparencia">Aparência</h2>
+          <p class="cartao-pagina__descricao">Escolha o tema para todas as telas do TEXPAND.</p>
+          <fieldset class="escolha-tema" data-js="escolha-tema">
+            <legend class="texto-oculto">Tema</legend>
+            <label class="escolha-tema__opcao">
+              <input class="escolha-tema__entrada" type="radio" name="tema" value="claro" checked>
+              <span class="escolha-tema__texto">Claro</span>
+            </label>
+            <label class="escolha-tema__opcao">
+              <input class="escolha-tema__entrada" type="radio" name="tema" value="escuro">
+              <span class="escolha-tema__texto">Escuro</span>
+            </label>
+          </fieldset>
+        </section>
+        <!-- ===== [AVISOS] =====
+             [A-CONFIRMAR] Textos sugeridos. [INTEGRAÇÃO-JS] Guardar a escolha; os avisos aparecem na página Notificações. -->
+        <section class="cartao-pagina__secao" aria-labelledby="titulo-avisos">
+          <h2 class="cartao-pagina__titulo" id="titulo-avisos">Avisos</h2>
+          <p class="cartao-pagina__descricao">Escolha sobre o que você quer ser avisada.</p>
+          <div class="linha-aviso">
+            <label for="js-aviso-pendentes">
+              <span class="linha-aviso__titulo">Movimentações pendentes</span>
+              <span class="linha-aviso__descricao">Avisar sobre movimentações com status Pendente.</span>
+            </label>
+            <input class="interruptor" id="js-aviso-pendentes" name="aviso_pendentes" type="checkbox" role="switch" checked>
+          </div>
+          <div class="linha-aviso">
+            <label for="js-aviso-arquivos">
+              <span class="linha-aviso__titulo">Importação e exportação</span>
+              <span class="linha-aviso__descricao">Avisar quando uma importação ou exportação terminar.</span>
+            </label>
+            <input class="interruptor" id="js-aviso-arquivos" name="aviso_arquivos" type="checkbox" role="switch" checked>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- ===== [SCRIPT DE ESTADOS] =====
+         Scripts de apresentação e estados visuais; processamento real permanece para integração. -->
+    <script src="js/estados-interface.js" defer></script>
+    <script src="js/formularios-interface.js" defer></script>
+  </body>
+</html>

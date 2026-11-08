@@ -1,0 +1,126 @@
+/* Arquivo: css/componentes/tabela.css */
+/* Função: tabela de movimentações, ordenação e paginação. */
+/* Usado por: movimentacoes.html e estados.html. */
+
+/* ===== [TABELA] ===== */
+/* O invólucro rola na horizontal em telas estreitas, sem esticar a página. */
+.tabela-rolavel {
+  overflow-x: auto;
+}
+
+.tabela__cabecalho th {
+  padding: var(--espaco-2) var(--espaco-3);
+  background: var(--cor-cabecalho-tabela);
+  font-size: var(--tamanho-texto);
+  font-weight: var(--peso-normal);
+  text-align: left;
+  color: var(--cor-texto-suave);
+}
+
+.tabela__linha th,
+.tabela__linha td {
+  padding: var(--espaco-1) var(--espaco-3);
+  border-bottom: var(--largura-borda) solid var(--cor-borda);
+  vertical-align: middle;
+}
+
+.tabela__linha th {
+  font-weight: var(--peso-normal);
+  text-align: left;
+}
+
+.tabela__linha td:nth-child(3),
+.tabela__linha td:nth-child(4) {
+  color: var(--cor-texto-suave);
+}
+
+/* Valor alinhado à direita; o sinal + ou − é só de exibição (RN03: não há valores negativos). */
+.tabela__cabecalho th:nth-child(6),
+.tabela__celula--valor {
+  text-align: right;
+}
+
+.tabela__celula--valor {
+  font-weight: var(--peso-medio);
+  white-space: nowrap;
+}
+
+.tabela__celula--acoes {
+  white-space: nowrap;
+}
+
+.tabela__celula--acoes .botao--icone + .botao--icone {
+  margin-left: var(--espaco-2);
+}
+
+/* ===== [ORDENAÇÃO] ===== */
+/* [A-CONFIRMAR] opções de ordenação. [INTEGRAÇÃO-JS] ordenar a lista. */
+.ordenacao {
+  font-size: var(--tamanho-rotulo);
+}
+
+/* ===== [PAGINAÇÃO] ===== */
+/* Resumo à esquerda e botões ao centro. */
+.paginacao {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: var(--espaco-4);
+  margin-top: var(--espaco-3);
+}
+
+.paginacao__resumo {
+  font-size: var(--tamanho-rotulo);
+  color: var(--cor-texto-suave);
+}
+
+.paginacao__lista {
+  display: flex;
+  gap: var(--espaco-2);
+  list-style: none;
+}
+
+.paginacao__botao {
+  display: grid;
+  place-items: center;
+  width: var(--tamanho-botao-icone);
+  height: var(--tamanho-botao-icone);
+  border: var(--largura-borda) solid var(--cor-borda);
+  border-radius: var(--raio-pequeno);
+  background: var(--cor-cabecalho);
+  color: var(--cor-texto);
+}
+
+.paginacao__botao:hover {
+  background: var(--cor-hover-claro);
+}
+
+.paginacao__botao:disabled {
+  background: transparent;
+  color: var(--cor-texto-suave);
+}
+
+.paginacao__botao--ativo {
+  background: var(--cor-selo);
+  font-weight: var(--peso-semi);
+}
+
+/* ===== [PONTO DE QUEBRA 700 PX] ===== */
+@media (max-width: 700px) { /* 700 px */
+  .tabela {
+    min-width: var(--largura-tabela-minima); /* 720 px: a rolagem fica no invólucro */
+  }
+
+  /* O resumo fica acima dos botões. */
+  .paginacao {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+  }
+
+  .paginacao__botao {
+    width: var(--altura-toque);
+    height: var(--altura-toque);
+  }
+}
+
+@media (min-width: 701px) { .tabela__celula--acoes .botao--icone { width: 1.75rem; min-height: 1.75rem; height: 1.75rem; } }

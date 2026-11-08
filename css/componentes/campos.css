@@ -1,0 +1,152 @@
+/* Arquivo: css/componentes/campos.css */
+/* Função: campo de formulário (rótulo, entrada, ícone), campo de janela escura e lista suspensa. */
+/* Usado por: filtros, modais, popovers e telas de acesso; variantes de acesso ficam em campos-acesso.css. */
+
+/* ===== [CAMPO] ===== */
+.campo {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-2);
+  min-width: 0;
+}
+
+.campo__rotulo {
+  font-weight: var(--peso-medio);
+  color: var(--cor-texto-suave);
+}
+
+/* Caixa que agrupa o ícone e a entrada; o ícone fica sobre a entrada, à esquerda. */
+.campo__caixa {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.campo__entrada {
+  width: 100%;
+  height: var(--altura-controle);
+  padding: 0 var(--espaco-3);
+  border: var(--largura-borda) solid var(--cor-borda);
+  border-radius: var(--raio-pequeno);
+  background: var(--cor-cabecalho);
+}
+
+.campo__entrada::placeholder {
+  color: var(--cor-texto-suave);
+}
+
+.campo__icone {
+  position: absolute;
+  left: var(--espaco-3);
+  pointer-events: none;
+}
+
+.campo__icone + .campo__entrada {
+  padding-left: calc(var(--espaco-3) + var(--tamanho-icone) + var(--espaco-2));
+}
+
+/* ===== [CAMPO DE JANELA ESCURA] ===== */
+.campo--janela .campo__rotulo {
+  font-size: var(--tamanho-rotulo);
+  color: var(--cor-texto-janela-suave);
+}
+
+.campo--janela .campo__entrada {
+  color-scheme: var(--esquema-cor); /* calendário e setas nativos em tom claro */
+  background: var(--cor-campo-janela);
+  border-color: var(--cor-borda-janela);
+  color: var(--cor-texto-janela);
+}
+
+.campo--janela .campo__entrada::placeholder {
+  color: var(--cor-placeholder-janela);
+}
+
+/* ===== [LISTA SUSPENSA] ===== */
+/* Serve para <select> nativo (__selecao) e para botões que abrem popovers ou listas de opções (__botao). */
+.lista-suspensa {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.lista-suspensa__selecao,
+.lista-suspensa__botao {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-2);
+  width: 100%;
+  height: var(--altura-controle);
+  padding: 0 var(--espaco-3);
+  border: var(--largura-borda) solid var(--cor-borda);
+  border-radius: var(--raio-pequeno);
+  background: var(--cor-cabecalho);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.lista-suspensa__selecao {
+  appearance: none;
+  padding-right: calc(var(--espaco-3) * 2 + var(--tamanho-icone));
+}
+
+.lista-suspensa__botao .lista-suspensa__seta {
+  position: static;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+/* Em colunas estreitas o resumo (valor ou período) termina em reticências em vez de vazar. */
+.lista-suspensa__botao span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lista-suspensa__seta {
+  position: absolute;
+  right: var(--espaco-3);
+  width: 1rem;
+  height: 1rem;
+  pointer-events: none;
+}
+
+.lista-suspensa__selecao:hover,
+.lista-suspensa__botao:hover {
+  background: var(--cor-hover-claro);
+}
+
+/* Sem borda: usada na ordenação da tabela. */
+.lista-suspensa--discreta .lista-suspensa__selecao {
+  height: auto;
+  border-color: transparent;
+  background: transparent;
+  color: var(--cor-texto-suave);
+}
+
+.lista-suspensa--discreta .lista-suspensa__seta {
+  right: 0;
+}
+
+/* Dentro de janelas escuras: fundo preto e texto em negrito, como nas telas. */
+.campo--janela .lista-suspensa {
+  max-width: 16rem;
+}
+
+.campo--janela .lista-suspensa__selecao,
+.campo--janela .lista-suspensa__botao {
+  background: var(--cor-campo-janela);
+  border-color: var(--cor-borda-janela);
+  color: var(--cor-texto-janela);
+  font-weight: var(--peso-semi);
+}
+
+.campo--janela .lista-suspensa__selecao:hover,
+.campo--janela .lista-suspensa__botao:hover {
+  background: var(--cor-campo-janela);
+}
+
+.campo--janela .lista-suspensa__seta {
+  color: var(--cor-texto-janela);
+}

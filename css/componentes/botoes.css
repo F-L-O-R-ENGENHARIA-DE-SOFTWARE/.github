@@ -1,0 +1,114 @@
+/* Arquivo: css/componentes/botoes.css */
+/* Função: botões primário, secundário, só de ícone e largo, com estados de foco e desabilitado. */
+/* Usado por: todas as páginas; dentro de modais e popovers os botões assumem as cores da janela escura. */
+
+/* ===== [BOTÕES] ===== */
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--espaco-2);
+  min-height: var(--altura-controle);
+  padding: 0 var(--espaco-4);
+  border: var(--largura-borda) solid transparent;
+  border-radius: var(--raio-pequeno);
+  font-weight: var(--peso-medio);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.botao--primario {
+  background: var(--cor-botao-primario);
+  color: var(--cor-texto-botao-primario);
+}
+
+.botao--primario:hover {
+  background: var(--cor-botao-hover);
+}
+
+.botao--secundario {
+  background: var(--cor-cabecalho);
+  border-color: var(--cor-borda);
+  color: var(--cor-texto);
+}
+
+.botao--secundario:hover {
+  background: var(--cor-hover-claro);
+}
+
+/* Só ícone: editar, excluir e fechar. O texto vem do aria-label. */
+.botao--icone {
+  width: var(--tamanho-botao-icone);
+  min-height: var(--tamanho-botao-icone);
+  height: var(--tamanho-botao-icone);
+  padding: 0;
+  background: var(--cor-cabecalho);
+  border-color: var(--cor-borda);
+  color: var(--cor-texto);
+}
+
+.botao--icone:hover {
+  background: var(--cor-hover-claro);
+}
+
+/* Largo: ocupa a linha inteira; o ícone final fica encostado à direita (setas das telas de acesso). */
+.botao--largo {
+  position: relative;
+  width: 100%;
+  min-height: var(--altura-campo-acesso);
+}
+
+.botao--largo > .icone:last-child {
+  position: absolute;
+  right: var(--espaco-5);
+}
+
+/* Hambúrguer da barra superior: escondido em telas largas. Divisão de barra-lateral.css por assunto. */
+.botao-menu {
+  display: none;
+  place-items: center;
+  width: var(--altura-toque);
+  height: var(--altura-toque);
+  border-radius: var(--raio-pequeno);
+}
+
+/* ===== [BOTÕES DENTRO DE JANELAS] ===== */
+.modal .botao--secundario, .popover .botao--secundario {
+  background: var(--cor-campo-janela); border-color: var(--cor-borda-janela); color: var(--cor-texto-janela);
+}
+.modal .botao--primario, .popover .botao--primario {
+  background: var(--cor-acao-janela); color: var(--cor-texto-acao-janela);
+}
+.modal .botao--icone { background: transparent; border-color: transparent; color: var(--cor-texto-janela); }
+.modal .botao--secundario:hover, .popover .botao--secundario:hover, .modal .botao--icone:hover { background: var(--cor-botao-janela-hover); }
+.modal .botao--primario:hover:not([disabled]), .popover .botao--primario:hover:not([disabled]) { opacity: 0.88; }
+
+/* ===== [DESABILITADO] ===== */
+/* Fica depois dos estados de janela para vencer o fundo claro dos botões primários. */
+.botao[disabled] {
+  background: var(--cor-botao-desabilitado);
+  border-color: transparent;
+  color: var(--cor-texto-desabilitado);
+}
+
+/* ===== [PONTO DE QUEBRA 700 PX] ===== */
+@media (max-width: 700px) { /* 700 px */
+  /* O botão fica no HTML do cabeçalho, mas é desenhado sobre a barra superior fixa, à direita. */
+  .botao-menu {
+    position: fixed;
+    top: 0;
+    right: var(--espaco-2);
+    z-index: var(--camada-barra);
+    display: grid;
+    height: var(--altura-barra-superior);
+    color: var(--cor-texto-claro);
+  }
+
+  /* Alvo de toque mínimo de 44 px. */
+  .botao--icone {
+    width: var(--altura-toque);
+    min-height: var(--altura-toque);
+    height: var(--altura-toque);
+  }
+}

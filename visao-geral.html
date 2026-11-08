@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<!--
+  Arquivo: visao-geral.html
+  Função: Visão Geral (dashboard): filtro, seletor de mês, totais e gráficos do período.
+  Usado por: Aberta pelo login e pelo menu lateral; usa css/paginas/visao-geral.css.
+-->
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Visão Geral · TEXPAND</title>
+    <script src="js/tema.js"></script>
+    <!-- Fonte Inter pelo Google Fonts: única dependência externa do projeto. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap">
+    <link rel="stylesheet" href="css/principal.css">
+  </head>
+  <body class="pagina-sistema pagina-visao-geral">
+    <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+    <!-- ===== [SPRITE DE ÍCONES] =====
+         Cópia de assets/icones/icones.svg embutida na página: os <use href="#icone-nome"> funcionam em qualquer servidor e até abrindo o arquivo direto.
+         Para mudar ou criar um ícone, edite o <symbol> em assets/icones/icones.svg e copie-o para este bloco em todas as páginas. -->
+    <svg class="sprite-icones" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <!-- ===== [MARCA E MENU LATERAL] ===== -->
+      <symbol id="icone-carteira" viewBox="0 0 24 24">
+        <path d="M3 8a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3z" />
+        <path d="M16 12h5v4h-5a2 2 0 0 1 0-4z" />
+      </symbol>
+      <symbol id="icone-grade" viewBox="0 0 24 24">
+        <rect x="3" y="3" width="7" height="7" rx="2" />
+        <rect x="14" y="3" width="7" height="7" rx="2" />
+        <rect x="3" y="14" width="7" height="7" rx="2" />
+        <rect x="14" y="14" width="7" height="7" rx="2" />
+      </symbol>
+      <symbol id="icone-setas-opostas" viewBox="0 0 24 24">
+        <path d="M4 8h16M16 4l4 4-4 4M20 16H4M8 12l-4 4 4 4" />
+      </symbol>
+      <symbol id="icone-engrenagem" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="3" />
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+      </symbol>
+      <symbol id="icone-sino" viewBox="0 0 24 24">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0" />
+      </symbol>
+      <symbol id="icone-pessoa" viewBox="0 0 24 24">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+        <circle cx="12" cy="7" r="4" />
+      </symbol>
+      <symbol id="icone-pessoa-troca" viewBox="0 0 24 24">
+        <circle cx="9" cy="7" r="4" />
+        <path d="M2 21v-2a4 4 0 0 1 4-4h4" />
+        <path d="M15 12h7M19 9l3 3-3 3M22 19h-7M18 16l-3 3 3 3" />
+      </symbol>
+      <symbol id="icone-ajuda" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" />
+        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01" />
+      </symbol>
+
+      <!-- ===== [AÇÕES E FILTROS] ===== -->
+      <symbol id="icone-funil" viewBox="0 0 24 24">
+        <path d="M3 6h18M6 12h12M10 18h4" />
+      </symbol>
+      <symbol id="icone-calendario" viewBox="0 0 24 24">
+        <rect x="3" y="4" width="18" height="18" rx="2" />
+        <path d="M16 2v4M8 2v4M3 10h18" />
+      </symbol>
+      <symbol id="icone-download" viewBox="0 0 24 24">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+      </symbol>
+      <symbol id="icone-envio" viewBox="0 0 24 24">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" />
+      </symbol>
+      <symbol id="icone-mais" viewBox="0 0 24 24">
+        <path d="M12 5v14M5 12h14" />
+      </symbol>
+      <symbol id="icone-lupa" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="8" />
+        <path d="M21 21l-4.35-4.35" />
+      </symbol>
+      <symbol id="icone-cifrao" viewBox="0 0 24 24">
+        <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+      </symbol>
+
+      <!-- ===== [SETAS] ===== -->
+      <symbol id="icone-seta-cima" viewBox="0 0 24 24">
+        <path d="M12 19V5M5 12l7-7 7 7" />
+      </symbol>
+      <symbol id="icone-seta-baixo" viewBox="0 0 24 24">
+        <path d="M12 5v14M19 12l-7 7-7-7" />
+      </symbol>
+      <symbol id="icone-seta-direita" viewBox="0 0 24 24">
+        <path d="M5 12h14M12 5l7 7-7 7" />
+      </symbol>
+      <symbol id="icone-seta-esquerda" viewBox="0 0 24 24">
+        <path d="M19 12H5M12 19l-7-7 7-7" />
+      </symbol>
+      <symbol id="icone-seta-baixo-pequena" viewBox="0 0 24 24">
+        <path d="M6 9l6 6 6-6" />
+      </symbol>
+
+      <!-- ===== [CAMPOS E FORMULÁRIOS] ===== -->
+      <symbol id="icone-cadeado" viewBox="0 0 24 24">
+        <rect x="3" y="11" width="18" height="11" rx="2" />
+        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+      </symbol>
+      <symbol id="icone-olho" viewBox="0 0 24 24">
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+        <circle cx="12" cy="12" r="3" />
+      </symbol>
+      <symbol id="icone-olho-fechado" viewBox="0 0 24 24">
+        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24M1 1l22 22" />
+      </symbol>
+      <symbol id="icone-fechar" viewBox="0 0 24 24">
+        <path d="M18 6L6 18M6 6l12 12" />
+      </symbol>
+      <!-- Alerta é preenchido: círculo cheio com o "!" vazado (fill-rule evenodd), então não usa traço. -->
+      <symbol id="icone-alerta" viewBox="0 0 24 24">
+        <path fill="currentColor" stroke="none" fill-rule="evenodd" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM11 6.5h2v7h-2zM12 15.3a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4z" />
+      </symbol>
+
+      <!-- ===== [TABELA E OUTROS] ===== -->
+      <symbol id="icone-lapis" viewBox="0 0 24 24">
+        <path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+      </symbol>
+      <symbol id="icone-lixeira" viewBox="0 0 24 24">
+        <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6" />
+      </symbol>
+      <symbol id="icone-balao" viewBox="0 0 24 24">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+      </symbol>
+      <symbol id="icone-menu" viewBox="0 0 24 24">
+        <path d="M3 12h18M3 6h18M3 18h18" />
+      </symbol>
+    </svg>
+    <!-- ===== [BARRA LATERAL] =====
+         Menu principal. Aparece em todas as páginas do sistema; até 700 px vira barra superior. Quem integra: ninguém (links estáticos). -->
+    <aside class="barra-lateral" id="js-barra-lateral">
+      <a class="barra-lateral__marca" href="visao-geral.html">
+        <span class="barra-lateral__marca-icone">
+          <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-carteira"></use></svg>
+        </span>
+        <span class="barra-lateral__texto">TEXPAND</span>
+      </a>
+      <p class="barra-lateral__rotulo">Controle financeiro</p>
+      <nav class="barra-lateral__navegacao" aria-label="Principal">
+        <ul class="barra-lateral__lista">
+          <li>
+            <a class="barra-lateral__item barra-lateral__item--ativo" href="visao-geral.html" aria-current="page">
+              <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-grade"></use></svg>
+              <span class="barra-lateral__texto">Visão geral</span>
+            </a>
+          </li>
+          <li>
+            <a class="barra-lateral__item" href="movimentacoes.html">
+              <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-setas-opostas"></use></svg>
+              <span class="barra-lateral__texto">Movimentações</span>
+            </a>
+          </li>
+        </ul>
+        <hr class="barra-lateral__separador">
+        <ul class="barra-lateral__lista barra-lateral__grupo-inferior">
+          <li>
+            <a class="barra-lateral__item" href="configuracoes.html">
+              <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-engrenagem"></use></svg>
+              <span class="barra-lateral__texto">Configurações</span>
+            </a>
+          </li>
+          <li>
+            <a class="barra-lateral__item" href="notificacoes.html">
+              <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-sino"></use></svg>
+              <span class="barra-lateral__texto">Notificações</span>
+            </a>
+          </li>
+          <li>
+            <a class="barra-lateral__item" href="login.html">
+              <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-pessoa-troca"></use></svg>
+              <span class="barra-lateral__texto">Sair</span>
+            </a>
+          </li>
+          <li>
+            <a class="barra-lateral__item" href="ajuda.html">
+              <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-ajuda"></use></svg>
+              <span class="barra-lateral__texto">Precisa de ajuda?</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <p class="barra-lateral__rodape">
+        <strong>Organize hoje.</strong>
+        Cresça com tranquilidade.
+      </p>
+    </aside>
+
+    <!-- ===== [CABEÇALHO] =====
+         Título da página e selo de atualização. Aparece em todas as páginas do sistema. Quem integra: equipe de JS (selo). -->
+    <header class="cabecalho-pagina">
+      <button class="botao-menu" type="button" data-js="alternar-menu" data-alvo="js-barra-lateral" aria-expanded="false" aria-controls="js-barra-lateral" aria-label="Abrir menu">
+        <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-menu"></use></svg>
+      </button>
+      <h1 class="cabecalho-pagina__titulo">Visão Geral</h1>
+      <!-- [INTEGRAÇÃO-JS] Texto e estado do selo de atualização (RF12): Tudo atualizado, Atualizando, Falha. -->
+      <button class="alternar-tema" type="button" data-js="alternar-tema" aria-label="Ativar modo escuro" aria-pressed="false">Modo escuro</button>
+      <p class="selo-atualizacao" data-js="selo-atualizacao" role="status" hidden></p>
+    </header>
+
+    <!-- ===== [CONTEÚDO DA PÁGINA] =====
+         Ações, indicadores e gráficos da Visão Geral (UC02). Quem integra: equipe de JS e de banco. -->
+    <main class="conteudo-pagina" id="conteudo" tabindex="-1">
+      <!-- ===== [BARRA DE AÇÕES] =====
+           Filtrar, escolher o mês e exportar. Cada botão guarda o seu popover. -->
+      <div class="barra-acoes barra-acoes--dashboard">
+        <div class="barra-acoes__item">
+          <button class="botao botao--primario" type="button" data-js="alternar" data-alvo="js-popover-filtro" aria-expanded="false" aria-controls="js-popover-filtro">
+            <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-funil"></use></svg>
+            Filtrar
+          </button>
+          <!-- ===== [PAINEL DE FILTRO] =====
+               Critérios para filtrar a Visão Geral (RF06–RF11). Abre pelo botão Filtrar. Quem integra: equipe de JS (filtrar) e de banco (consulta). -->
+          <div class="popover popover--filtro" id="js-popover-filtro" hidden>
+            <form class="popover__formulario" data-js="formulario-filtro" action="#" novalidate>
+              <div class="campo campo--janela">
+                <label class="campo__rotulo" for="js-filtro-descricao">Descrição</label>
+                <input class="campo__entrada" id="js-filtro-descricao" name="descricao" type="text">
+              </div>
+              <div class="campo campo--janela">
+                <span class="campo__rotulo" id="titulo-filtro-tipo">Tipo</span>
+                <input type="hidden" name="tipo" value="todos">
+                <div class="alternador-tipo" role="group" aria-labelledby="titulo-filtro-tipo">
+                  <button type="button" data-js="tipo-lancamento" data-valor="todos" aria-pressed="true">Todos</button>
+                  <button type="button" data-js="tipo-lancamento" data-valor="entrada" aria-pressed="false">Entrada</button>
+                  <button type="button" data-js="tipo-lancamento" data-valor="saida" aria-pressed="false">Saída</button>
+                </div>
+              </div>
+              <div class="campo campo--janela">
+                <span class="campo__rotulo">Valor</span>
+                <div class="controle-valor" data-js="controle-valor">
+                  <div class="controle-valor__campos">
+                    <label class="texto-oculto" for="js-filtro-valor-minimo">Valor mínimo</label>
+                    <input class="campo__entrada" id="js-filtro-valor-minimo" name="valor_minimo" type="text" inputmode="decimal" value="R$ 0,00">
+                    <label class="texto-oculto" for="js-filtro-valor-maximo">Valor máximo</label>
+                    <input class="campo__entrada" id="js-filtro-valor-maximo" name="valor_maximo" type="text" inputmode="decimal" value="R$ 99.000,00">
+                  </div>
+                  <!-- [INTEGRAÇÃO-JS] Sincronizar os campos de texto com a faixa. As duas pontas não têm name: servem só de controle visual. -->
+                  <div class="controle-valor__faixa">
+                    <input type="range" id="js-filtro-faixa-minimo" min="0" max="99000" step="100" value="0" aria-label="Valor mínimo (faixa)">
+                    <input type="range" id="js-filtro-faixa-maximo" min="0" max="99000" step="100" value="99000" aria-label="Valor máximo (faixa)">
+                  </div>
+                </div>
+              </div>
+              <div class="campo campo--janela">
+                <span class="campo__rotulo" id="rotulo-filtro-categoria">Categoria</span>
+                <div class="lista-suspensa">
+                  <!-- [INTEGRAÇÃO-JS] O campo escondido guarda o valor escolhido e é ele que vai no formulário. -->
+                  <input type="hidden" id="js-filtro-categoria" name="categoria" value="Todas as categorias">
+                  <button class="lista-suspensa__botao" type="button" id="js-botao-filtro-categoria" data-js="alternar" data-alvo="js-popover-filtro-categoria" aria-haspopup="listbox" aria-expanded="false" aria-controls="js-popover-filtro-categoria" aria-labelledby="rotulo-filtro-categoria resumo-filtro-categoria">
+                    <span id="resumo-filtro-categoria" data-dado="resumo-filtro-categoria">Todas as categorias</span>
+                    <svg class="icone lista-suspensa__seta" aria-hidden="true" focusable="false"><use href="#icone-seta-baixo-pequena"></use></svg>
+                  </button>
+                  <div class="popover popover--lista" id="js-popover-filtro-categoria" data-js="lista-opcoes" data-campo="js-filtro-categoria" data-resumo="resumo-filtro-categoria" hidden>
+                    <ul class="lista-opcoes" role="listbox" aria-labelledby="rotulo-filtro-categoria">
+                      <li class="lista-opcoes__item lista-opcoes__item--ativo" role="option" tabindex="-1" data-valor="Todas as categorias" aria-selected="true">Todas as categorias</li>
+                      <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="Vendas" aria-selected="false">Vendas</li>
+                      <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="Serviços" aria-selected="false">Serviços</li>
+                      <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="Entrega" aria-selected="false">Entrega</li>
+                      <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="Transporte" aria-selected="false">Transporte</li>
+                      <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="Outros" aria-selected="false">Outros</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!-- [A-CONFIRMAR] Opções de tipo de pagamento e de parcelas (RF09 e RF10). -->
+              <div class="campo campo--janela">
+                <span class="campo__rotulo" id="rotulo-filtro-pagamento">Tipo de pagamento</span>
+                <div class="lista-suspensa">
+                  <!-- [INTEGRAÇÃO-JS] O campo escondido guarda o valor escolhido e é ele que vai no formulário. -->
+                  <input type="hidden" id="js-filtro-pagamento" name="tipo_pagamento" value="Todos os tipos">
+                  <button class="lista-suspensa__botao" type="button" id="js-botao-filtro-pagamento" data-js="alternar" data-alvo="js-popover-filtro-pagamento" aria-haspopup="listbox" aria-expanded="false" aria-controls="js-popover-filtro-pagamento" aria-labelledby="rotulo-filtro-pagamento resumo-filtro-pagamento">
+                    <span id="resumo-filtro-pagamento" data-dado="resumo-filtro-pagamento">Todos os tipos</span>
+                    <svg class="icone lista-suspensa__seta" aria-hidden="true" focusable="false"><use href="#icone-seta-baixo-pequena"></use></svg>
+                  </button>
+                  <div class="popover popover--lista" id="js-popover-filtro-pagamento" data-js="lista-opcoes" data-campo="js-filtro-pagamento" data-resumo="resumo-filtro-pagamento" hidden>
+                    <ul class="lista-opcoes" role="listbox" aria-labelledby="rotulo-filtro-pagamento">
+                      <li class="lista-opcoes__item lista-opcoes__item--ativo" role="option" tabindex="-1" data-valor="Todos os tipos" aria-selected="true">Todos os tipos</li>
+                      <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="Dinheiro" aria-selected="false">Dinheiro</li>
+                      <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="Pix" aria-selected="false">Pix</li>
+                      <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="Cartão de crédito" aria-selected="false">Cartão de crédito</li>
+                      <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="Cartão de débito" aria-selected="false">Cartão de débito</li>
+                      <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="Boleto" aria-selected="false">Boleto</li>
+                      <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="Transferência" aria-selected="false">Transferência</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="campo campo--janela">
+                <span class="campo__rotulo" id="rotulo-filtro-parcelas">Parcelas</span>
+                <div class="lista-suspensa">
+                  <!-- [INTEGRAÇÃO-JS] O campo escondido guarda o valor escolhido e é ele que vai no formulário. -->
+                  <input type="hidden" id="js-filtro-parcelas" name="parcelas" value="Todas">
+                  <button class="lista-suspensa__botao" type="button" id="js-botao-filtro-parcelas" data-js="alternar" data-alvo="js-popover-filtro-parcelas" aria-haspopup="listbox" aria-expanded="false" aria-controls="js-popover-filtro-parcelas" aria-labelledby="rotulo-filtro-parcelas resumo-filtro-parcelas">
+                    <span id="resumo-filtro-parcelas" data-dado="resumo-filtro-parcelas">Todas</span>
+                    <svg class="icone lista-suspensa__seta" aria-hidden="true" focusable="false"><use href="#icone-seta-baixo-pequena"></use></svg>
+                  </button>
+                  <div class="popover popover--lista" id="js-popover-filtro-parcelas" data-js="lista-opcoes" data-campo="js-filtro-parcelas" data-resumo="resumo-filtro-parcelas" hidden>
+                    <ul class="lista-opcoes" role="listbox" aria-labelledby="rotulo-filtro-parcelas">
+                      <li class="lista-opcoes__item lista-opcoes__item--ativo" role="option" tabindex="-1" data-valor="Todas" aria-selected="true">Todas</li>
+                      <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="À vista" aria-selected="false">À vista</li>
+                      <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="2x" aria-selected="false">2x</li>
+                      <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="3x" aria-selected="false">3x</li>
+                      <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="4x" aria-selected="false">4x</li>
+                      <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="5x" aria-selected="false">5x</li>
+                      <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="6x" aria-selected="false">6x</li>
+                      <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="7x" aria-selected="false">7x</li>
+                      <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="8x" aria-selected="false">8x</li>
+                      <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="9x" aria-selected="false">9x</li>
+                      <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="10x" aria-selected="false">10x</li>
+                      <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="11x" aria-selected="false">11x</li>
+                      <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="12x" aria-selected="false">12x</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!-- [INTEGRAÇÃO-JS] Aplicar os critérios aos cartões e gráficos; Limpar restaura o padrão. -->
+              <div class="popover__rodape">
+                <button class="botao botao--secundario" type="reset">Limpar</button>
+                <button class="botao botao--primario" type="submit">Aplicar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="barra-acoes__item">
+          <button class="seletor-mes" type="button" data-js="alternar" data-alvo="js-popover-mes" aria-expanded="false" aria-controls="js-popover-mes">
+            <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-calendario"></use></svg>
+            <span>Novembro de 2026</span>
+            <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-seta-baixo-pequena"></use></svg>
+          </button>
+          <!-- ===== [SELETOR DE MÊS] =====
+               Escolha de mês e ano da Visão Geral. Abre pelo seletor "Novembro de 2026". Escolher um mês aplica direto, sem rodapé. Quem integra: equipe de JS. -->
+          <div class="popover popover--mes" id="js-popover-mes" hidden>
+            <div class="grade-meses">
+              <div class="grade-meses__cabecalho">
+                <button class="calendario__navegar" type="button" aria-label="Ano anterior">
+                  <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-seta-esquerda"></use></svg>
+                </button>
+                <span>2026</span>
+                <button class="calendario__navegar" type="button" aria-label="Próximo ano">
+                  <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-seta-direita"></use></svg>
+                </button>
+              </div>
+              <ul class="grade-meses__lista">
+                <li>
+                  <button class="grade-meses__mes" type="button" data-mes="1" aria-pressed="false">Jan</button>
+                </li>
+                <li>
+                  <button class="grade-meses__mes" type="button" data-mes="2" aria-pressed="false">Fev</button>
+                </li>
+                <li>
+                  <button class="grade-meses__mes" type="button" data-mes="3" aria-pressed="false">Mar</button>
+                </li>
+                <li>
+                  <button class="grade-meses__mes" type="button" data-mes="4" aria-pressed="false">Abr</button>
+                </li>
+                <li>
+                  <button class="grade-meses__mes" type="button" data-mes="5" aria-pressed="false">Mai</button>
+                </li>
+                <li>
+                  <button class="grade-meses__mes" type="button" data-mes="6" aria-pressed="false">Jun</button>
+                </li>
+                <li>
+                  <button class="grade-meses__mes" type="button" data-mes="7" aria-pressed="false">Jul</button>
+                </li>
+                <li>
+                  <button class="grade-meses__mes" type="button" data-mes="8" aria-pressed="false">Ago</button>
+                </li>
+                <li>
+                  <button class="grade-meses__mes" type="button" data-mes="9" aria-pressed="false">Set</button>
+                </li>
+                <li>
+                  <button class="grade-meses__mes" type="button" data-mes="10" aria-pressed="false">Out</button>
+                </li>
+                <li>
+                  <button class="grade-meses__mes" type="button" data-mes="11" aria-pressed="true">Nov</button>
+                </li>
+                <li>
+                  <button class="grade-meses__mes" type="button" data-mes="12" aria-pressed="false">Dez</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="barra-acoes__item campo campo--filtro-dashboard">
+          <span class="campo__rotulo" id="rotulo-dashboard-indicador">Indicadores</span>
+          <div class="lista-suspensa">
+            <input type="hidden" id="js-dashboard-indicador" name="indicador" value="todos">
+            <button class="lista-suspensa__botao" type="button" data-js="alternar" data-alvo="js-popover-dashboard-indicador" aria-haspopup="listbox" aria-expanded="false" aria-controls="js-popover-dashboard-indicador" aria-labelledby="rotulo-dashboard-indicador resumo-dashboard-indicador">
+              <span id="resumo-dashboard-indicador">Todos</span>
+              <svg class="icone lista-suspensa__seta" aria-hidden="true" focusable="false"><use href="#icone-seta-baixo-pequena"></use></svg>
+            </button>
+            <div class="popover popover--lista" id="js-popover-dashboard-indicador" data-js="lista-opcoes" data-campo="js-dashboard-indicador" data-resumo="resumo-dashboard-indicador" hidden>
+              <ul class="lista-opcoes" role="listbox" aria-labelledby="rotulo-dashboard-indicador">
+                  <li class="lista-opcoes__item lista-opcoes__item--ativo" role="option" tabindex="-1" data-valor="todos" aria-selected="true">Todos</li>
+                  <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="renda" aria-selected="false">Renda</li>
+                  <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="gasto" aria-selected="false">Gasto</li>
+                  <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="lucro" aria-selected="false">Lucro</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="barra-acoes__item campo campo--filtro-dashboard">
+          <span class="campo__rotulo" id="rotulo-dashboard-template">Gráficos</span>
+          <div class="lista-suspensa">
+            <input type="hidden" id="js-dashboard-template" name="template" value="padrao">
+            <button class="lista-suspensa__botao" type="button" data-js="alternar" data-alvo="js-popover-dashboard-template" aria-haspopup="listbox" aria-expanded="false" aria-controls="js-popover-dashboard-template" aria-labelledby="rotulo-dashboard-template resumo-dashboard-template">
+              <span id="resumo-dashboard-template">Barras e rosca</span>
+              <svg class="icone lista-suspensa__seta" aria-hidden="true" focusable="false"><use href="#icone-seta-baixo-pequena"></use></svg>
+            </button>
+            <div class="popover popover--lista" id="js-popover-dashboard-template" data-js="lista-opcoes" data-campo="js-dashboard-template" data-resumo="resumo-dashboard-template" hidden>
+              <ul class="lista-opcoes" role="listbox" aria-labelledby="rotulo-dashboard-template">
+                  <li class="lista-opcoes__item lista-opcoes__item--ativo" role="option" tabindex="-1" data-valor="padrao" aria-selected="true">Barras e rosca</li>
+                  <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="linhas" aria-selected="false">Linhas</li>
+                  <li class="lista-opcoes__item" role="option" tabindex="-1" data-valor="pizza" aria-selected="false">Pizza</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="barra-acoes__item barra-acoes__item--fim">
+          <!-- [INTEGRAÇÃO-BD] Exportar os dados do período e dos filtros aplicados (UC03). -->
+          <button class="botao botao--primario" type="button" data-js="exportar-dados">
+            <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-download"></use></svg>
+            Exportar dados
+          </button>
+        </div>
+      </div>
+      <section class="grade-indicadores" aria-label="Indicadores do período">
+        <!-- [INTEGRAÇÃO-BD] Totais do período selecionado e variação em relação ao mês anterior (RF03, RF05 e RF12). -->
+        <article class="cartao-indicador cartao-indicador--receitas">
+          <h2 class="cartao-indicador__titulo">Receitas totais</h2>
+          <p class="cartao-indicador__valor" data-dado="receitas-total">R$ 48.500,00</p>
+          <span class="cartao-indicador__icone">
+            <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-seta-cima"></use></svg>
+          </span>
+          <p class="cartao-indicador__rodape">
+            <span class="cartao-indicador__variacao">
+              <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-seta-cima"></use></svg>
+              <span data-dado="variacao-receitas">12,8%</span>
+            </span>
+            em relação a outubro
+          </p>
+        </article>
+        <article class="cartao-indicador cartao-indicador--despesas">
+          <h2 class="cartao-indicador__titulo">Despesas totais</h2>
+          <p class="cartao-indicador__valor" data-dado="despesas-total">R$ 23.750,00</p>
+          <span class="cartao-indicador__icone">
+            <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-seta-baixo"></use></svg>
+          </span>
+          <p class="cartao-indicador__rodape">
+            <span class="cartao-indicador__variacao">
+              <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-seta-baixo"></use></svg>
+              <span data-dado="variacao-despesas">4,2%</span>
+            </span>
+            em relação a outubro
+          </p>
+        </article>
+        <article class="cartao-indicador cartao-indicador--saldo">
+          <h2 class="cartao-indicador__titulo">Saldo total</h2>
+          <p class="cartao-indicador__valor" data-dado="saldo-total">R$ 24.750,00</p>
+          <span class="cartao-indicador__icone">
+            <svg class="icone" aria-hidden="true" focusable="false"><use href="#icone-carteira"></use></svg>
+          </span>
+          <p class="cartao-indicador__rodape">
+            <span class="cartao-indicador__variacao" data-dado="situacao-saldo">Saldo positivo</span>
+            no período selecionado
+          </p>
+        </article>
+      </section>
+      <div class="grade-paineis" id="js-paineis-dashboard" data-visual="padrao">
+        <!-- ===== [PAINEL FLUXO DE CAIXA] =====
+             Barras de receitas e despesas ao longo do mês (RF06). Quem integra: equipe de JS (dados e, se quiser, biblioteca de gráficos). -->
+        <!-- [INTEGRAÇÃO-JS] Trocar os dados de exemplo: a altura de cada barra vem de --valor (em milhares), definido em css/componentes/graficos.css. Ou substituir tudo dentro de [data-grafico]. -->
+        <section class="painel-grafico" id="js-painel-fluxo" aria-labelledby="titulo-fluxo-caixa">
+          <h2 class="painel-grafico__titulo" id="titulo-fluxo-caixa">Fluxo de caixa</h2>
+          <p class="painel-grafico__subtitulo">Entradas e saídas ao longo do mês</p>
+          <div class="grafico-barras" data-grafico="fluxo-caixa" role="img" aria-label="Gráfico de barras do fluxo de caixa de novembro de 2026 por período. Receitas, em milhares de reais: 6,5; 8; 7,5; 9,5; 9 e 8. Despesas: 2,85; 3,6; 4,2; 3,8; 4,9 e 4,4. Períodos: 01–05, 06–10, 11–15, 16–20, 21–25 e 26–30.">
+            <ul class="grafico-barras__legenda">
+              <li>Receitas</li>
+              <li>Despesas</li>
+            </ul>
+            <div class="grafico-barras__eixo" aria-hidden="true">
+              <span>10 mil</span>
+              <span>7,5 mil</span>
+              <span>5 mil</span>
+              <span>2,5 mil</span>
+              <span>0</span>
+            </div>
+            <div class="grafico-barras__area">
+              <div class="grafico-barras__grupo">
+                <span class="grafico-barras__barra grafico-barras__barra--receitas"></span>
+                <span class="grafico-barras__barra grafico-barras__barra--despesas"></span>
+                <span class="grafico-barras__rotulo">01–05</span>
+              </div>
+              <div class="grafico-barras__grupo">
+                <span class="grafico-barras__barra grafico-barras__barra--receitas"></span>
+                <span class="grafico-barras__barra grafico-barras__barra--despesas"></span>
+                <span class="grafico-barras__rotulo">06–10</span>
+              </div>
+              <div class="grafico-barras__grupo">
+                <span class="grafico-barras__barra grafico-barras__barra--receitas"></span>
+                <span class="grafico-barras__barra grafico-barras__barra--despesas"></span>
+                <span class="grafico-barras__rotulo">11–15</span>
+              </div>
+              <div class="grafico-barras__grupo">
+                <span class="grafico-barras__barra grafico-barras__barra--receitas"></span>
+                <span class="grafico-barras__barra grafico-barras__barra--despesas"></span>
+                <span class="grafico-barras__rotulo">16–20</span>
+              </div>
+              <div class="grafico-barras__grupo">
+                <span class="grafico-barras__barra grafico-barras__barra--receitas"></span>
+                <span class="grafico-barras__barra grafico-barras__barra--despesas"></span>
+                <span class="grafico-barras__rotulo">21–25</span>
+              </div>
+              <div class="grafico-barras__grupo">
+                <span class="grafico-barras__barra grafico-barras__barra--receitas"></span>
+                <span class="grafico-barras__barra grafico-barras__barra--despesas"></span>
+                <span class="grafico-barras__rotulo">26–30</span>
+              </div>
+            </div>
+          </div>
+          <figure class="grafico-linhas" id="js-grafico-linhas" hidden>
+            <svg viewBox="0 0 600 320" role="img" aria-labelledby="titulo-linhas descricao-linhas">
+              <title id="titulo-linhas">Fluxo de caixa por período — novembro de 2026</title>
+              <desc id="descricao-linhas">Entradas e saídas concluídas em seis períodos. Entradas: 6.500; 8.000; 7.500; 9.500; 9.000; 8.000 reais. Saídas: 2.850; 3.600; 4.200; 3.800; 4.900; 4.400 reais. Os valores também estão na tabela abaixo dos gráficos.</desc>
+              <g class="grafico-linhas__grade"><path d="M60 40H560 M60 100H560 M60 160H560 M60 220H560 M60 280H560"/></g>
+              <g class="grafico-linhas__texto"><text x="4" y="44">10 mil</text><text x="4" y="104">7,5 mil</text><text x="4" y="164">5 mil</text><text x="4" y="224">2,5 mil</text><text x="4" y="284">0</text></g>
+              <polyline class="grafico-linhas__receitas" points="70,124 164,88 258,100 352,52 446,64 540,88"/>
+              <polyline class="grafico-linhas__despesas" points="70,211.6 164,193.6 258,179.2 352,188.8 446,162.4 540,174.4"/>
+              <g class="grafico-linhas__texto grafico-linhas__rotulos"><text x="70" y="308">01–05</text><text x="164" y="308">06–10</text><text x="258" y="308">11–15</text><text x="352" y="308">16–20</text><text x="446" y="308">21–25</text><text x="540" y="308">26–30</text></g>
+            </svg>
+            <figcaption>Valores em reais · linha contínua: entradas · linha tracejada: saídas.</figcaption>
+          </figure>
+          <div class="estado-vazio" data-dado="mensagem-vazia" role="status" hidden>
+            <p class="estado-vazio__titulo">Sem dados financeiros</p>
+          </div>
+        </section>
+        <!-- ===== [PAINEL DESPESAS POR CATEGORIA] =====
+             Rosca com a distribuição das saídas por categoria (RF06). Quem integra: equipe de JS. -->
+        <!-- [INTEGRAÇÃO-JS] Trocar as porcentagens (--p-servicos, --p-entrega, --p-transporte, --p-outros em css/componentes/graficos.css), a legenda e o total. -->
+        <section class="painel-grafico" id="js-painel-categorias" aria-labelledby="titulo-despesas-categoria">
+          <h2 class="painel-grafico__titulo" id="titulo-despesas-categoria">Despesas por categoria</h2>
+          <p class="painel-grafico__subtitulo">Como os recursos foram distribuídos</p>
+          <div class="grafico-rosca" data-grafico="despesas-categoria">
+            <div class="grafico-rosca__anel" role="img" aria-label="Gráfico de rosca das saídas por categoria: Serviços 40%, Entrega 30%, Transporte 20% e Outros 10%. Total de saídas: R$ 23.750.">
+              <div class="grafico-rosca__centro">
+                <span>Total de saídas</span>
+                <strong>R$ 23.750</strong>
+              </div>
+            </div>
+            <ul class="legenda-rosca">
+              <li class="legenda-rosca__item legenda-rosca__item--servicos">Serviços <strong>40%</strong></li>
+              <li class="legenda-rosca__item legenda-rosca__item--entrega">Entrega <strong>30%</strong></li>
+              <li class="legenda-rosca__item legenda-rosca__item--transporte">Transporte <strong>20%</strong></li>
+              <li class="legenda-rosca__item legenda-rosca__item--outros">Outros <strong>10%</strong></li>
+            </ul>
+          </div>
+          <p class="total-pizza" id="js-total-pizza" hidden>Total de saídas: <strong>R$ 23.750,00</strong></p>
+          <div class="estado-vazio" data-dado="mensagem-vazia" role="status" hidden>
+            <p class="estado-vazio__titulo">Sem dados financeiros</p>
+          </div>
+        </section>
+      </div>
+      <details class="dados-grafico">
+        <summary>Consultar os dados dos gráficos em tabela</summary>
+        <div class="tabela-rolavel" role="region" aria-label="Dados do fluxo de caixa" tabindex="0">
+          <table class="tabela">
+            <caption>Movimentações concluídas · novembro de 2026 · valores em reais</caption>
+            <thead><tr><th scope="col">Período</th><th scope="col">Entradas</th><th scope="col">Saídas</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">01–05</th><td>6.500,00</td><td>2.850,00</td></tr>
+              <tr><th scope="row">06–10</th><td>8.000,00</td><td>3.600,00</td></tr>
+              <tr><th scope="row">11–15</th><td>7.500,00</td><td>4.200,00</td></tr>
+              <tr><th scope="row">16–20</th><td>9.500,00</td><td>3.800,00</td></tr>
+              <tr><th scope="row">21–25</th><td>9.000,00</td><td>4.900,00</td></tr>
+              <tr><th scope="row">26–30</th><td>8.000,00</td><td>4.400,00</td></tr>
+            </tbody>
+            <tfoot><tr><th scope="row">Total</th><td>48.500,00</td><td>23.750,00</td></tr></tfoot>
+          </table>
+        </div>
+        <p>Despesas por categoria: Serviços R$ 9.500,00 (40%); Entrega R$ 7.125,00 (30%); Transporte R$ 4.750,00 (20%); Outros R$ 2.375,00 (10%).</p>
+      </details>
+    </main>
+
+    <!-- ===== [SCRIPT DE ESTADOS] =====
+         Scripts de apresentação e estados visuais; processamento real permanece para integração. -->
+    <script src="js/estados-interface.js" defer></script>
+    <script src="js/formularios-interface.js" defer></script>
+    <script src="js/lista-opcoes.js" defer></script>
+    <script src="js/periodos-interface.js" defer></script>
+    <script src="js/dashboard-interface.js" defer></script>
+  </body>
+</html>

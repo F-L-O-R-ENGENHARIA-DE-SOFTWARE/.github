@@ -1,0 +1,43 @@
+/* Arquivo: css/componentes/cartao-pagina.css */
+/* Função: cartão branco com seções, usado nas páginas simples de Configurações e Notificações. */
+/* Usado por: configuracoes.html e notificacoes.html. A Ajuda tem o seu próprio cartão em paginas/ajuda.css. */
+
+/* ===== [CARTÃO] ===== */
+.cartao-pagina {
+  max-width: var(--largura-conteudo-ajuda);
+  padding: var(--espaco-6);
+  border: var(--largura-borda) solid var(--cor-borda);
+  border-radius: var(--raio-grande);
+  background: var(--cor-cabecalho);
+}
+
+/* Seções empilhadas: uma linha fina separa cada uma da anterior. */
+.cartao-pagina__secao + .cartao-pagina__secao {
+  margin-top: var(--espaco-6);
+  padding-top: var(--espaco-6);
+  border-top: var(--largura-borda) solid var(--cor-borda);
+}
+
+.cartao-pagina__cabecalho {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espaco-3);
+}
+
+.cartao-pagina__titulo {
+  font-size: var(--tamanho-cartao);
+}
+
+.cartao-pagina__descricao {
+  margin-top: var(--espaco-1);
+  color: var(--cor-texto-suave);
+}
+
+/* ===== [PONTO DE QUEBRA 700 PX] ===== */
+@media (max-width: 700px) { /* 700 px */
+  .cartao-pagina {
+    padding: var(--espaco-4);
+  }
+}

@@ -1,0 +1,238 @@
+/* Arquivo: css/componentes/popovers.css */
+/* Função: janelas pequenas ancoradas num botão (filtro, valor, período com calendário de um mês e seletor de mês). A lista de opções fica em lista-opcoes.css. */
+/* Usado por: visao-geral.html, movimentacoes.html e estados.html. Abrem e fecham pelo atributo hidden. */
+
+/* ===== [POPOVER] ===== */
+.popover,
+.modal:has([data-js="formulario-importar"]),
+.modal:has([data-js="formulario-lancamento"]) {
+  /* Filtros, importação e lançamento compartilham a paleta escura nos dois temas. */
+  color-scheme: dark;
+  --esquema-cor: dark;
+  --cor-janela: #2b2b2b;
+  --cor-campo-janela: #202020;
+  --cor-placeholder-janela: #b5b5b5;
+  --cor-borda-janela: #565656;
+  --cor-botao-janela-hover: #404040;
+  --cor-texto-janela: #f3f3f3;
+  --cor-texto-janela-suave: #c5c5c5;
+  --cor-acao-janela: #e2e2e2;
+  --cor-texto-acao-janela: #202020;
+  --cor-dia-intervalo: #484848;
+  --cor-dia-extremo: #d2d2d2;
+  --cor-texto-selecao: #202020;
+  --cor-erro-janela: #f0f0f0;
+  --cor-erro: #f0f0f0;
+  --cor-botao-desabilitado: #424242;
+  --cor-texto-desabilitado: #b5b5b5;
+  --cor-sombra: rgba(0, 0, 0, 0.45);
+  --sombra-janela: 0 12px 32px var(--cor-sombra);
+  --cor-foco: var(--cor-texto-janela);
+}
+
+.popover {
+  position: absolute;
+  top: calc(100% + var(--espaco-2));
+  left: 0;
+  z-index: var(--camada-popover);
+  max-width: calc(100vw - var(--espaco-6));
+  max-height: min(38rem, 75dvh);
+  overflow-y: auto;
+  padding: var(--espaco-5);
+  border-radius: var(--raio-grande);
+  background: var(--cor-janela);
+  box-shadow: var(--sombra-janela);
+  color: var(--cor-texto-janela);
+}
+
+.popover--filtro {
+  width: var(--largura-popover-filtro);
+}
+
+.popover--valor {
+  width: var(--largura-popover-valor);
+  padding: var(--espaco-4);
+}
+
+.popover--calendario {
+  width: max-content;
+}
+
+.popover--mes {
+  width: 16rem;
+}
+
+.popover__rodape {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--espaco-2);
+  margin-top: var(--espaco-5);
+}
+
+/* Campos empilhados dentro do painel de filtro. */
+.popover__formulario {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-4);
+}
+
+/* ===== [CALENDÁRIO] ===== */
+.calendario {
+  width: 17rem;
+}
+
+.calendario__mes {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--espaco-3);
+  font-size: var(--tamanho-rotulo);
+  font-weight: var(--peso-semi);
+}
+
+.calendario__navegar {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--raio-pequeno);
+}
+
+.calendario__navegar:hover,
+.calendario__dia:hover,
+.grade-meses__mes:hover {
+  background: var(--cor-botao-janela-hover);
+}
+
+.calendario__grade {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.calendario__semana {
+  padding-bottom: var(--espaco-2);
+  font-size: 0.625rem;
+  font-weight: var(--peso-medio);
+  text-align: center;
+  color: var(--cor-texto-janela-suave);
+}
+
+.calendario__dia {
+  display: grid;
+  place-items: center;
+  height: 2.25rem;
+  border-radius: 0;
+}
+
+/* Intervalo contínuo: sem espaço entre os dias; só as pontas são arredondadas. */
+.calendario__dia--intervalo {
+  background: var(--cor-dia-intervalo);
+}
+
+.calendario__dia--inicio,
+.calendario__dia--fim {
+  background: var(--cor-dia-extremo);
+  font-weight: var(--peso-semi);
+  color: var(--cor-texto-selecao);
+}
+
+.calendario__dia--inicio {
+  border-radius: var(--raio-selo) 0 0 var(--raio-selo);
+}
+
+.calendario__dia--fim {
+  border-radius: 0 var(--raio-selo) var(--raio-selo) 0;
+}
+
+.calendario__dia--inicio:hover,
+.calendario__dia--fim:hover {
+  background: var(--cor-dia-extremo);
+}
+
+/* Células vazias antes do dia 1: ocupam o lugar, mas não aparecem. */
+.calendario__dia--fora {
+  visibility: hidden;
+}
+
+/* ===== [SELETOR DE MÊS] ===== */
+/* O botão que abre o popover e, dentro dele, a grade de 12 meses com o ano entre setas. */
+.seletor-mes {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espaco-2);
+  min-height: var(--altura-controle);
+  padding: 0 var(--espaco-3);
+  border-radius: var(--raio-pequeno);
+  font-weight: var(--peso-medio);
+}
+
+.seletor-mes:hover {
+  background: var(--cor-hover-claro);
+}
+
+.grade-meses__cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--espaco-3);
+  font-weight: var(--peso-semi);
+}
+
+.grade-meses__lista {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--espaco-2);
+  list-style: none;
+}
+
+.grade-meses__mes {
+  width: 100%;
+  min-height: 2.5rem;
+  border-radius: var(--raio-pequeno);
+}
+
+.grade-meses__mes[aria-pressed="true"] {
+  background: var(--cor-dia-extremo);
+  font-weight: var(--peso-semi);
+  color: var(--cor-texto-selecao);
+}
+
+/* ===== [PONTO DE QUEBRA 1700 PX] ===== */
+/* Extra: nessa faixa Período fica na última coluna dos filtros, então o calendário abre para a esquerda. */
+@media (max-width: 1700px) { /* 1700 px */
+  .popover--calendario {
+    left: auto;
+    right: 0;
+  }
+}
+
+/* ===== [PONTO DE QUEBRA 700 PX] ===== */
+@media (max-width: 700px) { /* 700 px */
+  .popover,
+  .popover--filtro,
+  .popover--valor,
+  .popover--calendario,
+  .popover--mes {
+    left: 0;
+    right: 0;
+    width: auto; /* acompanha a largura do bloco de ações ou de filtros */
+    max-width: none;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
+  .calendario {
+    width: 100%;
+  }
+
+  .calendario__dia,
+  .calendario__navegar {
+    min-height: var(--altura-toque);
+  }
+}
+
+.periodo-campos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--espaco-3); margin-bottom: var(--espaco-4); }
+.periodo-campos input { min-width: 0; }
+.calendario__dia--inicio.calendario__dia--fim { border-radius: var(--raio-selo); }
+
+.popover select option { background: var(--cor-campo-janela); color: var(--cor-texto-janela); }

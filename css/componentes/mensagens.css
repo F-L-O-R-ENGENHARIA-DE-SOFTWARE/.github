@@ -1,0 +1,51 @@
+/* Arquivo: css/componentes/mensagens.css */
+/* Função: aviso de erro, estado vazio e bloco de confirmação. */
+/* Usado por: telas de acesso, modais, painéis da Visão Geral e tabela de movimentações. */
+
+/* Todos nascem com o atributo hidden; o display só vale quando o atributo é removido. */
+
+/* ===== [AVISO DE ERRO] ===== */
+.aviso-erro:not([hidden]) {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-2);
+  padding: var(--espaco-3) var(--espaco-4);
+  border: var(--largura-borda-erro) solid var(--cor-erro);
+  border-radius: var(--raio-pequeno);
+  font-weight: var(--peso-medio);
+}
+
+/* Nas janelas escuras a cor de erro clara mantém o contraste. */
+.modal .aviso-erro {
+  border-color: var(--cor-erro-janela);
+}
+
+/* ===== [ESTADO VAZIO] ===== */
+.estado-vazio:not([hidden]) {
+  display: grid;
+  place-items: center;
+  padding: var(--espaco-7) var(--espaco-4);
+  text-align: center;
+}
+
+.estado-vazio__titulo {
+  font-size: var(--tamanho-cartao);
+  font-weight: var(--peso-semi);
+  color: var(--cor-texto-medio);
+}
+
+/* ===== [BLOCO DE CONFIRMAÇÃO] ===== */
+/* Substitui o formulário de recuperar senha depois do envio. */
+.bloco-confirmacao:not([hidden]) {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-3);
+  padding: var(--espaco-4);
+  border-radius: var(--raio-pequeno);
+  background: var(--cor-cabecalho);
+  font-weight: var(--peso-medio);
+}
+
+/* Mensagens de validação e de disponibilidade dos serviços. */
+.mensagem-interface { position: fixed; right: var(--espaco-4); bottom: var(--espaco-4); z-index: 40; max-width: min(30rem, calc(100vw - var(--espaco-6))); padding: var(--espaco-4); border: var(--largura-borda) solid var(--cor-texto-claro-suave); border-radius: var(--raio-pequeno); background: var(--cor-janela); color: var(--cor-texto-janela); box-shadow: var(--sombra-janela); }
+.campo__entrada[aria-invalid="true"] { border: var(--largura-borda-erro) solid currentColor; }

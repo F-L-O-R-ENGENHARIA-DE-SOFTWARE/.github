@@ -1,0 +1,34 @@
+/* Arquivo: css/principal.css */
+/* Função: único CSS ligado nas páginas; só importa os demais arquivos, na ordem de cascata. */
+/* Usado por: todas as páginas HTML (login, cadastro, recuperar-senha, visao-geral, movimentacoes, ajuda, configuracoes, notificacoes, estados). */
+
+/* ===== [BASE] ===== */
+@import url("variaveis.css");
+@import url("base.css");
+@import url("layout.css");
+
+/* ===== [COMPONENTES] ===== */
+@import url("componentes/barra-lateral.css");
+@import url("componentes/botoes.css");
+@import url("componentes/campos.css");
+@import url("componentes/campos-acesso.css");
+@import url("componentes/controle-valor.css");
+@import url("componentes/selos.css");
+@import url("componentes/cartoes-indicadores.css");
+@import url("componentes/graficos.css");
+@import url("componentes/tabela.css");
+@import url("componentes/popovers.css");
+@import url("componentes/lista-opcoes.css");
+@import url("componentes/modais.css");
+@import url("componentes/mensagens.css");
+@import url("componentes/cartao-pagina.css");
+
+/* ===== [PÁGINAS] ===== */
+@import url("paginas/acesso.css");
+@import url("paginas/visao-geral.css");
+@import url("paginas/movimentacoes.css");
+@import url("paginas/ajuda.css");
+@import url("paginas/configuracoes.css");
+@import url("paginas/notificacoes.css");
+@import url("paginas/estados.css");
+@import url("paginas/tema.css");

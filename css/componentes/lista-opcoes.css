@@ -1,0 +1,85 @@
+/* Arquivo: css/componentes/lista-opcoes.css */
+/* Função: lista de opções escura que abre embaixo de uma lista suspensa de filtro, no visual do popover de valor. */
+/* Usado por: movimentacoes.html, visao-geral.html e estados.html. Abre e fecha pelo atributo hidden (js/lista-opcoes.js). */
+
+/* ===== [POPOVER DA LISTA] ===== */
+/* Ancorado na própria lista suspensa (que é position: relative), não no campo: fica sempre logo abaixo do botão. */
+.popover--lista {
+  width: max-content;
+  min-width: 100%;
+  max-height: 18rem;
+  padding: var(--espaco-2);
+  overflow-y: auto;
+}
+
+.lista-opcoes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-1);
+  list-style: none;
+}
+
+/* ===== [OPÇÃO] ===== */
+.lista-opcoes__item {
+  display: flex;
+  align-items: center;
+  min-height: 2.25rem;
+  padding: 0 var(--espaco-3);
+  border-radius: var(--raio-pequeno);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.lista-opcoes__item:hover,
+.lista-opcoes__item:focus-visible {
+  background: var(--cor-botao-janela-hover);
+}
+
+/* Opção escolhida: mesmo destaque claro do dia de início e fim do calendário. */
+.lista-opcoes__item--ativo,
+.lista-opcoes__item--ativo:hover,
+.lista-opcoes__item--ativo:focus-visible {
+  background: var(--cor-dia-extremo);
+  font-weight: var(--peso-semi);
+  color: var(--cor-texto-selecao);
+}
+
+/* ===== [LISTA DENTRO DE JANELA ESCURA] ===== */
+/* O painel de filtro da Visão Geral já é escuro: a lista usa o tom dos campos e uma borda para se destacar. */
+.popover .popover--lista {
+  border: var(--largura-borda) solid var(--cor-borda-janela);
+  background: var(--cor-campo-janela);
+}
+
+/* ===== [LISTA DISCRETA] ===== */
+/* Ordenação da tabela: o botão não tem borda e a lista abre alinhada à direita. */
+.lista-suspensa--discreta .lista-suspensa__botao {
+  height: auto;
+  border-color: transparent;
+  background: transparent;
+  color: var(--cor-texto-suave);
+}
+
+.lista-suspensa--discreta .lista-suspensa__botao .lista-suspensa__seta {
+  margin-left: var(--espaco-2);
+}
+
+.lista-suspensa--discreta .popover--lista {
+  left: auto;
+  right: 0;
+}
+
+/* ===== [PONTO DE QUEBRA 700 PX] ===== */
+@media (max-width: 700px) { /* 700 px */
+  .lista-opcoes__item {
+    min-height: var(--altura-toque);
+  }
+
+  /* A ordenação não ocupa a largura toda: a lista mantém o tamanho do conteúdo. */
+  .lista-suspensa--discreta .popover--lista {
+    left: auto;
+    right: 0;
+    width: max-content;
+    max-width: calc(100vw - var(--espaco-6));
+  }
+}

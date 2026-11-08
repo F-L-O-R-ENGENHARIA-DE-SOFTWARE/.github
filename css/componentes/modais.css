@@ -1,0 +1,151 @@
+/* Arquivo: css/componentes/modais.css */
+/* Função: modais (lançamento, importar e exclusão), alternador Entrada/Saída e área de envio de arquivo. */
+/* Usado por: movimentacoes.html, visao-geral.html (alternador no filtro) e estados.html. */
+
+/* ===== [MODAL] ===== */
+/* O dialog não tem preenchimento: o recuo fica em __conteudo, para o clique no fundo ser só no ::backdrop. */
+.modal {
+  --cor-foco: var(--cor-texto-janela);
+  width: min(var(--largura-modal), calc(100vw - var(--espaco-6)));
+  max-height: calc(100vh - var(--espaco-6));
+  padding: 0;
+  border: 0;
+  border-radius: var(--raio-grande);
+  background: var(--cor-janela);
+  box-shadow: var(--sombra-janela);
+  color: var(--cor-texto-janela);
+  overflow-y: auto;
+}
+
+.modal::backdrop {
+  background: var(--cor-fundo-modal);
+  backdrop-filter: blur(var(--desfoque-fundo));
+}
+
+.modal__conteudo {
+  padding: var(--espaco-6);
+}
+
+.modal__cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espaco-4);
+  margin-bottom: var(--espaco-5);
+}
+
+.modal__cabecalho h2 {
+  font-size: var(--tamanho-janela);
+}
+
+/* Título fora do cabeçalho: usado no popup de exclusão. */
+.modal__conteudo > h2 {
+  margin-bottom: var(--espaco-3);
+  font-size: var(--tamanho-janela);
+}
+
+.modal__corpo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-4);
+}
+
+.modal__linha {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--espaco-4);
+}
+
+.modal__rodape {
+  display: flex;
+  gap: var(--espaco-3);
+  margin-top: var(--espaco-2);
+}
+
+/* Confirmação de exclusão: janela menor, botões à direita. */
+.modal--confirmacao {
+  width: min(var(--largura-modal-confirmacao), calc(100vw - var(--espaco-6)));
+}
+
+.modal--confirmacao .modal__rodape {
+  justify-content: flex-end;
+  margin-top: var(--espaco-5);
+}
+
+/* ===== [ALTERNADOR ENTRADA / SAÍDA] ===== */
+/* Botões com aria-pressed; o selecionado fica preto com texto branco. */
+.alternador-tipo {
+  display: flex;
+  gap: var(--espaco-2);
+}
+
+.alternador-tipo button {
+  min-height: var(--altura-controle);
+  padding: 0 var(--espaco-4);
+  border: var(--largura-borda) solid var(--cor-borda-janela);
+  border-radius: var(--raio-pequeno);
+  font-weight: var(--peso-semi);
+}
+
+.alternador-tipo button:hover {
+  background: var(--cor-botao-janela-hover);
+}
+
+.alternador-tipo button[aria-pressed="true"] {
+  background: var(--cor-botao-ativo-janela);
+  border-color: var(--cor-botao-ativo-janela);
+}
+
+/* ===== [ÁREA DE ENVIO DE ARQUIVO] ===== */
+.area-envio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--espaco-3);
+  padding: var(--espaco-6) var(--espaco-4);
+  border: var(--largura-borda-erro) dashed var(--cor-placeholder-janela);
+  border-radius: var(--raio-grande);
+  text-align: center;
+}
+
+/* O input de arquivo fica oculto; o foco do teclado aparece no botão-rótulo logo depois dele. */
+.area-envio input:focus-visible + .botao {
+  outline: var(--largura-foco) solid var(--cor-foco);
+  outline-offset: 2px;
+}
+
+.area-envio p:last-child {
+  font-size: var(--tamanho-rotulo);
+  color: var(--cor-texto-janela-suave);
+}
+
+/* ===== [PONTO DE QUEBRA 700 PX] ===== */
+@media (max-width: 700px) { /* 700 px */
+  .modal__conteudo {
+    padding: var(--espaco-5) var(--espaco-4);
+  }
+
+  .modal__linha {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.modal { margin: auto; }
+.modal__conteudo > p + p { margin-top: var(--espaco-3); }
+.modal__conteudo .mensagem-interface { position: static; max-width: none; margin-top: var(--espaco-4); }
+.arquivo-selecionado { overflow-wrap: anywhere; }
+
+.alternador-tipo button[aria-pressed="true"] { background: var(--cor-acao-janela); border-color: var(--cor-acao-janela); color: var(--cor-texto-acao-janela); }
+.modal__conteudo { padding: var(--espaco-5); }
+.modal__cabecalho { margin-bottom: var(--espaco-4); }
+.modal__corpo { gap: var(--espaco-3); }
+/* Dois campos por linha no lançamento, mantendo descrição e ações na largura total. */
+.modal__corpo[data-js="formulario-lancamento"] { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.modal__corpo[data-js="formulario-lancamento"] > .alternador-tipo,
+.modal__corpo[data-js="formulario-lancamento"] > .modal__linha,
+.modal__corpo[data-js="formulario-lancamento"] > .aviso-erro,
+.modal__corpo[data-js="formulario-lancamento"] > .modal__rodape { grid-column: 1 / -1; }
+.modal__corpo[data-js="formulario-lancamento"] > .campo:has([name="descricao"]) { grid-column: 1 / -1; }
+@media (max-width: 480px) {
+  .modal__corpo[data-js="formulario-lancamento"], .modal__linha { grid-template-columns: minmax(0, 1fr); }
+}
